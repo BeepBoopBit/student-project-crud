@@ -14,15 +14,21 @@ class Database:
     def useDatabase(self, dbName):
         self.cursor.execute(f"USE {dbName}")    
         
+    def createDatabase(self, dbName):
+        self.cursor.execute(f"CREATE DATABASE {dbName}")
+
     # Getters Function
     def getDatabase(self):
         return self.db
     
+    def getCursor(self):
+        return self.cursor;
+        
+    
     def getDatabaseList(self):
         self.cursor.execute("SHOW DATABASES");
-        return self.cursor;
+        return self.cursor.fetchall();
     
-        
     #######################################################
     
     # Debugging Purposes

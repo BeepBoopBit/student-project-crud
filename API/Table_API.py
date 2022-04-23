@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from msilib.schema import tables
 from pydoc import describe
 import MySQLdb
 
@@ -44,9 +45,9 @@ class Table:
         # Execute the command
         self.cursor.execute(command)
     
-    def getTable(self):
+    def getTableList(self):
         self.cursor.execute("SHOW TABLES;")
-        return self.cursor;
+        return self.cursor.fetchall();
     def dropTable(self, tableName):
         self.cursor.execute(f"DROP TABLE {tableName}")
 
@@ -61,6 +62,9 @@ class Table:
 
     # Debuggin
     def describeTable(self, tableName):
-        self.cursor.execute(f"DESCRIBE {tableName}")
+        try:            
+            self.cursor.execute(f"DESCRIBE {tableName}")
+        except:
+            print("The Table Might Not exists");
         for i in self.cursor:
             print(i);
