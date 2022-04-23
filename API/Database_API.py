@@ -2,37 +2,28 @@ from dataclasses import dataclass
 import MySQLdb
 
 class Database:
-    def __init__(self) -> None:
+    def __init__(self, userName, userPassword) -> None:
         self.db = MySQLdb.connect(
             host="localhost",
-            user="root",
-            password="@M0cbRAMySQL073cb0M"
+            user=userName,
+            password=userPassword
         )
         self.cursor = self.db.cursor()
-    
     #######################################################
-    
     # Use Functions    
     def useDatabase(self, dbName):
         self.cursor.execute(f"USE {dbName}")    
         
     # Getters Function
-    def getDatabaseList(self):
-        self.cmShowDatabase()
-        return self.cursor;
-    
-    def getTables(self):
-        self.cursor.execute("SHOW TABLES;")
-        return self.cursor
-    
     def getDatabase(self):
         return self.db
+    
+    def getDatabaseList(self):
+        self.cursor.execute("SHOW DATABASES");
+        return self.cursor;
+    
         
     #######################################################
-    
-    # auxiliary Function
-    def cmShowDatabase(self):
-        self.cursor.execute("SHOW DATABASES");
     
     # Debugging Purposes
     def Print_Database(self):

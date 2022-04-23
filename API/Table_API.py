@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from pydoc import describe
 import MySQLdb
 
 class Table:
@@ -7,12 +8,59 @@ class Table:
         self.cursor = self.db.cursor()
     
     #######################################################
-    # Assumes that the parameter contraint have only one value
-    def createTable(self, tableName, columnName, dataType, contraint):
-        self.cursor.execute(f"CREATE TABLE {tableName}({columnName} {dataType} {contraint});")
+    def createTable(self, tableName, columnName, dataType, constraint):
+        newConstraint = ""
+        listConstraint = [];
 
+        # Separate the List to the strings
+        for word in constraint:
+            if isinstance(word,list):
+                listConstraint.append(word);
+            else:
+                newConstraint += word + ' ';                
+        
+        # Create a string of the SQL command (Incomplete;)
+        command = f"CREATE TABLE {tableName}({columnName} {dataType} {newConstraint} "
+
+        listConstraintSize = len(listConstraint)
+        # If there is more Constraints to be done, add ','
+        if listConstraintSize:
+           command += ',';
+        # Else, add a ')'
+        else:
+            command += ");";
+        
+        # Transform the list inside the listConstraint as string and add them to the command variable 
+        for listValue in listConstraint:
+            listConstraintSize -= 1;
+            tempStr = "";
+            for data in listValue:
+                tempStr += data + ' ';
+            if(listConstraintSize == 0):
+                command += tempStr +");";
+            else:
+                command += tempStr + ',';
+        
+        # Execute the command
+        self.cursor.execute(command)
+    
     def getTable(self):
         self.cursor.execute("SHOW TABLES;")
         return self.cursor;
+    def dropTable(self, tableName):
+        self.cursor.execute(f"DROP TABLE {tableName}")
 
-        
+    def addColumn(self, tableName, columnName, columnType):
+        self.cursor.execute(f"ALTER TABLE {tableName} ADD {columnName} {columnType};");
+    
+    def removeColumn(self, tableName, columnName):
+        self.cursor.execute(f"ALTER TABLE {tableName} DROP COLUMN {columnName};");
+    
+    def changeType(self, tableName, columnName, dataType):
+        self.cursor.execute(f"ALTER TABLE {tableName} MODIFY {columnName} {dataType};");
+
+    # Debuggin
+    def describeTable(self, tableName):
+        self.cursor.execute(f"DESCRIBE {tableName}")
+        for i in self.cursor:
+            print(i);
