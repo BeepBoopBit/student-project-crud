@@ -1,11 +1,7 @@
-import sys
-from tkinter.filedialog import Open
 from API.Database_API import Database
 from API.Login_API import Login
 from API.Select_API import Select
 from API.Table_API import Table
-from datetime import datetime;
-import csv
 
 class CRUD:
     def __init__(self) -> None:
@@ -38,6 +34,8 @@ class CRUD:
     def getDatabaseList(self):
         return self.db.getDatabaseList();
     
+    def deleteDatabase(self, dbName):
+        self.db.deleteDatabase(dbName);
     
     # Tables
     def createTable(self, tableName, columnName, dataType, contraint):

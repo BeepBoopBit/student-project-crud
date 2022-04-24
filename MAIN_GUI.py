@@ -1,4 +1,3 @@
-from ast import Import
 from GUI.SignInWindow.SignIn import *
 from GUI.globalVariable import *
 

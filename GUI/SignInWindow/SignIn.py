@@ -1,6 +1,5 @@
-from tkinter import Widget
-from PyQt5 import QtWidgets, QtCore, QtGui
-from PyQt5.QtWidgets import QDialog, QApplication
+from PyQt5 import QtWidgets, QtCore
+from PyQt5.QtWidgets import QDialog
 from PyQt5.uic import loadUi
 import os
 import mysql.connector

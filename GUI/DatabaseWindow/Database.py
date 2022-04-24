@@ -1,12 +1,12 @@
 import sys, os
+sys.path.append("C:\\Users\\wcbre\\Documents\\MAPUA\\Q3\\IT131L\\CRUD-PROJECT")
+
 from tkinter import Widget
-from turtle import width
-from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow, QTableWidgetItem
+from PyQt5.QtWidgets import QDialog, QMainWindow, QTableWidgetItem
 from PyQt5.uic import loadUi
 from GUI.globalVariable import *
-
-sys.path.append("C:\\Users\\wcbre\\Documents\\MAPUA\\Q3\\IT131L\\CRUD-PROJECT")
 from CRUD_API import CRUD
+
 
 
 #Database Class
@@ -17,7 +17,8 @@ class Database(QMainWindow):
         self.ui = loadUi(UIPATH,self)
         self.createDatabaseButton.clicked.connect(self.createDatabase) #Create Database Button
         self.useDatabaseButton.clicked.connect(self.useDatabase) #Use Database Button
-        self.signOutButton.clicked.connect(self.signOut) #Go back to Signin
+        self.signOutButton.clicked.connect(self.signOut) #Go back to Sign-in
+        self.deleteDatabaseButton.clicked.connect(self.deleteDatabase)
         # Assumes that everything is working properly in the Log-in side
         self.API = CRUD();
         self.readDatabase();
@@ -41,7 +42,12 @@ class Database(QMainWindow):
             print("READING DATABASE ERROR: please report this problem")
         print(f"Successfully Linked {selectedDatabase}");
         
-        
+    def deleteDatabase(self):
+        self.pop_message(text="Database Successfully Deleted!") 
+        r = self.tableWidget.currentRow()
+        selectedDatabase = self.tableWidget.item(r,0).text();
+        self.API.deleteDatabase(selectedDatabase);
+        self.tableWidget.removeRow(r);
     def createDatabase(self): ##Create DB
         Widget.setCurrentIndex(Widget.currentIndex()+1)
         pass
@@ -49,6 +55,10 @@ class Database(QMainWindow):
     def signOut(self): ##Signout
         Widget.setCurrentIndex(Widget.currentIndex()-1)
         
+    def pop_message(self,text=""):
+        msg = QtWidgets.QMessageBox()
+        msg.setText("{}".format(text))
+        msg.exec()
 #Create Database UI
 class CreateDatabase(QDialog):
     def __init__(self):
