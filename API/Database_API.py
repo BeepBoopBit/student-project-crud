@@ -40,11 +40,3 @@ class Database:
                 temp.append("{}".format(i))
         return temp;
     
-    #######################################################
-    
-    # Debugging Purposes
-    def Print_Database(self):
-        self.cursor.execute("SHOW DATABASES;")
-        print(type(self.cursor));
-        for x in self.cursor:
-            print(x)
