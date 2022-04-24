@@ -1,20 +1,13 @@
-from ast import While
-import email
-import sys
-import sqlite3
 from tkinter import Widget
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QDialog, QApplication
 from PyQt5.uic import loadUi
 import os
-import MySQLdb
 import mysql.connector
 from GUI.globalVariable import *
 import csv
 from GUI.DatabaseWindow.Database import *
 # SignIn Process of the Program
-
-
 class SignIn(QDialog):
     switch_window = QtCore.pyqtSignal()
 
@@ -38,6 +31,7 @@ class SignIn(QDialog):
                 writer.writerow(
                     [self.userName.text(), self.userPassword.text()])
             Widget.addWidget(Database())
+            Widget.addWidget(CreateDatabase())
             Widget.setCurrentIndex(Widget.currentIndex()+1)
         else:
             self.pop_message("Login Failed, Please Try Again")

@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 import mysql.connector
 
 class Database:
@@ -38,4 +37,3 @@ class Database:
             except:
                 temp.append("{}".format(i))
         return temp;
-    

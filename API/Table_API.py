@@ -1,8 +1,4 @@
-from dataclasses import dataclass
 from msilib.schema import tables
-from pydoc import describe
-import mysql.connector
-from datetime import datetime;
 
 class Table:
     def __init__(self, db) -> None:

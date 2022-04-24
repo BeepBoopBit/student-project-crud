@@ -1,9 +1,6 @@
-from re import L
 import sys, os
-import mysql.connector
 from tkinter import Widget
 from turtle import width
-from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow, QTableWidgetItem
 from PyQt5.uic import loadUi
 from GUI.globalVariable import *
@@ -28,10 +25,13 @@ class Database(QMainWindow):
     def readDatabase(self):
         databaseList = self.API.getDatabaseList()
         for data in databaseList:
-            rowPosition = self.tableWidget.rowCount();
-            self.tableWidget.insertRow(rowPosition);
-            self.tableWidget.setItem(rowPosition,0,QTableWidgetItem(data))
-        
+            self.insertInTable(data);
+    
+    def insertInTable(self,data) :
+        rowPosition = self.tableWidget.rowCount();
+        self.tableWidget.insertRow(rowPosition);
+        self.tableWidget.setItem(rowPosition,0,QTableWidgetItem(data))
+    
     def useDatabase(self): ##Use DB
         r = self.tableWidget.currentRow()
         selectedDatabase = self.tableWidget.item(r,0).text();
@@ -43,8 +43,34 @@ class Database(QMainWindow):
         
         
     def createDatabase(self): ##Create DB
+        Widget.setCurrentIndex(Widget.currentIndex()+1)
         pass
     
     def signOut(self): ##Signout
         Widget.setCurrentIndex(Widget.currentIndex()-1)
         
+#Create Database UI
+class CreateDatabase(QDialog):
+    def __init__(self):
+        super(CreateDatabase, self).__init__()
+        UIPATH = os.path.dirname(os.path.realpath(__file__)) + "\\CreateDatabase.ui" 
+        self.ui = loadUi(UIPATH,self)
+        self.okButton.clicked.connect(self.okButtonFunc) 
+        self.cancelButton.clicked.connect(self.cancelButtonFunc)
+        self.API = CRUD();
+
+    def okButtonFunc(self): #rename kung ano yung name ng button
+        self.pop_message(text="Database Successfully Created!") 
+        dbName = self.databaseName.toPlainText()
+        self.API.createDatabase(dbName)
+        Widget.widget(Widget.currentIndex()-1).insertInTable(dbName);
+        self.cancelButtonFunc();
+
+    def pop_message(self,text=""):
+        msg = QtWidgets.QMessageBox()
+        msg.setText("{}".format(text))
+        msg.exec()
+
+    def cancelButtonFunc(self):
+        Widget.setCurrentIndex(Widget.currentIndex()-1)
+    
