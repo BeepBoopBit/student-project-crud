@@ -102,6 +102,16 @@ color: black;
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="deleteDatabaseButton">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255)</string>
+       </property>
+       <property name="text">
+        <string>Delete Database</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
    <widget class="QTableWidget" name="tableWidget">
@@ -162,7 +172,7 @@ color: black;
      <x>0</x>
      <y>0</y>
      <width>600</width>
-     <height>21</height>
+     <height>18</height>
     </rect>
    </property>
   </widget>
