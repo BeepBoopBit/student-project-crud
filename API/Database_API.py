@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 import MySQLdb
 
-class Database:
+class Database_API:
     def __init__(self) -> None:
         self.db = MySQLdb.connect(
             host="localhost",
@@ -25,9 +25,6 @@ class Database:
         self.cursor.execute("SHOW TABLES;")
         return self.cursor
     
-    def getDatabase(self):
-        return self.db
-        
     #######################################################
     
     # auxiliary Function
