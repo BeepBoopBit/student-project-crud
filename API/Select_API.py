@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 from pydoc import describe
-import MySQLdb
 
 class Select:
     def __init__(self, db, tb) -> None:
