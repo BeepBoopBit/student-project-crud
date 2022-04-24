@@ -9,6 +9,7 @@ from PyQt5.uic import loadUi
 import os
 import MySQLdb
 import mysql.connector
+import csv
 
 #SignIn Process of the Program
 class SignIn(QDialog):
@@ -27,6 +28,10 @@ class SignIn(QDialog):
     def SignInfunction(self):
         if self.checkConnection(self.userName.text(), self.userPassword.text()):
            self.pop_message(text="Login Succesfully, Welcome!")
+           # Exporting Data
+           with open(os.path.dirname(os.path.realpath(__file__)) + "\\..\\..\\Data\\user\\login.csv", 'w') as f:
+               writer = csv.writer(f)
+               writer.writerow([self.userName.text(), self.userPassword.text()])
         else:
             self.pop_message("Login Failed, Please Try Again")
 
