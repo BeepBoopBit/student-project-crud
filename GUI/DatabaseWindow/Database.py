@@ -1,12 +1,12 @@
 import sys, os
+sys.path.append("C:\\Users\\wcbre\\Documents\\MAPUA\\Q3\\IT131L\\CRUD-PROJECT")
+
 from tkinter import Widget
-from turtle import width
-from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow, QTableWidgetItem
+from PyQt5.QtWidgets import QDialog, QMainWindow, QTableWidgetItem
 from PyQt5.uic import loadUi
 from GUI.globalVariable import *
-
-sys.path.append("C:\\Users\\wcbre\\Documents\\MAPUA\\Q3\\IT131L\\CRUD-PROJECT")
 from CRUD_API import CRUD
+
 
 
 #Database Class
@@ -17,7 +17,8 @@ class Database(QMainWindow):
         self.ui = loadUi(UIPATH,self)
         self.createDatabaseButton.clicked.connect(self.createDatabase) #Create Database Button
         self.useDatabaseButton.clicked.connect(self.useDatabase) #Use Database Button
-        self.signOutButton.clicked.connect(self.signOut) #Go back to Signin
+        self.signOutButton.clicked.connect(self.signOut) #Go back to Sign-in
+        self.deleteDatabaseButton.clicked.connect(self.deleteDatabase)
         # Assumes that everything is working properly in the Log-in side
         self.API = CRUD();
         self.readDatabase();
@@ -37,18 +38,27 @@ class Database(QMainWindow):
         selectedDatabase = self.tableWidget.item(r,0).text();
         try:
             self.API.useDatabase(selectedDatabase);
+            Widget.setCurrentIndex(3)
         except:
             print("READING DATABASE ERROR: please report this problem")
-        print(f"Successfully Linked {selectedDatabase}");
         
-        
+    def deleteDatabase(self):
+        self.pop_message(text="Database Successfully Deleted!") 
+        r = self.tableWidget.currentRow()
+        selectedDatabase = self.tableWidget.item(r,0).text();
+        self.API.deleteDatabase(selectedDatabase);
+        self.tableWidget.removeRow(r);
     def createDatabase(self): ##Create DB
-        Widget.setCurrentIndex(Widget.currentIndex()+1)
+        Widget.setCurrentIndex(2)
         pass
     
     def signOut(self): ##Signout
-        Widget.setCurrentIndex(Widget.currentIndex()-1)
+        Widget.setCurrentIndex(0)
         
+    def pop_message(self,text=""):
+        msg = QtWidgets.QMessageBox()
+        msg.setText("{}".format(text))
+        msg.exec()
 #Create Database UI
 class CreateDatabase(QDialog):
     def __init__(self):
@@ -63,7 +73,7 @@ class CreateDatabase(QDialog):
         self.pop_message(text="Database Successfully Created!") 
         dbName = self.databaseName.toPlainText()
         self.API.createDatabase(dbName)
-        Widget.widget(Widget.currentIndex()-1).insertInTable(dbName);
+        Widget.widget(2).insertInTable(dbName);
         self.cancelButtonFunc();
 
     def pop_message(self,text=""):
@@ -72,5 +82,5 @@ class CreateDatabase(QDialog):
         msg.exec()
 
     def cancelButtonFunc(self):
-        Widget.setCurrentIndex(Widget.currentIndex()-1)
+        Widget.setCurrentIndex(1)
     

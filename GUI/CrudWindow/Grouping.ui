@@ -292,7 +292,7 @@ color: black;
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="GOKbutton">
       <property name="styleSheet">
        <string notr="true">background-color: rgb(255, 255, 255)</string>
       </property>
@@ -302,7 +302,7 @@ color: black;
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="GExitbutton">
       <property name="styleSheet">
        <string notr="true">background-color: rgb(255, 255, 255)</string>
       </property>

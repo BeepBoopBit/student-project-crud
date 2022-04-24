@@ -1,9 +1,8 @@
-from PyQt5 import QtWidgets, uic
-from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow
-from PyQt5.uic import loadUi
-from tkinter import Widget
-import sys
 import os
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QDialog
+from PyQt5.uic import loadUi
+from GUI.globalVariable import *
 
 
 class MainCrudWindow(QDialog):
@@ -20,68 +19,44 @@ class MainCrudWindow(QDialog):
 
         self.MAddButton.clicked.connect(self.AddAttribute)
         self.MGroupButton.clicked.connect(self.GroupAttribute)
-        self.MFilterButton.clicked.connect(self.FilterAttribute)
+        self.MFitlerButton.clicked.connect(self.FilterAttribute)
         self.MSearchButton.clicked.connect(self.SearchAttribute)
         self.MModifyButton.clicked.connect(self.ModifyAttribute)
         self.MCreateButton.clicked.connect(self.CreateAttribute)
         self.MDeleteButton.clicked.connect(self.DeleteAttribute)
-        self.MDeleteButton.clicked.connect(self.ChangeAttribute)
-        self.MDeleteButton.clicked.connect(self.SignOutAttribute)
+        self.MChangeButton.clicked.connect(self.ChangeAttribute)
+        self.MSignOutButton.clicked.connect(self.SignOutAttribute)
 
     
-    #def AddAttribute(self):
-    #    addAttribute = MainCrudWindow() 
-    #    Widget.addWidget(AddCRUD)
-    #    Widget.setCurrentIndex(Widget.currentIndex()+1)
-    #    self.pop_message("Successfully Added!")
+    def AddAttribute(self):
+        pass
 
     def GroupAttribute(self): #Grouping table is the class of group ui
-        groupAttribute = GroupingTable() 
-        Widget.addWidget(groupAttribute)
-        Widget.setCurrentIndex(Widget.currentIndex()+1)
-        
+        Widget.setCurrentIndex(5)
 
     def FilterAttribute(self): #Filter table is the class of filter ui
-        filterAttribute = FilterTable() 
-        Widget.addWidget(filterAttribute)
-        Widget.setCurrentIndex(Widget.currentIndex()+1)
+        Widget.setCurrentIndex(4)
         
-
-    #def SearchAttribute(self):
-    #    searchAttribute = MainCrudWindow() 
-    #    Widget.addWidget(AddCRUD)
-    #    Widget.setCurrentIndex(Widget.currentIndex()+1)
-    #    self.pop_message("Table is Succesfully Filtered!")
+    def SearchAttribute(self):
+        pass
 
     def ModifyAttribute(self): #Modify Table is the class of modify ui
-        modifyAttribute = ModifyTable() 
-        Widget.addWidget(modifyAttribute)
-        Widget.setCurrentIndex(Widget.currentIndex()+1)
+        Widget.setCurrentIndex(6)
         
 
     def CreateAttribute(self): #Create Table is the class of create ui
-        createAttribute = NameTable() 
-        Widget.addWidget(createAttribute)
-        Widget.setCurrentIndex(Widget.currentIndex()+1)
+        Widget.setCurrentIndex(7)
         
 
-    #def DeleteAttribute(self):
-    #    deleteAttribute = MainCrudWindow() 
-    #    Widget.addWidget(AddCRUD)
-    #    Widget.setCurrentIndex(Widget.currentIndex()+1)
-    #    self.pop_message("Table is Succesfully Filtered!")
+    def DeleteAttribute(self):
+        pass
 
-    #def ChangeAttribute(self):
-    #    changeAttribute = MainCrudWindow() 
-    #    Widget.addWidget(AddCRUD)
-    #    Widget.setCurrentIndex(Widget.currentIndex()+1)
-    #    self.pop_message("Table is Succesfully Filtered!")
+    def ChangeAttribute(self):
+        Widget.setCurrentIndex(1)
+
 
     def SignOutAttribute(self): #Sign out is the class of sign out ui
-        signoutAttribute = SignIn() 
-        Widget.addWidget(signoutAttribute)
-        Widget.setCurrentIndex(Widget.currentIndex()+1)
-        self.pop_message("Logout")
+        Widget.setCurrentIndex(0)
 
 
 

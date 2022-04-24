@@ -1,9 +1,8 @@
-from PyQt5 import QtWidgets, uic
-from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow
-from PyQt5.uic import loadUi
-from tkinter import Widget
-import sys
 import os
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QDialog
+from PyQt5.uic import loadUi
+from GUI.globalVariable import *
 
 #Filter Window Class
 
@@ -23,24 +22,11 @@ class FilterTable(QDialog):
 ## Functions of the Buttons // Both will Go Back to the Main Crud Window 
 
     def gotoaddCRUD(self):
-        AddCRUD = MainCrudWindow()  # MainCrudWindow is the class of MAIN // Depends kay JC
-        Widget.addWidget(AddCRUD)
-        Widget.setCurrentIndex(Widget.currentIndex()+1)
-        self.pop_message("Table is Succesfully Filtered!") #Di ko na-try kasi di pa merge sa gawa ni JC
+        self.pop_message("Process Success!") #Di ko na-try kasi di pa merge sa gawa ni JC
+        Widget.setCurrentIndex(3)
 
     
     def gotocancelCRUD(self):
-        CancelCRUD = MainCrudWindow() # MainCrudWindow is the class of MAIN // Depends kay JC
-        Widget.addWidget(CancelCRUD)
-        Widget.setCurrentIndex(Widget.currentIndex()+1)
         self.pop_message("Process Failure!") #Di ko na-try kasi di pa merge sa gawa ni JC
+        Widget.setCurrentIndex(3)
 
-
-app=QApplication(sys.argv)
-mainwindow=FilterTable()
-Widget=QtWidgets.QStackedWidget()
-Widget.addWidget(mainwindow)
-Widget.setFixedWidth(600)
-Widget.setFixedHeight(350)
-Widget.show()
-app.exec()

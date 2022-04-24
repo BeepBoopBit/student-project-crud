@@ -1,5 +1,3 @@
-from msilib.schema import tables
-
 class Table:
     def __init__(self, db) -> None:
         self.db = db

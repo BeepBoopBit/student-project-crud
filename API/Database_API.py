@@ -16,6 +16,9 @@ class Database:
         
     def createDatabase(self, dbName):
         self.cursor.execute(f"CREATE DATABASE {dbName}")
+    
+    def deleteDatabase(self, dbName):
+        self.cursor.execute(f"DROP DATABASE {dbName}")
 
     # Getters Function
     def getDatabase(self):

@@ -1,9 +1,8 @@
-from PyQt5 import QtWidgets, uic
-from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow
-from PyQt5.uic import loadUi
-from tkinter import Widget
-import sys
 import os
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QDialog
+from PyQt5.uic import loadUi
+from GUI.globalVariable import *
 
 class ModifyTable(QDialog):
     def __init__(self):
@@ -21,23 +20,8 @@ class ModifyTable(QDialog):
     # Functions of the Buttons // Both will Go Back to the Main Crud Window 
 
     def gotoaddCRUD(self):
-        AddCRUD = MainCrudWindow() 
-        Widget.addWidget(AddCRUD)
-        Widget.setCurrentIndex(Widget.currentIndex()+1)
-        self.pop_message("Table is Succesfully Filtered!")
+        Widget.setCurrentIndex(3)
 
     
     def gotocancelCRUD(self):
-        CancelCRUD = MainCrudWindow()
-        Widget.addWidget(CancelCRUD)
-        Widget.setCurrentIndex(Widget.currentIndex()+1)
-        self.pop_message("Process Failure!")
-
-app=QApplication(sys.argv)
-mainwindow=ModifyTable()
-Widget=QtWidgets.QStackedWidget()
-Widget.addWidget(mainwindow)
-Widget.setFixedWidth(600)
-Widget.setFixedHeight(350)
-Widget.show()
-app.exec()
+        Widget.setCurrentIndex(3)
