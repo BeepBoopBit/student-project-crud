@@ -38,9 +38,9 @@ class Database(QMainWindow):
         selectedDatabase = self.tableWidget.item(r,0).text();
         try:
             self.API.useDatabase(selectedDatabase);
+            Widget.setCurrentIndex(3)
         except:
             print("READING DATABASE ERROR: please report this problem")
-        print(f"Successfully Linked {selectedDatabase}");
         
     def deleteDatabase(self):
         self.pop_message(text="Database Successfully Deleted!") 
@@ -49,11 +49,11 @@ class Database(QMainWindow):
         self.API.deleteDatabase(selectedDatabase);
         self.tableWidget.removeRow(r);
     def createDatabase(self): ##Create DB
-        Widget.setCurrentIndex(Widget.currentIndex()+1)
+        Widget.setCurrentIndex(2)
         pass
     
     def signOut(self): ##Signout
-        Widget.setCurrentIndex(Widget.currentIndex()-1)
+        Widget.setCurrentIndex(0)
         
     def pop_message(self,text=""):
         msg = QtWidgets.QMessageBox()
@@ -73,7 +73,7 @@ class CreateDatabase(QDialog):
         self.pop_message(text="Database Successfully Created!") 
         dbName = self.databaseName.toPlainText()
         self.API.createDatabase(dbName)
-        Widget.widget(Widget.currentIndex()-1).insertInTable(dbName);
+        Widget.widget(2).insertInTable(dbName);
         self.cancelButtonFunc();
 
     def pop_message(self,text=""):
@@ -82,5 +82,5 @@ class CreateDatabase(QDialog):
         msg.exec()
 
     def cancelButtonFunc(self):
-        Widget.setCurrentIndex(Widget.currentIndex()-1)
+        Widget.setCurrentIndex(1)
     

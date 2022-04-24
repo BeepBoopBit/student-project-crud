@@ -1,11 +1,19 @@
+import csv
+import os
+import mysql.connector
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtWidgets import QDialog
 from PyQt5.uic import loadUi
-import os
-import mysql.connector
+
+# GUI
 from GUI.globalVariable import *
-import csv
 from GUI.DatabaseWindow.Database import *
+from GUI.CrudWindow.Main import *
+from GUI.CrudWindow.TableWindow import *
+from GUI.CrudWindow.FilterTable import *
+from GUI.CrudWindow.Grouping import *
+from GUI.CrudWindow.ModifyTable import *
+
 # SignIn Process of the Program
 class SignIn(QDialog):
     switch_window = QtCore.pyqtSignal()
@@ -28,9 +36,24 @@ class SignIn(QDialog):
                 writer = csv.writer(f)
                 writer.writerow(
                     [self.userName.text(), self.userPassword.text()])
-            Widget.addWidget(Database())
-            Widget.addWidget(CreateDatabase())
-            Widget.setCurrentIndex(Widget.currentIndex()+1)
+            # Sign-in #0
+            #Database
+            Widget.addWidget(Database()) #1
+            Widget.addWidget(CreateDatabase()) #2
+            
+            # CRUD
+            Widget.addWidget(MainCrudWindow()); #3
+            Widget.addWidget(FilterTable()); #4
+            Widget.addWidget(GroupingTable()); #5
+            Widget.addWidget(ModifyTable()); #6
+            
+            # TABLE
+            Widget.addWidget(NameTable()); #7
+            Widget.addWidget(TableMenu()); #8
+            Widget.addWidget(TableColumn()); #9
+            Widget.addWidget(ForeignKey()); #10
+            
+            Widget.setCurrentIndex(1)
         else:
             self.pop_message("Login Failed, Please Try Again")
 
