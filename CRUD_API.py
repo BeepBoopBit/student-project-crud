@@ -70,11 +70,9 @@ class CRUD:
         self.tb.insertValueDate(tbName,value,dateTime)
     
     # Select
-        #just get all
     def getAllData(self, tbName):
         return self.sl.getAllData(tbName);
     
-    # with constraints 
     def getData(self, tbName, condition):
         return self.sl.getData( tbName, condition);
     

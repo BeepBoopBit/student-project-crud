@@ -9,9 +9,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>624</width>
-    <height>402</height>
+    <width>600</width>
+    <height>350</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>600</width>
+    <height>350</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>600</width>
+    <height>350</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
@@ -25,7 +37,7 @@ background-color:qlineargradient(spread:reflect, x1:0.266, y1:1, x2:1, y2:0, sto
    <property name="styleSheet">
     <string notr="true"/>
    </property>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="headerTitle">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -44,7 +56,7 @@ color: black;
      <string>Databases</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="signoutbutton">
+   <widget class="QPushButton" name="signOutButton">
     <property name="geometry">
      <rect>
       <x>360</x>
@@ -71,7 +83,7 @@ color: black;
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QPushButton" name="createdbbutton">
+      <widget class="QPushButton" name="createDatabaseButton">
        <property name="styleSheet">
         <string notr="true">background-color: rgb(255, 255, 255)</string>
        </property>
@@ -81,7 +93,7 @@ color: black;
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="usedbbutton">
+      <widget class="QPushButton" name="useDatabaseButton">
        <property name="styleSheet">
         <string notr="true">background-color: rgb(255, 255, 255)</string>
        </property>
@@ -90,74 +102,68 @@ color: black;
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="deleteDatabaseButton">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255)</string>
+       </property>
+       <property name="text">
+        <string>Delete Database</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
-   <widget class="QListView" name="listView">
+   <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
       <x>40</x>
       <y>70</y>
-      <width>481</width>
-      <height>151</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QWidget" name="verticalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>90</y>
-      <width>481</width>
+      <width>500</width>
       <height>150</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QTextBrowser" name="textBrowser_2">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
-       </property>
-       <property name="html">
-        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QTextBrowser" name="textBrowser_3">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
-       </property>
-       <property name="html">
-        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>70</y>
-      <width>481</width>
-      <height>21</height>
-     </rect>
+    <property name="minimumSize">
+     <size>
+      <width>500</width>
+      <height>150</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>500</width>
+      <height>150</height>
+     </size>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(189, 189, 189);
-font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
+     <string notr="true"/>
     </property>
-    <property name="text">
-     <string>Name</string>
+    <property name="lineWidth">
+     <number>1</number>
     </property>
+    <property name="rowCount">
+     <number>0</number>
+    </property>
+    <property name="columnCount">
+     <number>1</number>
+    </property>
+    <attribute name="horizontalHeaderCascadingSectionResizes">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="horizontalHeaderStretchLastSection">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="verticalHeaderStretchLastSection">
+     <bool>true</bool>
+    </attribute>
+    <column>
+     <property name="text">
+      <string>Database Name</string>
+     </property>
+    </column>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -165,8 +171,8 @@ font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>624</width>
-     <height>21</height>
+     <width>600</width>
+     <height>18</height>
     </rect>
    </property>
   </widget>
