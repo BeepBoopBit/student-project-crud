@@ -47,22 +47,38 @@ class TableColumn(QtWidgets.QDialog): # Add Column Window
     def __init__(self):
         super().__init__()
         uic.loadUi('index\CreateTable_ColProperties.ui', self)
-        self.COK.clicked.connect(self.addColumnFunction)
+        self.COK.clicked.connect(self.foreignKeyFunction)
         self.CCancel.clicked.connect(self.cancelFunction)
 
-    def addColumnFunction(self):
-        addcolumnF = TableMenu()
-        Widget.addWidget(addcolumnF)
-        Widget.setCurrentIndex(Widget.currentIndex()+1)
-        self.pop_message(text="Column Succesfully Created!") # TableColumn' object has no attribute 'pop_message'
-    
+    def foreignKeyFunction(self):
+        self.hide()
+        self.pop_message(text="Column Succesfully Created!")
+        self.w = ForeignKey()
+        self.w.show()
+        
     def cancelFunction(self):
-        cancelcolumnF = TableMenu()
-        Widget.addWidget(cancelcolumnF)
-        Widget.setCurrentIndex(Widget.currentIndex()+1)
+        self.hide()
         self.pop_message(text="Process Failure!")
 
-# class ForeignKey(QtWidgets.QDialog): # Add Foreign Key Window // IF NAKA TICK YUNG FOREIGN KEY
+class ForeignKey(QtWidgets.QDialog): # Add Foreign Key Window // IF NAKA TICK YUNG FOREIGN KEY
+    def pop_message(self,text=""):
+        msg = QtWidgets.QMessageBox()
+        msg.setText("{}".format(text))
+        msg.exec_() 
+    
+    def __init__(self):
+        super().__init__()
+        uic.loadUi('index\CreateTable_FK.ui', self)
+        self.FKOK.clicked.connect(self.OKFunction)
+        self.FKCancel.clicked.connect(self.CancelFunction)
+
+    def OKFunction(self):
+        self.hide()
+        self.pop_message(text="Column Succesfully Created!")
+
+    def CancelFunction(self):
+        self.hide()
+        self.pop_message(text="Process Failure!")
 
 
 if __name__ == "__main__":
