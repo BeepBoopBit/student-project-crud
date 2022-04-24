@@ -9,7 +9,6 @@ from GUI.DatabaseWindow.Database import *
 # SignIn Process of the Program
 class SignIn(QDialog):
     switch_window = QtCore.pyqtSignal()
-
     def __init__(self):
         super(SignIn, self).__init__()
         UIPATH = os.path.dirname(os.path.realpath(__file__)) + "\\SignIn.ui"
