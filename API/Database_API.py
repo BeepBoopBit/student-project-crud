@@ -1,14 +1,15 @@
 from dataclasses import dataclass
-import MySQLdb
+import mysql.connector
 
 class Database:
     def __init__(self, userName, userPassword) -> None:
-        self.db = MySQLdb.connect(
+        self.db = mysql.connector.connect(
             host="localhost",
             user=userName,
             password=userPassword
         )
         self.cursor = self.db.cursor()
+        
     #######################################################
     # Use Functions    
     def useDatabase(self, dbName):
@@ -27,7 +28,17 @@ class Database:
     
     def getDatabaseList(self):
         self.cursor.execute("SHOW DATABASES");
-        return self.cursor.fetchall();
+        return self.__formatValue()
+    
+    # Auxillary
+    def __formatValue(self):
+        temp = []
+        for i in self.cursor.fetchall():
+            try:
+                temp.append("%s" % i)
+            except:
+                temp.append("{}".format(i))
+        return temp;
     
     #######################################################
     

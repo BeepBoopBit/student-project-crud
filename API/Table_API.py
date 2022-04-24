@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 from msilib.schema import tables
 from pydoc import describe
-import MySQLdb
+import mysql.connector
+from datetime import datetime;
 
 class Table:
     def __init__(self, db) -> None:
@@ -9,6 +10,8 @@ class Table:
         self.cursor = self.db.cursor()
     
     #######################################################
+    
+    # Creating
     def createTable(self, tableName, columnName, dataType, constraint):
         newConstraint = ""
         listConstraint = [];
@@ -45,20 +48,47 @@ class Table:
         # Execute the command
         self.cursor.execute(command)
     
+    
+    # Getters
     def getTableList(self):
         self.cursor.execute("SHOW TABLES;")
-        return self.cursor.fetchall();
+        return self.__formatValue();
+    
+    # Dropping
     def dropTable(self, tableName):
         self.cursor.execute(f"DROP TABLE {tableName}")
 
+    # Adding
     def addColumn(self, tableName, columnName, columnType):
         self.cursor.execute(f"ALTER TABLE {tableName} ADD {columnName} {columnType};");
     
+    # Removing
     def removeColumn(self, tableName, columnName):
         self.cursor.execute(f"ALTER TABLE {tableName} DROP COLUMN {columnName};");
     
+    # Modifying
     def changeType(self, tableName, columnName, dataType):
         self.cursor.execute(f"ALTER TABLE {tableName} MODIFY {columnName} {dataType};");
+
+    # Inserting
+    def insertValue(self, tbName, value):
+        self.cursor.execute(f"INSERT INTO {tbName} VALUES({value});")
+    
+    def insertValueDate(self, tbName, value, dateTime):
+        str_now = '\"' + dateTime.date().isoformat() + '\"';
+        self.cursor.execute(f"INSERT INTO {tbName} VALUES({value}, {str_now});")
+    
+
+    # Auxillary
+    def __formatValue(self):
+        temp = []
+        for i in self.cursor.fetchall():
+            try:
+                temp.append("%s" % i)
+            except:
+                temp.append("{}".format(i))
+        return temp;
+    
 
     # Debuggin
     def describeTable(self, tableName):

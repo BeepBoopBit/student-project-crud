@@ -2,8 +2,9 @@ import sys
 from tkinter.filedialog import Open
 from API.Database_API import Database
 from API.Login_API import Login
+from API.Select_API import Select
 from API.Table_API import Table
-
+from datetime import datetime;
 import csv
 
 class CRUD:
@@ -17,6 +18,8 @@ class CRUD:
         self.tb = Table(self.db.getDatabase());
         self.tb_name = "";
         self.tb_list = [];
+        #select
+        self.sl = Select(self.db.getDatabase(), self.tb);
 
     # Database 
     def useDatabase(self, dbName):
@@ -59,18 +62,36 @@ class CRUD:
     
     def changeType(self, columnName, dataType):
         return self.tb.changeType(self.tb_name, columnName, dataType)
-        
-        
+    
+    def insertValue(self, tbName, value):
+        self.tb.insertValue(tbName,value)
+
+    def insertValueDate(self, tbName, value, dateTime):
+        self.tb.insertValueDate(tbName,value,dateTime)
+    
+    # Select
+        #just get all
+    def getAllData(self, tbName):
+        return self.sl.getAllData(tbName);
+    
+    # with constraints 
+    def getData(self, tbName, condition):
+        return self.sl.getData( tbName, condition);
+    
+    def getDataGroupedBy(self, tbName, condition, conditionGroup):
+        return self.sl.getDataGroupedBy(  tbName, condition, conditionGroup);
+    
+    def getDataSortedBy(self, tbName, condition, conditionSort):
+        return self.sl.getDataSortedBy(tbName, condition, conditionSort);
+    
     # Server Stuff
     def __populateServer(self):
-        for i in self.getDatabaseList():
-            self.db_list.append("%s" % i)
-        for i in self.getTableList():
-            self.db_list.append("%s" % i)
-        if len(self.tb_name) > 0:
+        self.db_list = self.getDatabaseList()
+        self.tb_list = self.getTableList()
+        if len(self.tb_list) > 0:
             self.tb_name = self.tb_list[0];
         else:
-            print("WARNING!! A Table is used without any table")
+            print("WARNING!! There are no table seen")
         
-            
-        
+    def commit(self):
+        self.db.getDatabase().commit();

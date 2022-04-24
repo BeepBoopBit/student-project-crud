@@ -6,18 +6,31 @@ class Select:
     def __init__(self, db, tb) -> None:
         self.db = db
         self.cursor = self.db.cursor()
+        self.tb = tb;
     
-    #just get all
-    def getAllData(self):
-        pass
+    # Getters
+    def getAllData(self, tbName):
+        self.cursor.execute(f"SELECT * FROM {tbName};")
+        return self.__formatValue();
+
+    def getData(self, tbName, condition):
+        self.cursor.execute(f"SELECT * FROM {tbName} WHERE {condition};")
+        return self.__formatValue();
     
-    # with constraints 
-    def getData(self):
-        pass
+    def getDataGroupedBy(self, tbName, condition, conditionGroup):
+        self.cursor.execute(f"SELECT * FROM {tbName} WHERE {condition} GROUP BY {conditionGroup};");
+        return self.__formatValue();
     
-    def getDataGroupedBy(self):
-        pass
+    def getDataSortedBy(self, tbName, condition, conditionSort):
+        self.cursor.execute(f"SELECT * FROM {tbName} WHERE {condition} ORDERED BY {conditionSort} ;")
+        return self.__formatValue();
     
-    def getDataSortedBy(self):
-        pass
-    
+    # Auxillary
+    def __formatValue(self):
+        temp = []
+        for i in self.cursor.fetchall():
+            try:
+                temp.append("%s" % i)
+            except:
+                temp.append("{}".format(i))
+        return temp;
