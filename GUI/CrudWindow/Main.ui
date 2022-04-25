@@ -133,69 +133,8 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>-1</number>
    </property>
-   <widget class="QWidget" name="tab_1">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
-    <attribute name="title">
-     <string>Tab 1</string>
-    </attribute>
-    <widget class="QTableWidget" name="data">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>551</width>
-       <height>391</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <italic>false</italic>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true"/>
-     </property>
-     <column>
-      <property name="text">
-       <string>Attribute</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Attribute</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Attribute</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Attribute</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Attribute</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Attribute</string>
-      </property>
-     </column>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="tab_2">
-    <attribute name="title">
-     <string>Tab 2</string>
-    </attribute>
-   </widget>
   </widget>
   <widget class="QWidget" name="horizontalLayoutWidget_2">
    <property name="geometry">
@@ -425,7 +364,7 @@ color: black;
     <rect>
      <x>60</x>
      <y>40</y>
-     <width>341</width>
+     <width>411</width>
      <height>71</height>
     </rect>
    </property>
@@ -436,7 +375,7 @@ color: black;
     </font>
    </property>
    <property name="text">
-    <string>BUSINESS THINGY HERE</string>
+    <string>CREATE, READ, UPDATE, and DELETE</string>
    </property>
   </widget>
  </widget>

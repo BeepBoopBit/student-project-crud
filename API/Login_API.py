@@ -1,7 +1,7 @@
 import csv
 
 
-class Login:
+class Login_API:
     def __init__(self, dataPath) -> None:
         file = open(dataPath);
         csvreader = csv.reader(file);

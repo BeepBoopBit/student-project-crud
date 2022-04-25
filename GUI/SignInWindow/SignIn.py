@@ -22,6 +22,7 @@ class SignIn(QDialog):
         UIPATH = os.path.dirname(os.path.realpath(__file__)) + "\\SignIn.ui"
         self.ui = loadUi(UIPATH, self)
         self.SignInbutton.clicked.connect(self.SignInfunction)
+        self.API = CRUD();
 
     def pop_message(self, text=""):
         msg = QtWidgets.QMessageBox()
@@ -38,21 +39,7 @@ class SignIn(QDialog):
                     [self.userName.text(), self.userPassword.text()])
             # Sign-in #0
             #Database
-            Widget.addWidget(Database()) #1
-            Widget.addWidget(CreateDatabase()) #2
-            
-            # CRUD
-            Widget.addWidget(MainCrudWindow()); #3
-            Widget.addWidget(FilterTable()); #4
-            Widget.addWidget(GroupingTable()); #5
-            Widget.addWidget(ModifyTable()); #6
-            
-            # TABLE
-            Widget.addWidget(NameTable()); #7
-            Widget.addWidget(TableMenu()); #8
-            Widget.addWidget(TableColumn()); #9
-            Widget.addWidget(ForeignKey()); #10
-            
+            Widget.addWidget(Database(self.API)) #1
             Widget.setCurrentIndex(1)
         else:
             self.pop_message("Login Failed, Please Try Again")
