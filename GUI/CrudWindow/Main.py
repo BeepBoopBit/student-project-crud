@@ -33,6 +33,10 @@ class MainCrudWindow(QDialog):
         # Load the data
 
     def loadData(self):
+        
+        while self.tabWidget.count():
+            self.tabWidget.removeTab(self.tabWidget.currentIndex())
+            
         tableList = self.API.getTableList();
         if len(tableList) <= 0:
             pass

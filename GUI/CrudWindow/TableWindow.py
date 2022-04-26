@@ -39,13 +39,18 @@ class TableMenu(QtWidgets.QDialog): # Table Menu Window
         self.AddColumn.clicked.connect(self.tableColumnFunction)
         self.Exit.clicked.connect(self.tableExit)
         self.Submit.clicked.connect(self.submitTable)
-        
+        self.Delete.clicked.connect(self.deleteAttribute);
         stuff = self.tableWidget.horizontalHeader();
         stuff.setStretchLastSection(True);
         
         
         self.API = apiCrud;
         self.show()
+
+    def deleteAttribute(self):
+        r = self.tableWidget.currentRow()
+        self.tableWidget.removeRow(r)
+        pass
 
     def readTable(self):
         with open("Data/createTable/tableName.dat", "r") as f:
@@ -67,29 +72,67 @@ class TableMenu(QtWidgets.QDialog): # Table Menu Window
             
         constraintFile = open("Data/createTable/constraints.dat","r+"); 
         fkFile = open("Data/createTable/fk.dat","r+")
-        str = ' ' + constraintFile.readline() + ' ' + fkFile.readline() + ' '
+        typeFile = open("Data/createTable/type.dat","r");
+        colFile = open("Data/createTable/columnName.dat", "r");
+        
+        str = ' ' + constraintFile.readline() + ',' + fkFile.readline() + ' '
         self.tableWidget.setItem(rowPosition,colPos,QTableWidgetItem(str))
+        with open("Data/createTable/command.dat", 'a') as f:
+            f.writelines( ' ' + colFile.readline() + ' ' + typeFile.readline() + str + '\n')
         constraintFile.truncate(0);
         fkFile.truncate(0);
         constraintFile.close();
         fkFile.close();
             
-            
-            
     def tableColumnFunction(self):
         Widget.setCurrentIndex(9)
 
     def tableExit(self):
+        colName = open("Data/createTable/columnName.dat", "w")
+        command = open("Data/createTable/command.dat", "w")
+        constraints = open("Data/createTable/constraints.dat", "w")
+        fk = open("Data/createTable/fk.dat", "w")
+        tableName = open("Data/createTable/tableName.dat", "w")
+        typeName = open("Data/createTable/type.dat", "w")
+        commandFile = open("Data/createTable/command.dat", "w")
+        self.tableWidget.setRowCount(0);
+        colName.truncate()
+        command.truncate()
+        constraints.truncate()
+        fk.truncate()
+        tableName.truncate()
+        typeName.truncate()
+        commandFile.truncate()
+        
+        
+        colName.close()
+        command.close()
+        constraints.close()
+        fk.close()
+        tableName.close()
+        typeName.close()
+        commandFile.close()
+        
         Widget.setCurrentIndex(3)
 
     def submitTable(self):
-        colName = open("Data/createTable/columnName.dat", 'r')
-        command = open("Data/createTable/command.dat", 'r')
-        constraints = open("Data/createTable/constraints.dat", 'r')
-        fk = open("Data/createTable/fk.dat", 'r')
-        tableName = open("Data/createTable/tableName.dat", 'r')
-        typeName = open("Data/createTable/type.dat", 'r')
-        
+        colName = open("Data/createTable/columnName.dat", "w")
+        constraints = open("Data/createTable/constraints.dat", "w")
+        fk = open("Data/createTable/fk.dat", "w")
+        tableName = open("Data/createTable/tableName.dat", "r+")
+        typeName = open("Data/createTable/type.dat", "w")
+        commandFile = open("Data/createTable/command.dat", "r+")
+        value = commandFile.read().removesuffix('\n').removesuffix(' ').removesuffix(',')
+        self.API.createTable(tableName.read(),value);
+        self.tableWidget.setRowCount(0);
+        colName.truncate()
+        commandFile.truncate()
+        constraints.truncate()
+        fk.truncate()
+        tableName.truncate()
+        typeName.truncate()
+        commandFile.truncate()
+        Widget.widget(3).loadData()
         Widget.setCurrentIndex(3)
 
 ##################################################################
@@ -120,9 +163,10 @@ class TableColumn(QtWidgets.QDialog): # Add Column Window
         if self.foreign_key.isChecked():
             self.foreignKeyFunction();
         else:
-            self.saveData();
-            Widget.widget(8).readAttributeData();
             Widget.setCurrentIndex(8)
+        self.saveData();
+        Widget.widget(8).readAttributeData();
+
         pass
 
     def foreignKeyFunction(self):
@@ -155,8 +199,9 @@ class ForeignKey(QtWidgets.QDialog): # Add Foreign Key Window // IF NAKA TICK YU
 
     def OKFunction(self):
         with open("Data/createTable/fk.dat", "w") as f:
-            f.write( ' ' + self.from_input.toPlainText() + ' ')
-            f.write( ' ' + self.referenes_input.toPlainText() +  ' ')
+            f.write( ' FOREIGN KEY(' + self.from_input.toPlainText() + ') ')
+            # Lack of Information
+            f.write( ' REFERENCES ' + self.referenes_input.toPlainText() +  '(' + self.attributename_input.toPlainText() +') ')
         Widget.widget(8).readAttributeData();
         Widget.setCurrentIndex(8)
             

@@ -13,6 +13,9 @@ class ModifyTable(QDialog):
         self.MExitbutton.clicked.connect(self.gotocancelCRUD)
         self.API = apiCrud;
 
+    def loadTable():
+        pass
+    
     def pop_message(self,text=""):
         msg = QtWidgets.QMessageBox()
         msg.setText("{}".format(text))

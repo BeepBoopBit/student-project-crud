@@ -42,6 +42,9 @@ class Table_API:
         # Execute the command
         self.cursor.execute(command)
     
+    def createTable(self, tableName, command):
+        str = f"CREATE TABLE {tableName}({command})";
+        self.cursor.execute(str)
     
     # Getters
     def getTableList(self):

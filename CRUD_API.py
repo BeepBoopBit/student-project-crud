@@ -43,6 +43,9 @@ class CRUD:
         if(self.tb_name == ""):
             self.tb_name = tableName;
     
+    def createTable(self, tableName, command):
+        self.tb.createTable(tableName,command);
+    
     def useTable(self, tableName):
         self.tb_name = tableName;
 
