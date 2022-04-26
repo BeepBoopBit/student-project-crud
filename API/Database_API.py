@@ -1,13 +1,15 @@
+from itertools import islice
+from re import X
 import mysql.connector
 
-class Database:
+class Database_API:
     def __init__(self, userName, userPassword) -> None:
         self.db = mysql.connector.connect(
             host="localhost",
             user=userName,
             password=userPassword
         )
-        self.cursor = self.db.cursor()
+        self.cursor = self.db.cursor(dictionary=True)
         
     #######################################################
     # Use Functions    
@@ -35,8 +37,6 @@ class Database:
     def __formatValue(self):
         temp = []
         for i in self.cursor.fetchall():
-            try:
-                temp.append("%s" % i)
-            except:
-                temp.append("{}".format(i))
+            for j in i.values():
+                temp.append(j);
         return temp;

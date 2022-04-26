@@ -1,10 +1,10 @@
 from dataclasses import dataclass
 from pydoc import describe
 
-class Select:
+class Select_API:
     def __init__(self, db, tb) -> None:
         self.db = db
-        self.cursor = self.db.cursor()
+        self.cursor = self.db.cursor(dictionary=True)
         self.tb = tb;
     
     # Getters
@@ -14,6 +14,10 @@ class Select:
 
     def getData(self, tbName, condition):
         self.cursor.execute(f"SELECT * FROM {tbName} WHERE {condition};")
+        return self.__formatValue();
+    
+    def getDataFrom(self, tbName, columnName):
+        self.cursor.execute(f"SELECT {columnName} FROM {tbName};")
         return self.__formatValue();
     
     def getDataGroupedBy(self, tbName, condition, conditionGroup):
@@ -28,8 +32,6 @@ class Select:
     def __formatValue(self):
         temp = []
         for i in self.cursor.fetchall():
-            try:
-                temp.append("%s" % i)
-            except:
-                temp.append("{}".format(i))
+            for j in i.values():
+                temp.append(j);
         return temp;

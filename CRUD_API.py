@@ -1,21 +1,21 @@
-from API.Database_API import Database
-from API.Login_API import Login
-from API.Select_API import Select
-from API.Table_API import Table
+from API.Database_API import *
+from API.Login_API import *
+from API.Select_API import *
+from API.Table_API import *
 
 class CRUD:
     def __init__(self) -> None:
-        self.loginDetails = Login("Data/user/login.csv")
+        self.loginDetails = Login_API("Data/user/login.csv")
         # Database Stuff        
-        self.db = Database(self.loginDetails.getUsername(), self.loginDetails.getPassword());
+        self.db = Database_API(self.loginDetails.getUsername(), self.loginDetails.getPassword());
         self.db_list = [];
         self.cursor = self.db.getCursor();
         # Table Stuff
-        self.tb = Table(self.db.getDatabase());
+        self.tb = Table_API(self.db.getDatabase());
         self.tb_name = "";
         self.tb_list = [];
         #select
-        self.sl = Select(self.db.getDatabase(), self.tb);
+        self.sl = Select_API(self.db.getDatabase(), self.tb);
 
     # Database 
     def useDatabase(self, dbName):
@@ -67,12 +67,22 @@ class CRUD:
     def insertValueDate(self, tbName, value, dateTime):
         self.tb.insertValueDate(tbName,value,dateTime)
     
+    def getAttributeList(self, tableName):
+        temp = self.tb.getAttributeList(tableName);
+        otherValue = self.tb.fetchAllValue();
+        return temp;
+    
     # Select
     def getAllData(self, tbName):
         return self.sl.getAllData(tbName);
     
     def getData(self, tbName, condition):
         return self.sl.getData( tbName, condition);
+    
+    def getDataFrom(self, tbName, columnName):
+        temp = self.sl.getDataFrom( tbName, columnName);
+        otherValue = self.tb.fetchAllValue();
+        return temp;
     
     def getDataGroupedBy(self, tbName, condition, conditionGroup):
         return self.sl.getDataGroupedBy(  tbName, condition, conditionGroup);
@@ -91,3 +101,4 @@ class CRUD:
         
     def commit(self):
         self.db.getDatabase().commit();
+        
