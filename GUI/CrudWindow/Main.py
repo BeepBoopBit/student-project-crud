@@ -24,7 +24,6 @@ class MainCrudWindow(QDialog):
         self.MSignOutButton.clicked.connect(self.SignOutAttribute)           # SignOut  ->  #0
         self.MChangeButton.clicked.connect(self.ChangeAttribute)             # Change   ->  #1
         self.MSearchButton.clicked.connect(self.SearchAttribute)             # Search   ->  pass
-        self.MFitlerButton.clicked.connect(self.FilterAttribute)             # Filter   ->  #4
         self.MGroupButton.clicked.connect(self.GroupAttribute)               # Group    ->  #5
         self.MModifyButton.clicked.connect(self.ModifyAttribute)             # Modify   ->  #6
         self.MCreateButton.clicked.connect(self.CreateAttribute)             # Create   ->  #7

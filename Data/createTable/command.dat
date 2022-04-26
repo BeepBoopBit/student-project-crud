@@ -1,0 +1,2 @@
+ temp_id int  PRIMARY KEY , 
+ temp_data varchar(255)  NOT NULL  UNIQUE , 

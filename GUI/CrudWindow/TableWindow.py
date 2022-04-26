@@ -186,7 +186,7 @@ class TableColumn(QtWidgets.QDialog):
         else:
             Widget.setCurrentIndex(7)
         self.saveData();
-        Widget.widget(8).readAttributeData();
+        Widget.widget(7).readAttributeData();
 
         pass
 
@@ -232,7 +232,7 @@ class ForeignKey(QtWidgets.QDialog):
             f.write( ' FOREIGN KEY(' + self.from_input.toPlainText() + ') ')
             # Lack of Information
             f.write( ' REFERENCES ' + self.referenes_input.toPlainText() +  '(' + self.attributename_input.toPlainText() +') ')
-        Widget.widget(8).readAttributeData();
+        Widget.widget(7).readAttributeData();
         Widget.setCurrentIndex(7)
             
     # Cancel Button 

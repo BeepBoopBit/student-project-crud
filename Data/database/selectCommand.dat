@@ -1,3 +1,0 @@
-
-UPDATE employee SET FNAME = "WGHA" WHERE EMP_ID = "E101";
-                
