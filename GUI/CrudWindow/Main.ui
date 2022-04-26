@@ -322,16 +322,6 @@ color: black;
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="MFitlerButton">
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(255, 255, 255)</string>
-      </property>
-      <property name="text">
-       <string>Filter</string>
-      </property>
-     </widget>
-    </item>
-    <item>
      <widget class="QPushButton" name="MSearchButton">
       <property name="styleSheet">
        <string notr="true">background-color: rgb(255, 255, 255)</string>

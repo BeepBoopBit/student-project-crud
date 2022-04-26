@@ -76,8 +76,7 @@ class MainCrudWindow(QDialog):
                             self.tabWidget.currentWidget().setItem(rowPosition,headerCount,QTableWidgetItem(str(data)))
                         except:
                             dateTime = data.strftime("%Y-%m-%d")
-                            self.tabWidget.currentWidg
-                            et().setItem(rowPosition,headerCount,QTableWidgetItem(dateTime))
+                            self.tabWidget.currentWidget().setItem(rowPosition,headerCount,QTableWidgetItem(dateTime))
                     isFirst = False;
                     headerCount += 1;
                 attListFile.writelines("\n")
