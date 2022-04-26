@@ -11,6 +11,8 @@ class GroupingTable(QDialog):
         self.ui = loadUi(UIPATH,self)
         self.API = apiCrud;
 
+        # PopUp Message Setup
+
     def pop_message(self,text=""):
         msg = QtWidgets.QMessageBox()
         msg.setText("{}".format(text))

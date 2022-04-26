@@ -13,6 +13,7 @@ class ModifyTable(QDialog):
         self.MExitbutton.clicked.connect(self.gotocancelCRUD)
         self.API = apiCrud;
 
+    # Load Data
 
     def loadData(self, tableName, tabIndex):
         attrFile = open("Data/database/attributeList.dat", 'r')
@@ -36,7 +37,6 @@ class ModifyTable(QDialog):
 
     def gotoaddCRUD(self):
         Widget.setCurrentIndex(3)
-
     
     def gotocancelCRUD(self):
         self.tableWidget.setRowCount(0)
