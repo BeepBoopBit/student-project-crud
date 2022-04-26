@@ -83,7 +83,13 @@ class TableMenu(QtWidgets.QDialog): # Table Menu Window
         Widget.setCurrentIndex(3)
 
     def submitTable(self):
-        # IMPLEMENT THE API
+        colName = open("Data/createTable/columnName.dat", 'r')
+        command = open("Data/createTable/command.dat", 'r')
+        constraints = open("Data/createTable/constraints.dat", 'r')
+        fk = open("Data/createTable/fk.dat", 'r')
+        tableName = open("Data/createTable/tableName.dat", 'r')
+        typeName = open("Data/createTable/type.dat", 'r')
+        
         Widget.setCurrentIndex(3)
 
 ##################################################################

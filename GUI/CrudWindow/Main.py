@@ -52,7 +52,6 @@ class MainCrudWindow(QDialog):
                     self.tabWidget.currentWidget().setHorizontalHeaderItem(headerCount,QTableWidgetItem(j[0]))
                     rowPosition = -1;
                     for data in self.API.getDataFrom(i, j[0]):
-                        print(self.tabWidget.currentWidget().columnCount())
                         if isFirst:
                             rowPosition = self.tabWidget.currentWidget().rowCount();
                             self.tabWidget.currentWidget().insertRow(rowPosition);
@@ -66,22 +65,6 @@ class MainCrudWindow(QDialog):
                     isFirst = False;
                     headerCount += 1;
                 count += 1
-                #tempHeaderCount = 0
-                #tempAllDataList = self.API.getAllData(i); 
-                #for j in tempAllDataList:
-                #    print(j)
-                #    rowPosition = self.tabWidget.currentWidget().rowCount();
-                #    self.tabWidget.currentWidget().insertRow(rowPosition);
-                #    try:
-                #        self.tabWidget.currentWidget().setItem(rowPosition,tempHeaderCount,QTableWidgetItem(j))
-                #    except:
-                #        dateTime = j.strftime("%Y-%m-%d")
-                #        self.tabWidget.currentWidget().setItem(rowPosition,tempHeaderCount,QTableWidgetItem(dateTime))
-                #    if tempHeaderCount != (headerCount-1):
-                #        tempHeaderCount += 1;
-                #    else:
-                #        tempHeaderCount = 0;
-                #    count += 1
     def AddAttribute(self):
         pass
 
