@@ -69,6 +69,7 @@ class MainCrudWindow(QDialog):
                     isFirst = False;
                     headerCount += 1;
                 count += 1
+    
     def AddAttribute(self):
         pass
 
@@ -82,6 +83,7 @@ class MainCrudWindow(QDialog):
         pass
 
     def ModifyAttribute(self): #Modify Table is the class of modify ui
+        Widget.widget(6).loadData(self.tabWidget.tabText(self.tabWidget.currentIndex()))
         Widget.setCurrentIndex(6)
         
 

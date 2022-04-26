@@ -70,6 +70,10 @@ class Table_API:
     def getAttributeList(self, tableName):
         self.cursor.execute(f"SELECT * FROM {tableName};")
         return self.cursor.description;
+    
+    def getDescribeAttributeList(self, tableName):
+        self.cursor.execute(f"DESCRIBE {tableName};")
+        return self.cursor.description;
 
     # Inserting
     def insertValue(self, tbName, value):

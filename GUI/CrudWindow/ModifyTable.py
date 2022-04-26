@@ -1,6 +1,6 @@
 import os
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import QDialog, QTableWidget, QTableWidgetItem
 from PyQt5.uic import loadUi
 from GUI.globalVariable import *
 
@@ -13,8 +13,11 @@ class ModifyTable(QDialog):
         self.MExitbutton.clicked.connect(self.gotocancelCRUD)
         self.API = apiCrud;
 
-    def loadTable():
+
+    def loadData(self, tableName):
+        
         pass
+    
     
     def pop_message(self,text=""):
         msg = QtWidgets.QMessageBox()

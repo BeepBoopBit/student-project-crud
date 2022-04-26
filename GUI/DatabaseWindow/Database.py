@@ -40,6 +40,8 @@ class Database(QMainWindow):
         selectedDatabase = self.tableWidget.item(r,0).text();
         try:
             self.API.useDatabase(selectedDatabase);
+            with open("Data/database/databaseName.dat") as f:
+                f.write(selectedDatabase);
             Widget.addWidget(CreateDatabase(self.API)) #2
             # CRUD
             Widget.addWidget(MainCrudWindow(self.API)); #3
