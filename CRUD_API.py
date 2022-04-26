@@ -37,6 +37,9 @@ class CRUD:
     def deleteDatabase(self, dbName):
         self.db.deleteDatabase(dbName);
     
+    def executeCommand(self, command):
+        self.db.executeCommand(command);
+    
     # Tables
     def createTable(self, tableName, columnName, dataType, contraint):
         self.tb.createTable(tableName, columnName, dataType, contraint)
@@ -102,6 +105,7 @@ class CRUD:
     def changeData(self, command):
         self.sl.changeData(command);
         self.__commit();
+
     
     # Server Stuff
     def __populateServer(self):

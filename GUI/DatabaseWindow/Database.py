@@ -53,7 +53,7 @@ class Database(QMainWindow):
             Widget.addWidget(CreateDatabase(self.API))       #2  (Create)
 
             # CRUD
-            Widget.addWidget(MainCrudWindow(self.API)); #3
+            Widget.addWidget(MainCrudWindow(self.API, selectedDatabase)); #3
             Widget.addWidget(GroupingTable(self.API)); #4
             Widget.addWidget(ModifyTable(self.API)); #5
             # TABLE

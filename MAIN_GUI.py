@@ -17,6 +17,7 @@ def truncateFiles():
     attType = open("Data/database/attributeType.dat", 'w')
     selectCommand = open("Data/database/selectCommand.dat", 'w')
     indexChange = open("Data/database/indexChange.dat", 'w')
+    alterFile = open("Data/database/alterCommand.dat", 'w')
     colName.truncate()
     command.truncate()
     constraints.truncate()
@@ -29,6 +30,7 @@ def truncateFiles():
     attType.truncate()
     selectCommand.truncate()
     indexChange.truncate()
+    alterFile.truncate()
     colName.close()
     command.close()
     constraints.close()
@@ -41,7 +43,7 @@ def truncateFiles():
     attType.close()
     selectCommand.close()
     indexChange.close()
-
+    alterFile.close()
 truncateFiles();
 
 try:

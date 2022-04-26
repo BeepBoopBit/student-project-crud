@@ -8,6 +8,47 @@ from CRUD_API import *
 from datetime import datetime
 class MainCrudWindow(QDialog):
 
+    def truncateFiles(self):
+        colName = open("Data/createTable/columnName.dat", 'w')
+        command = open("Data/createTable/command.dat", 'w')
+        constraints = open("Data/createTable/constraints.dat", 'w')
+        fk = open("Data/createTable/fk.dat", 'w')
+        tableName = open("Data/createTable/tableName.dat", 'w')
+        typeName = open("Data/createTable/type.dat", 'w')
+        dbName = open("Data/database/databaseName.dat", 'w')
+        tName = open("Data/database/tableList.dat", 'w')
+        attList = open("Data/database/attributeList.dat", 'w')
+        attType = open("Data/database/attributeType.dat", 'w')
+        selectCommand = open("Data/database/selectCommand.dat", 'w')
+        indexChange = open("Data/database/indexChange.dat", 'w')
+        alterFile = open("Data/database/alterCommand.dat", 'w')
+        colName.truncate()
+        command.truncate()
+        constraints.truncate()
+        fk.truncate()
+        tableName.truncate()
+        typeName.truncate()
+        dbName.truncate()
+        tName.truncate()
+        attList.truncate()
+        attType.truncate()
+        selectCommand.truncate()
+        indexChange.truncate()
+        alterFile.truncate()
+        colName.close()
+        command.close()
+        constraints.close()
+        fk.close()
+        tableName.close()
+        typeName.close()
+        dbName.close()
+        tName.close()
+        attList.close()
+        attType.close()
+        selectCommand.close()
+        indexChange.close()
+        alterFile.close()
+
     # PopUp Message Setup
 
     def pop_message(self, text=""):
@@ -15,15 +56,16 @@ class MainCrudWindow(QDialog):
         msg.setText("{}".format(text))
         msg.exec_()
 
-    def __init__(self, apiCrud):
+    def __init__(self, apiCrud, databaseName):
         super(MainCrudWindow, self).__init__()
         UIPATH = os.path.dirname(os.path.realpath(__file__)) + "\\Main.ui"
         self.ui = loadUi(UIPATH, self)
         self.API = apiCrud;
+        self.dbName = databaseName
+        self.database.setText(self.dbName)
 
         self.MAddButton.clicked.connect(self.AddAttribute)
         self.MGroupButton.clicked.connect(self.GroupAttribute)
-        self.MFitlerButton.clicked.connect(self.FilterAttribute)
         self.MSearchButton.clicked.connect(self.SearchAttribute)
         self.MModifyButton.clicked.connect(self.ModifyAttribute)
         self.MCreateButton.clicked.connect(self.CreateAttribute)
@@ -36,7 +78,6 @@ class MainCrudWindow(QDialog):
     # Load the data
 
     def loadData(self):
-        
         while self.tabWidget.count():
             self.tabWidget.removeTab(self.tabWidget.currentIndex())
             
@@ -57,7 +98,15 @@ class MainCrudWindow(QDialog):
                 stuff = self.tabWidget.currentWidget().horizontalHeader();
                 stuff.setStretchLastSection(True);
                 isFirst = True;
-
+                
+                # Get Attribute Type
+                attrType = self.API.getAttributeTypes(i);
+                attrTypeFile = open("Data/database/attributeType.dat", 'a');
+                for j in attrType:
+                    attrTypeFile.write(j + ' ');
+                attrTypeFile.write('\n');
+                attrTypeFile.close()
+                
                 attListFile = open("Data/database/attributeList.dat", 'a')
                 for j in tempAttributeList:
                     attListFile.writelines(str(j[0]) + ' ')
@@ -85,6 +134,9 @@ class MainCrudWindow(QDialog):
                 attListFile.writelines("\n")
                 count += 1
     
+    def updateForm(self):
+        pass
+    
     def saveChanged(self, item):
         
         with open("Data/database/selectCommand.dat", 'a') as f:
@@ -92,10 +144,6 @@ class MainCrudWindow(QDialog):
                 f"""
 UPDATE {self.tabWidget.tabText(self.tabWidget.currentIndex())} SET {self.tabWidget.currentWidget().horizontalHeaderItem(item.column()).text()} = "{item.text()}" WHERE {self.tabWidget.currentWidget().horizontalHeaderItem(0).text()} = "{(self.tabWidget.currentWidget().item(item.row(), 0).text())}";
                 """)
-        print(self.tabWidget.tabText(self.tabWidget.currentIndex()) + " AT " + str(item.row()) + ":" + str(item.column()))
-        print ("Item Name: ", item.text())
-        print(self.tabWidget.currentWidget().horizontalHeaderItem(item.column()).text())
-        print(self.tabWidget.currentWidget().item(item.row(), 0).text())
     
     def AddAttribute(self):
         pass
