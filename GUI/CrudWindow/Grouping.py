@@ -9,8 +9,6 @@ class GroupingTable(QDialog):
         super(GroupingTable, self).__init__()
         UIPATH = os.path.dirname(os.path.realpath(__file__)) + "\\Grouping.ui" 
         self.ui = loadUi(UIPATH,self)
-        self.GOKbutton.clicked.connect(self.gotoaddCRUD)
-        self.GExitbutton.clicked.connect(self.gotocancelCRUD)
         self.API = apiCrud;
 
     def pop_message(self,text=""):

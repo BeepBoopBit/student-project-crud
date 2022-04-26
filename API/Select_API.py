@@ -28,6 +28,9 @@ class Select_API:
         self.cursor.execute(f"SELECT * FROM {tbName} WHERE {condition} ORDERED BY {conditionSort} ;")
         return self.__formatValue();
     
+    def changeData(self, command):
+        self.cursor.execute(command);
+    
     # Auxillary
     def __formatValue(self):
         temp = []

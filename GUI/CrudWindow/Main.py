@@ -28,7 +28,7 @@ class MainCrudWindow(QDialog):
         self.MDeleteButton.clicked.connect(self.DeleteAttribute)
         self.MChangeButton.clicked.connect(self.ChangeAttribute)
         self.MSignOutButton.clicked.connect(self.SignOutAttribute)
-
+        
         self.loadData();
         # Load the data
 
@@ -46,6 +46,8 @@ class MainCrudWindow(QDialog):
                 with open("Data/database/tableList.dat", 'a') as f:
                     f.writelines(i + '\n');
                 self.tabWidget.addTab(QTableWidget(), i)
+                # Save the change of index
+                self.tabWidget.currentWidget().itemChanged.connect(self.saveChanged);
                 self.tabWidget.setCurrentIndex(count)
                 headerCount = 0;
                 tempAttributeList =self.API.getAttributeList(i) 
@@ -57,6 +59,10 @@ class MainCrudWindow(QDialog):
                 for j in tempAttributeList:
                     attListFile.writelines(str(j[0]) + ' ')
                     colCount = self.tabWidget.currentWidget().columnCount()
+                    
+
+                    
+                    
                     self.tabWidget.currentWidget().insertColumn(colCount);
                     self.tabWidget.currentWidget().setHorizontalHeaderItem(headerCount,QTableWidgetItem(j[0]))
                     rowPosition = -1;
@@ -70,17 +76,30 @@ class MainCrudWindow(QDialog):
                             self.tabWidget.currentWidget().setItem(rowPosition,headerCount,QTableWidgetItem(str(data)))
                         except:
                             dateTime = data.strftime("%Y-%m-%d")
-                            self.tabWidget.currentWidget().setItem(rowPosition,headerCount,QTableWidgetItem(dateTime))
+                            self.tabWidget.currentWidg
+                            et().setItem(rowPosition,headerCount,QTableWidgetItem(dateTime))
                     isFirst = False;
                     headerCount += 1;
                 attListFile.writelines("\n")
                 count += 1
     
+    def saveChanged(self, item):
+        
+        with open("Data/database/selectCommand.dat", 'a') as f:
+            f.write(
+                f"""
+UPDATE {self.tabWidget.tabText(self.tabWidget.currentIndex())} SET {self.tabWidget.currentWidget().horizontalHeaderItem(item.column()).text()} = "{item.text()}" WHERE {self.tabWidget.currentWidget().horizontalHeaderItem(0).text()} = "{(self.tabWidget.currentWidget().item(item.row(), 0).text())}";
+                """)
+        print(self.tabWidget.tabText(self.tabWidget.currentIndex()) + " AT " + str(item.row()) + ":" + str(item.column()))
+        print ("Item Name: ", item.text())
+        print(self.tabWidget.currentWidget().horizontalHeaderItem(item.column()).text())
+        print(self.tabWidget.currentWidget().item(item.row(), 0).text())
+    
     def AddAttribute(self):
         pass
 
     def GroupAttribute(self): #Grouping table is the class of group ui
-        Widget.setCurrentIndex(5)
+        Widget.setCurrentIndex(4)
 
     def FilterAttribute(self): #Filter table is the class of filter ui
         Widget.setCurrentIndex(4)
@@ -89,20 +108,26 @@ class MainCrudWindow(QDialog):
         pass
 
     def ModifyAttribute(self): #Modify Table is the class of modify ui
-        Widget.widget(6).loadData(self.tabWidget.tabText(self.tabWidget.currentIndex()),self.tabWidget.currentIndex())
-        Widget.setCurrentIndex(6)
+        Widget.widget(5).loadData(self.tabWidget.tabText(self.tabWidget.currentIndex()),self.tabWidget.currentIndex())
+        Widget.setCurrentIndex(5)
         
 
     def CreateAttribute(self): #Create Table is the class of create ui
-        Widget.setCurrentIndex(7);
+        Widget.setCurrentIndex(6);
         
 
     def DeleteAttribute(self):
         pass
 
     def ChangeAttribute(self):
-        Widget.setCurrentIndex(1)
-
+        with open("Data/database/selectCommand.dat") as f:
+            for line in f:
+                line = line.rstrip()
+                if line == '':
+                    continue
+                else:
+                    self.API.changeData(line);
+        self.loadData();
 
     def SignOutAttribute(self): #Sign out is the class of sign out ui
         Widget.setCurrentIndex(0)

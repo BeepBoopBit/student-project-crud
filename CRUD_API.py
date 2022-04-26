@@ -99,6 +99,10 @@ class CRUD:
     def getDataSortedBy(self, tbName, condition, conditionSort):
         return self.sl.getDataSortedBy(tbName, condition, conditionSort);
     
+    def changeData(self, command):
+        self.sl.changeData(command);
+        self.__commit();
+    
     # Server Stuff
     def __populateServer(self):
         self.db_list = self.getDatabaseList()
@@ -108,6 +112,6 @@ class CRUD:
         else:
             print("WARNING!! There are no table seen")
         
-    def commit(self):
+    def __commit(self):
         self.db.getDatabase().commit();
         

@@ -6,7 +6,6 @@ from GUI.globalVariable import *
 
 from GUI.CrudWindow.Main import *
 from GUI.CrudWindow.TableWindow import *
-from GUI.CrudWindow.FilterTable import *
 from GUI.CrudWindow.Grouping import *
 from GUI.CrudWindow.ModifyTable import *
 import traceback
@@ -45,14 +44,13 @@ class Database(QMainWindow):
             Widget.addWidget(CreateDatabase(self.API)) #2
             # CRUD
             Widget.addWidget(MainCrudWindow(self.API)); #3
-            Widget.addWidget(FilterTable(self.API)); #4
-            Widget.addWidget(GroupingTable(self.API)); #5
-            Widget.addWidget(ModifyTable(self.API)); #6
+            Widget.addWidget(GroupingTable(self.API)); #4
+            Widget.addWidget(ModifyTable(self.API)); #5
             # TABLE
-            Widget.addWidget(NameTable(self.API)); #7
-            Widget.addWidget(TableMenu(self.API)); #8
-            Widget.addWidget(TableColumn(self.API)); #9
-            Widget.addWidget(ForeignKey(self.API)); #10
+            Widget.addWidget(NameTable(self.API)); #6
+            Widget.addWidget(TableMenu(self.API)); #7
+            Widget.addWidget(TableColumn(self.API)); #8
+            Widget.addWidget(ForeignKey(self.API)); #9
             
             
             Widget.setCurrentIndex(3)

@@ -10,7 +10,6 @@ from GUI.globalVariable import *
 from GUI.DatabaseWindow.Database import *
 from GUI.CrudWindow.Main import *
 from GUI.CrudWindow.TableWindow import *
-from GUI.CrudWindow.FilterTable import *
 from GUI.CrudWindow.Grouping import *
 from GUI.CrudWindow.ModifyTable import *
 

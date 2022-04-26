@@ -23,8 +23,8 @@ class NameTable(QtWidgets.QDialog): # Create Table Window
         self.pop_message(text="Table Succesfully Created!") 
         with open("Data/createTable/tableName.dat", "w") as f:
             f.write(self.Table_Input.toPlainText());
-        Widget.widget(8).readTable();
-        Widget.setCurrentIndex(8)
+        Widget.widget(7).readTable();
+        Widget.setCurrentIndex(7)
 
     def tableCancel(self):
         Widget.setCurrentIndex(3)
@@ -85,7 +85,7 @@ class TableMenu(QtWidgets.QDialog): # Table Menu Window
         fkFile.close();
             
     def tableColumnFunction(self):
-        Widget.setCurrentIndex(9)
+        Widget.setCurrentIndex(8)
 
     def tableExit(self):
         colName = open("Data/createTable/columnName.dat", "w")
@@ -163,17 +163,17 @@ class TableColumn(QtWidgets.QDialog): # Add Column Window
         if self.foreign_key.isChecked():
             self.foreignKeyFunction();
         else:
-            Widget.setCurrentIndex(8)
+            Widget.setCurrentIndex(7)
         self.saveData();
         Widget.widget(8).readAttributeData();
 
         pass
 
     def foreignKeyFunction(self):
-        Widget.setCurrentIndex(10)
+        Widget.setCurrentIndex(9)
         
     def cancelFunction(self):
-        Widget.setCurrentIndex(8)
+        Widget.setCurrentIndex(7)
         
     def saveData(self):
         with open("Data/createTable/columnName.dat", "w") as f:
@@ -203,10 +203,10 @@ class ForeignKey(QtWidgets.QDialog): # Add Foreign Key Window // IF NAKA TICK YU
             # Lack of Information
             f.write( ' REFERENCES ' + self.referenes_input.toPlainText() +  '(' + self.attributename_input.toPlainText() +') ')
         Widget.widget(8).readAttributeData();
-        Widget.setCurrentIndex(8)
+        Widget.setCurrentIndex(7)
             
 
     def CancelFunction(self):
-        Widget.setCurrentIndex(8)
+        Widget.setCurrentIndex(7)
 
 ##################################################################
