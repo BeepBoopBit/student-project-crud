@@ -21,14 +21,16 @@ class MainCrudWindow(QDialog):
         self.ui = loadUi(UIPATH, self)
         self.API = apiCrud;
 
-        self.MSignOutButton.clicked.connect(self.SignOutAttribute)           # SignOut  ->  #0
-        self.MChangeButton.clicked.connect(self.ChangeAttribute)             # Change   ->  #1
-        self.MSearchButton.clicked.connect(self.SearchAttribute)             # Search   ->  pass
-        self.MGroupButton.clicked.connect(self.GroupAttribute)               # Group    ->  #5
-        self.MModifyButton.clicked.connect(self.ModifyAttribute)             # Modify   ->  #6
-        self.MCreateButton.clicked.connect(self.CreateAttribute)             # Create   ->  #7
-        self.MAddButton.clicked.connect(self.AddAttribute)                   # Add      ->  pass
-        self.MDeleteButton.clicked.connect(self.DeleteAttribute)             # Delete   ->  pass
+        self.MAddButton.clicked.connect(self.AddAttribute)
+        self.MGroupButton.clicked.connect(self.GroupAttribute)
+        self.MFitlerButton.clicked.connect(self.FilterAttribute)
+        self.MSearchButton.clicked.connect(self.SearchAttribute)
+        self.MModifyButton.clicked.connect(self.ModifyAttribute)
+        self.MCreateButton.clicked.connect(self.CreateAttribute)
+        self.MDeleteButton.clicked.connect(self.DeleteAttribute)
+        self.MChangeButton.clicked.connect(self.ChangeAttribute)
+        self.MSignOutButton.clicked.connect(self.SignOutAttribute)
+        
         self.loadData();
 
     # Load the data
