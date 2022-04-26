@@ -38,8 +38,9 @@ class CRUD:
         self.db.deleteDatabase(dbName);
     
     def executeCommand(self, command):
-        self.db.executeCommand(command);
-    
+        return self.db.executeCommand(command);
+        self.__commit();
+
     # Tables
     def createTable(self, tableName, columnName, dataType, contraint):
         self.tb.createTable(tableName, columnName, dataType, contraint)

@@ -24,6 +24,7 @@ class Database_API:
 
     def executeCommand(self, command):
         self.cursor.execute(command);
+        return self.cursor.fetchall();
 
     # Getters Function
     def getDatabase(self):

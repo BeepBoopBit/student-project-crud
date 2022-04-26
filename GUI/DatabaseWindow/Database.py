@@ -61,6 +61,7 @@ class Database(QMainWindow):
             Widget.addWidget(TableMenu(self.API)); #7
             Widget.addWidget(TableColumn(self.API)); #8
             Widget.addWidget(ForeignKey(self.API)); #9
+            Widget.addWidget(SelectAddAttribute(self.API)) # 10
             
             
             Widget.setCurrentIndex(3)

@@ -1,7 +1,7 @@
 from email import header
 import os
 from PyQt5 import QtWidgets, QtGui
-from PyQt5.QtWidgets import QDialog, QTableWidget, QTableWidgetItem
+from PyQt5.QtWidgets import QDialog, QTableWidget, QTableWidgetItem, QLabel, QLineEdit, QPushButton,  QStackedLayout, QFormLayout, QWidget, QScrollArea
 from PyQt5.uic import loadUi
 from GUI.globalVariable import *
 from CRUD_API import *
@@ -64,7 +64,6 @@ class MainCrudWindow(QDialog):
         self.dbName = databaseName
         self.database.setText(self.dbName)
 
-        self.MAddButton.clicked.connect(self.AddAttribute)
         self.MGroupButton.clicked.connect(self.GroupAttribute)
         self.MSearchButton.clicked.connect(self.SearchAttribute)
         self.MModifyButton.clicked.connect(self.ModifyAttribute)
@@ -72,9 +71,8 @@ class MainCrudWindow(QDialog):
         self.MDeleteButton.clicked.connect(self.DeleteAttribute)
         self.MChangeButton.clicked.connect(self.ChangeAttribute)
         self.MSignOutButton.clicked.connect(self.SignOutAttribute)
-        
+        self.tabWidget.currentChanged.connect(self.tabChanged);
         self.loadData();
-
     # Load the data
 
     def loadData(self):
@@ -111,10 +109,6 @@ class MainCrudWindow(QDialog):
                 for j in tempAttributeList:
                     attListFile.writelines(str(j[0]) + ' ')
                     colCount = self.tabWidget.currentWidget().columnCount()
-                    
-
-                    
-                    
                     self.tabWidget.currentWidget().insertColumn(colCount);
                     self.tabWidget.currentWidget().setHorizontalHeaderItem(headerCount,QTableWidgetItem(j[0]))
                     rowPosition = -1;
@@ -132,23 +126,69 @@ class MainCrudWindow(QDialog):
                     isFirst = False;
                     headerCount += 1;
                 attListFile.writelines("\n")
+                attListFile.close()
+                self.addToForm(count);
                 count += 1
     
-    def updateForm(self):
+    def addToForm(self, tableIndex):
+        attListFile = open("Data/database/attributeList.dat", 'r')
+        formLayout = QWidget()
+        formLayout.setLayout(QFormLayout())
+        self.stackWidget.addWidget(formLayout)
+        self.stackWidget.setCurrentWidget(formLayout)
+        listAttList = []
+        for i, attrValue in enumerate(attListFile):
+            if i == tableIndex:
+                attrValue = attrValue.split(' ')
+                listAttList = attrValue
+                break;
+        for i in listAttList:
+            if(i == '\n'):
+                continue;
+            self.stackWidget.currentWidget().layout().addRow(QLabel(i), QLineEdit())
+        attListFile.close()
+        tempButton = QPushButton("Add Values")
+        tempButton.clicked.connect(self.addButtonPush)
+        self.stackWidget.currentWidget().layout().addRow(tempButton)
+
+    def addButtonPush(self):
+        listStr = ""
+        for i in range(0,self.stackWidget.currentWidget().layout().rowCount()-1):
+            tempWidget =  self.stackWidget.currentWidget().layout().itemAt(i,1);
+            textWidgetValue = tempWidget.widget().text()
+            if isinstance(textWidgetValue, int):
+                listStr += str(textWidgetValue);
+            elif textWidgetValue.lower() == "none":
+                listStr += "NULL";
+            else:
+                listStr += " ' " + textWidgetValue + " ' ";
+            listStr += ','
+        
+        startingStr =  f"INSERT INTO {self.tabWidget.tabText(self.tabWidget.currentIndex())} VALUES({listStr.rstrip(',')})"
+        self.API.executeCommand(startingStr)
+        
+        self.loadData();
+                
+    def tabChanged(self, item):
+        self.stackWidget.setCurrentIndex(item);    
         pass
     
     def saveChanged(self, item):
         
         with open("Data/database/selectCommand.dat", 'a') as f:
-            f.write(
+            try:
+                f.write(
                 f"""
 UPDATE {self.tabWidget.tabText(self.tabWidget.currentIndex())} SET {self.tabWidget.currentWidget().horizontalHeaderItem(item.column()).text()} = "{item.text()}" WHERE {self.tabWidget.currentWidget().horizontalHeaderItem(0).text()} = "{(self.tabWidget.currentWidget().item(item.row(), 0).text())}";
                 """)
+            except:
+                print("Some thing Happen in SaveChanged)")
     
     def AddAttribute(self):
         pass
 
     def GroupAttribute(self): #Grouping table is the class of group ui
+        Widget.widget(4).loadData(self.tabWidget.tabText(self.tabWidget.currentIndex()))
         Widget.setCurrentIndex(4)
 
     def FilterAttribute(self): # Filter table is the class of filter ui
