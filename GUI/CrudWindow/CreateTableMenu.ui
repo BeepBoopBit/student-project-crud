@@ -50,23 +50,13 @@ color: black;
   <widget class="QWidget" name="horizontalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>620</x>
+     <x>29</x>
      <y>490</y>
-     <width>301</width>
+     <width>891</width>
      <height>31</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="TableButtons">
-    <item>
-     <widget class="QPushButton" name="Submit">
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(255, 255, 255)</string>
-      </property>
-      <property name="text">
-       <string>Submit</string>
-      </property>
-     </widget>
-    </item>
     <item>
      <widget class="QPushButton" name="AddColumn">
       <property name="styleSheet">
@@ -74,6 +64,42 @@ color: black;
       </property>
       <property name="text">
        <string>Add Column</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="Delete">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255)</string>
+      </property>
+      <property name="text">
+       <string>Delete Column</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Maximum</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>550</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="Submit">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255)</string>
+      </property>
+      <property name="text">
+       <string>Submit</string>
       </property>
      </widget>
     </item>
@@ -92,7 +118,7 @@ color: black;
   <widget class="QTableWidget" name="tableWidget">
    <property name="geometry">
     <rect>
-     <x>30</x>
+     <x>29</x>
      <y>70</y>
      <width>891</width>
      <height>411</height>

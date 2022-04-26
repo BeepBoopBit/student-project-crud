@@ -1,7 +1,7 @@
-class Table:
+class Table_API:
     def __init__(self, db) -> None:
         self.db = db
-        self.cursor = self.db.cursor()
+        self.cursor = self.db.cursor(dictionary=True)
     
     #######################################################
     
@@ -42,6 +42,9 @@ class Table:
         # Execute the command
         self.cursor.execute(command)
     
+    def createTable(self, tableName, command):
+        str = f"CREATE TABLE {tableName}({command})";
+        self.cursor.execute(str)
     
     # Getters
     def getTableList(self):
@@ -64,6 +67,14 @@ class Table:
     def changeType(self, tableName, columnName, dataType):
         self.cursor.execute(f"ALTER TABLE {tableName} MODIFY {columnName} {dataType};");
 
+    def getAttributeList(self, tableName):
+        self.cursor.execute(f"SELECT * FROM {tableName};")
+        return self.cursor.description;
+    
+    def getDescribeAttributeList(self, tableName):
+        self.cursor.execute(f"DESCRIBE {tableName};")
+        return self.cursor.description;
+
     # Inserting
     def insertValue(self, tbName, value):
         self.cursor.execute(f"INSERT INTO {tbName} VALUES({value});")
@@ -72,15 +83,15 @@ class Table:
         str_now = '\"' + dateTime.date().isoformat() + '\"';
         self.cursor.execute(f"INSERT INTO {tbName} VALUES({value}, {str_now});")
     
+    def fetchAllValue(self):
+        return self.cursor.fetchall()
 
     # Auxillary
     def __formatValue(self):
         temp = []
         for i in self.cursor.fetchall():
-            try:
-                temp.append("%s" % i)
-            except:
-                temp.append("{}".format(i))
+            for j in i.values():
+                temp.append(j);
         return temp;
     
 

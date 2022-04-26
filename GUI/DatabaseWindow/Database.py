@@ -1,17 +1,19 @@
-import sys, os
-sys.path.append("C:\\Users\\wcbre\\Documents\\MAPUA\\Q3\\IT131L\\CRUD-PROJECT")
-
+import os
 from tkinter import Widget
 from PyQt5.QtWidgets import QDialog, QMainWindow, QTableWidgetItem
 from PyQt5.uic import loadUi
 from GUI.globalVariable import *
-from CRUD_API import CRUD
 
-
+from GUI.CrudWindow.Main import *
+from GUI.CrudWindow.TableWindow import *
+from GUI.CrudWindow.FilterTable import *
+from GUI.CrudWindow.Grouping import *
+from GUI.CrudWindow.ModifyTable import *
+import traceback
 
 #Database Class
 class Database(QMainWindow):
-    def __init__(self):
+    def __init__(self, apiCrud):
         super(Database, self).__init__()
         UIPATH = os.path.dirname(os.path.realpath(__file__)) + "\\CreateDatabaseMenu.ui" 
         self.ui = loadUi(UIPATH,self)
@@ -20,7 +22,7 @@ class Database(QMainWindow):
         self.signOutButton.clicked.connect(self.signOut) #Go back to Sign-in
         self.deleteDatabaseButton.clicked.connect(self.deleteDatabase)
         # Assumes that everything is working properly in the Log-in side
-        self.API = CRUD();
+        self.API = apiCrud;
         self.readDatabase();
         
     def readDatabase(self):
@@ -38,8 +40,25 @@ class Database(QMainWindow):
         selectedDatabase = self.tableWidget.item(r,0).text();
         try:
             self.API.useDatabase(selectedDatabase);
+            with open("Data/database/databaseName.dat") as f:
+                f.write(selectedDatabase);
+            Widget.addWidget(CreateDatabase(self.API)) #2
+            # CRUD
+            Widget.addWidget(MainCrudWindow(self.API)); #3
+            Widget.addWidget(FilterTable(self.API)); #4
+            Widget.addWidget(GroupingTable(self.API)); #5
+            Widget.addWidget(ModifyTable(self.API)); #6
+            # TABLE
+            Widget.addWidget(NameTable(self.API)); #7
+            Widget.addWidget(TableMenu(self.API)); #8
+            Widget.addWidget(TableColumn(self.API)); #9
+            Widget.addWidget(ForeignKey(self.API)); #10
+            
+            
             Widget.setCurrentIndex(3)
-        except:
+            
+        except Exception:
+            print(traceback.format_exc())
             print("READING DATABASE ERROR: please report this problem")
         
     def deleteDatabase(self):
@@ -61,13 +80,13 @@ class Database(QMainWindow):
         msg.exec()
 #Create Database UI
 class CreateDatabase(QDialog):
-    def __init__(self):
+    def __init__(self, apiCrud):
         super(CreateDatabase, self).__init__()
         UIPATH = os.path.dirname(os.path.realpath(__file__)) + "\\CreateDatabase.ui" 
         self.ui = loadUi(UIPATH,self)
         self.okButton.clicked.connect(self.okButtonFunc) 
         self.cancelButton.clicked.connect(self.cancelButtonFunc)
-        self.API = CRUD();
+        self.API = apiCrud;
 
     def okButtonFunc(self): #rename kung ano yung name ng button
         self.pop_message(text="Database Successfully Created!") 

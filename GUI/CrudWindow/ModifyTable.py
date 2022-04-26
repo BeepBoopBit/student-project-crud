@@ -1,17 +1,24 @@
 import os
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import QDialog, QTableWidget, QTableWidgetItem
 from PyQt5.uic import loadUi
 from GUI.globalVariable import *
 
 class ModifyTable(QDialog):
-    def __init__(self):
+    def __init__(self, apiCrud):
         super(ModifyTable, self).__init__()
         UIPATH = os.path.dirname(os.path.realpath(__file__)) + "\\ModifyTable.ui" 
         self.ui = loadUi(UIPATH,self)
         self.MOKbutton.clicked.connect(self.gotoaddCRUD)
         self.MExitbutton.clicked.connect(self.gotocancelCRUD)
+        self.API = apiCrud;
 
+
+    def loadData(self, tableName):
+        
+        pass
+    
+    
     def pop_message(self,text=""):
         msg = QtWidgets.QMessageBox()
         msg.setText("{}".format(text))
