@@ -3,6 +3,41 @@ from GUI.globalVariable import *
 from GUI.DatabaseWindow.Database import *
 
 import traceback
+
+def truncateFiles():
+    colName = open("Data/createTable/columnName.dat", 'w')
+    command = open("Data/createTable/command.dat", 'w')
+    constraints = open("Data/createTable/constraints.dat", 'w')
+    fk = open("Data/createTable/fk.dat", 'w')
+    tableName = open("Data/createTable/tableName.dat", 'w')
+    typeName = open("Data/createTable/type.dat", 'w')
+    dbName = open("Data/database/databaseName.dat", 'w')
+    tName = open("Data/database/tableList.dat", 'w')
+    attList = open("Data/database/attributeList.dat", 'w')
+    attType = open("Data/database/attributeType.dat", 'w')
+    colName.truncate()
+    command.truncate()
+    constraints.truncate()
+    fk.truncate()
+    tableName.truncate()
+    typeName.truncate()
+    dbName.truncate()
+    tName.truncate()
+    attList.truncate()
+    attType.truncate()
+    colName.close()
+    command.close()
+    constraints.close()
+    fk.close()
+    tableName.close()
+    typeName.close()
+    dbName.close()
+    tName.close()
+    attList.close()
+    attType.close()
+
+truncateFiles();
+
 try:
     SignInWindow=SignIn()
     Widget.addWidget(SignInWindow)
@@ -12,18 +47,7 @@ try:
 except Exception:
     print(traceback.format_exc())
     
-colName = open("Data/createTable/columnName.dat", 'w')
-command = open("Data/createTable/command.dat", 'w')
-constraints = open("Data/createTable/constraints.dat", 'w')
-fk = open("Data/createTable/fk.dat", 'w')
-tableName = open("Data/createTable/tableName.dat", 'w')
-typeName = open("Data/createTable/type.dat", 'w')
 
-colName.truncate()
-command.truncate()
-constraints.truncate()
-fk.truncate()
-tableName.truncate()
-typeName.truncate()
+truncateFiles();
 
 app.exec()

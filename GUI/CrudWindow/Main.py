@@ -43,6 +43,8 @@ class MainCrudWindow(QDialog):
         else:
             count = 0
             for i in tableList:
+                with open("Data/database/tableList.dat", 'a') as f:
+                    f.writelines(i + '\n');
                 self.tabWidget.addTab(QTableWidget(), i)
                 self.tabWidget.setCurrentIndex(count)
                 headerCount = 0;
@@ -50,7 +52,10 @@ class MainCrudWindow(QDialog):
                 stuff = self.tabWidget.currentWidget().horizontalHeader();
                 stuff.setStretchLastSection(True);
                 isFirst = True;
+
+                attListFile = open("Data/database/attributeList.dat", 'a')
                 for j in tempAttributeList:
+                    attListFile.writelines(str(j[0]) + ' ')
                     colCount = self.tabWidget.currentWidget().columnCount()
                     self.tabWidget.currentWidget().insertColumn(colCount);
                     self.tabWidget.currentWidget().setHorizontalHeaderItem(headerCount,QTableWidgetItem(j[0]))
@@ -68,6 +73,7 @@ class MainCrudWindow(QDialog):
                             self.tabWidget.currentWidget().setItem(rowPosition,headerCount,QTableWidgetItem(dateTime))
                     isFirst = False;
                     headerCount += 1;
+                attListFile.writelines("\n")
                 count += 1
     
     def AddAttribute(self):
@@ -83,7 +89,7 @@ class MainCrudWindow(QDialog):
         pass
 
     def ModifyAttribute(self): #Modify Table is the class of modify ui
-        Widget.widget(6).loadData(self.tabWidget.tabText(self.tabWidget.currentIndex()))
+        Widget.widget(6).loadData(self.tabWidget.tabText(self.tabWidget.currentIndex()),self.tabWidget.currentIndex())
         Widget.setCurrentIndex(6)
         
 

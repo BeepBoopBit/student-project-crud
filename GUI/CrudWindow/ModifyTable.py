@@ -14,10 +14,18 @@ class ModifyTable(QDialog):
         self.API = apiCrud;
 
 
-    def loadData(self, tableName):
-        
-        pass
-    
+    def loadData(self, tableName, tabIndex):
+        attrFile = open("Data/database/attributeList.dat", 'r')
+        for i, attrValue in enumerate(attrFile):
+            if i == tabIndex:
+                attrValue = attrValue.split(' ')
+                typeList = self.API.getAttributeTypes(tableName);
+                for i in range(0,len(attrValue) - 1):
+                    rowPosition = self.tableWidget.rowCount();
+                    self.tableWidget.insertRow(rowPosition);
+                    self.tableWidget.setItem(rowPosition,0,QTableWidgetItem(str(attrValue[i])))
+                    self.tableWidget.setItem(rowPosition,1,QTableWidgetItem(str(typeList[i])))
+                break;
     
     def pop_message(self,text=""):
         msg = QtWidgets.QMessageBox()
@@ -31,4 +39,5 @@ class ModifyTable(QDialog):
 
     
     def gotocancelCRUD(self):
+        self.tableWidget.setRowCount(0)
         Widget.setCurrentIndex(3)

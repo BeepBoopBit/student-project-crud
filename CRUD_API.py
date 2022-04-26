@@ -75,10 +75,11 @@ class CRUD:
         otherValue = self.tb.fetchAllValue();
         return temp;
     
-    def getDescribeAttributeList(self, tableName):
-        temp = self.tb.getDescribeAttributeList(tableName);
+    def getAttributeTypes(self, tableName):
+        temp = self.tb.getAttributeTypes(tableName);
         otherValue = self.tb.fetchAllValue();
         return temp;
+    
     
     # Select
     def getAllData(self, tbName):

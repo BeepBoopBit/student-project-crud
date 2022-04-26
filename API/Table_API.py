@@ -71,9 +71,11 @@ class Table_API:
         self.cursor.execute(f"SELECT * FROM {tableName};")
         return self.cursor.description;
     
-    def getDescribeAttributeList(self, tableName):
-        self.cursor.execute(f"DESCRIBE {tableName};")
-        return self.cursor.description;
+    def getAttributeTypes(self, tableName):
+        databaseName = open("Data/database/databaseName.dat").read()
+        str = f"SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE table_schema = '{databaseName}' and table_name = '{tableName}'"
+        self.cursor.execute(str)
+        return self.__formatValue();
 
     # Inserting
     def insertValue(self, tbName, value):
