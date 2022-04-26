@@ -4,21 +4,26 @@ from tkinter import Widget
 from GUI.globalVariable import *
 from PyQt5.QtWidgets import QTableWidgetItem
 
+# Naming a new table Window
 
-class NameTable(QtWidgets.QDialog): # Create Table Window
+class NameTable(QtWidgets.QDialog): 
     def __init__(self, apiCrud):
         super().__init__()
         UIPATH = os.path.dirname(os.path.realpath(__file__)) + "\\CreateTable.ui"
         uic.loadUi(UIPATH, self)
-        self.TOK.clicked.connect(self.TableMenuFunction)
-        self.TCancel.clicked.connect(self.tableCancel)
+        self.TOK.clicked.connect(self.TableMenuFunction)        # Table Menu Button ->  #8
+        self.TCancel.clicked.connect(self.tableCancel)          # Cancel Button     ->  #3
         self.API = apiCrud;
+
+    # PopUp Message Setup
 
     def pop_message(self,text=""):
         msg = QtWidgets.QMessageBox()
         msg.setText("{}".format(text))
         msg.exec_()        
         
+    # Setup table
+
     def TableMenuFunction(self):
         self.pop_message(text="Table Succesfully Created!") 
         with open("Data/createTable/tableName.dat", "w") as f:
@@ -29,32 +34,37 @@ class NameTable(QtWidgets.QDialog): # Create Table Window
     def tableCancel(self):
         Widget.setCurrentIndex(3)
 
-##################################################################
+# Table Menu Window
 
-class TableMenu(QtWidgets.QDialog): # Table Menu Window
+class TableMenu(QtWidgets.QDialog):
     def __init__(self, apiCrud):
         super().__init__()
         UIPATH = os.path.dirname(os.path.realpath(__file__)) + "\\CreateTableMenu.ui"
         uic.loadUi(UIPATH, self)
-        self.AddColumn.clicked.connect(self.tableColumnFunction)
-        self.Exit.clicked.connect(self.tableExit)
-        self.Submit.clicked.connect(self.submitTable)
-        self.Delete.clicked.connect(self.deleteAttribute);
+        self.AddColumn.clicked.connect(self.tableColumnFunction)        # Setup Column  ->  #9
+        self.Exit.clicked.connect(self.tableExit)                       # Exit          ->  #3 | Close
+        self.Submit.clicked.connect(self.submitTable)                   # Submit        ->  #3 | Truncate
+        self.Delete.clicked.connect(self.deleteAttribute);              # Delete Column ->  pass
         stuff = self.tableWidget.horizontalHeader();
         stuff.setStretchLastSection(True);
         
-        
         self.API = apiCrud;
         self.show()
+
+    # Delete Attribute
 
     def deleteAttribute(self):
         r = self.tableWidget.currentRow()
         self.tableWidget.removeRow(r)
         pass
 
+    # Read table
+
     def readTable(self):
         with open("Data/createTable/tableName.dat", "r") as f:
             self.table_name.setText(f.readline())
+
+    # Read attribute data
 
     def readAttributeData(self):
         colPos = 0
@@ -83,9 +93,13 @@ class TableMenu(QtWidgets.QDialog): # Table Menu Window
         fkFile.truncate(0);
         constraintFile.close();
         fkFile.close();
+
+    # Switch Table Column
             
     def tableColumnFunction(self):
         Widget.setCurrentIndex(9)
+
+    # Return Exit   ->  #3
 
     def tableExit(self):
         colName = open("Data/createTable/columnName.dat", "w")
@@ -115,6 +129,8 @@ class TableMenu(QtWidgets.QDialog): # Table Menu Window
         
         Widget.setCurrentIndex(3)
 
+    # Add table to CRUD   ->  #3
+
     def submitTable(self):
         colName = open("Data/createTable/columnName.dat", "w")
         constraints = open("Data/createTable/constraints.dat", "w")
@@ -135,9 +151,12 @@ class TableMenu(QtWidgets.QDialog): # Table Menu Window
         Widget.widget(3).loadData()
         Widget.setCurrentIndex(3)
 
-##################################################################
+# Table Column Window
 
-class TableColumn(QtWidgets.QDialog): # Add Column Window
+class TableColumn(QtWidgets.QDialog):
+
+    # PopUp Message Setup
+    
     def pop_message(self,text=""):
         msg = QtWidgets.QMessageBox()
         msg.setText("{}".format(text))
@@ -147,9 +166,11 @@ class TableColumn(QtWidgets.QDialog): # Add Column Window
         super().__init__()
         UIPATH = os.path.dirname(os.path.realpath(__file__)) + "\\CreateTable_ColProperties.ui"
         uic.loadUi(UIPATH, self)
-        self.COK.clicked.connect(self.okButton)
-        self.CCancel.clicked.connect(self.cancelFunction)
+        self.COK.clicked.connect(self.okButton)                 # OK Button         ->  #8 / #10
+        self.CCancel.clicked.connect(self.cancelFunction)       # Cancel Button     ->  #8
         self.API = apiCrud;
+
+    # OK Button / Condition 
 
     def okButton(self):
         consFile = open("Data/createTable/constraints.dat", 'a')
@@ -169,21 +190,30 @@ class TableColumn(QtWidgets.QDialog): # Add Column Window
 
         pass
 
+    # Foreign Key Window
+
     def foreignKeyFunction(self):
         Widget.setCurrentIndex(10)
-        
+
+    # Cancel Button
+
     def cancelFunction(self):
         Widget.setCurrentIndex(8)
         
+    # Save data
+
     def saveData(self):
         with open("Data/createTable/columnName.dat", "w") as f:
             f.write(self.column_input.toPlainText())
         with open("Data/createTable/type.dat","w") as f:
             f.write(self.type_input.toPlainText())
             
-##################################################################
+# Add Foreign Key Window
 
-class ForeignKey(QtWidgets.QDialog): # Add Foreign Key Window // IF NAKA TICK YUNG FOREIGN KEY
+class ForeignKey(QtWidgets.QDialog): 
+
+    #PopUp Message Setup
+
     def pop_message(self,text=""):
         msg = QtWidgets.QMessageBox()
         msg.setText("{}".format(text))
@@ -193,9 +223,11 @@ class ForeignKey(QtWidgets.QDialog): # Add Foreign Key Window // IF NAKA TICK YU
         super().__init__()
         UIPATH = os.path.dirname(os.path.realpath(__file__)) + "\\CreateTable_FK.ui"
         uic.loadUi(UIPATH, self)
-        self.FKOK.clicked.connect(self.OKFunction)
-        self.FKCancel.clicked.connect(self.CancelFunction)
+        self.FKOK.clicked.connect(self.OKFunction)                  # OK Button         ->  #8        
+        self.FKCancel.clicked.connect(self.CancelFunction)          # Cancel Button     ->  #8
         self.API = apiCrud;
+
+    # OK Button
 
     def OKFunction(self):
         with open("Data/createTable/fk.dat", "w") as f:
@@ -205,8 +237,8 @@ class ForeignKey(QtWidgets.QDialog): # Add Foreign Key Window // IF NAKA TICK YU
         Widget.widget(8).readAttributeData();
         Widget.setCurrentIndex(8)
             
-
+    # Cancel Button 
+    
     def CancelFunction(self):
         Widget.setCurrentIndex(8)
 
-##################################################################

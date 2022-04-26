@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QDialog
 from PyQt5.uic import loadUi
 from GUI.globalVariable import *
 
-#Filter Window Class
+# Filter Window Class
 
 class FilterTable(QDialog): 
     def __init__(self, apiCrud):
@@ -15,6 +15,7 @@ class FilterTable(QDialog):
         self.FExitbutton.clicked.connect(self.gotocancelCRUD)
         self.API = apiCrud;
         
+    # PopUp Message Setup
 
     def pop_message(self,text=""):
         msg = QtWidgets.QMessageBox()
@@ -24,11 +25,11 @@ class FilterTable(QDialog):
 ## Functions of the Buttons // Both will Go Back to the Main Crud Window 
 
     def gotoaddCRUD(self):
-        self.pop_message("Process Success!") #Di ko na-try kasi di pa merge sa gawa ni JC
+        self.pop_message("Process Success!") # Di ko na-try kasi di pa merge sa gawa ni JC
         Widget.setCurrentIndex(3)
 
     
     def gotocancelCRUD(self):
-        self.pop_message("Process Failure!") #Di ko na-try kasi di pa merge sa gawa ni JC
+        self.pop_message("Process Failure!") # Di ko na-try kasi di pa merge sa gawa ni JC
         Widget.setCurrentIndex(3)
 

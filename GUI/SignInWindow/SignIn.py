@@ -14,7 +14,8 @@ from GUI.CrudWindow.FilterTable import *
 from GUI.CrudWindow.Grouping import *
 from GUI.CrudWindow.ModifyTable import *
 
-# SignIn Process of the Program
+# SignIn Class
+
 class SignIn(QDialog):
     switch_window = QtCore.pyqtSignal()
     def __init__(self):
@@ -24,25 +25,34 @@ class SignIn(QDialog):
         self.SignInbutton.clicked.connect(self.SignInfunction)
         self.API = CRUD();
 
-    def pop_message(self, text=""):
+    # PopUp message set-up
+
+    def pop_message(self, text=""): 
         msg = QtWidgets.QMessageBox()
         msg.setText("{}".format(text))
         msg.exec_()
 
-    def SignInfunction(self):
+    # SignIn Process
+
+    def SignInfunction(self): 
         if self.checkConnection(self.userName.text(), self.userPassword.text()):
             self.pop_message(text="Login Succesfully, Welcome!")
-            # Exporting Data
+
+            # Exporting Data.csv
+
             with open(os.path.dirname(os.path.realpath(__file__)) + "\\..\\..\\Data\\user\\login.csv", 'w') as f:
                 writer = csv.writer(f)
                 writer.writerow(
                     [self.userName.text(), self.userPassword.text()])
-            # Sign-in #0
-            #Database
-            Widget.addWidget(Database(self.API)) #1
+
+            #Switch Database -> #1
+
+            Widget.addWidget(Database(self.API))
             Widget.setCurrentIndex(1)
         else:
             self.pop_message("Login Failed, Please Try Again")
+
+    # Checking connection mysql
 
     def checkConnection(self, name, passw):
         try:

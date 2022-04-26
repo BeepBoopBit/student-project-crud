@@ -13,12 +13,13 @@ class ModifyTable(QDialog):
         self.MExitbutton.clicked.connect(self.gotocancelCRUD)
         self.API = apiCrud;
 
+    # Load Data
 
     def loadData(self, tableName):
-        
         pass
     
-    
+    # PopUp Message Setup
+
     def pop_message(self,text=""):
         msg = QtWidgets.QMessageBox()
         msg.setText("{}".format(text))
@@ -28,7 +29,6 @@ class ModifyTable(QDialog):
 
     def gotoaddCRUD(self):
         Widget.setCurrentIndex(3)
-
     
     def gotocancelCRUD(self):
         Widget.setCurrentIndex(3)

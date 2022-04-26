@@ -13,6 +13,8 @@ class GroupingTable(QDialog):
         self.GExitbutton.clicked.connect(self.gotocancelCRUD)
         self.API = apiCrud;
 
+        # PopUp Message Setup
+
     def pop_message(self,text=""):
         msg = QtWidgets.QMessageBox()
         msg.setText("{}".format(text))

@@ -8,6 +8,8 @@ from CRUD_API import *
 from datetime import datetime
 class MainCrudWindow(QDialog):
 
+    # PopUp Message Setup
+
     def pop_message(self, text=""):
         msg = QtWidgets.QMessageBox()
         msg.setText("{}".format(text))
@@ -19,18 +21,18 @@ class MainCrudWindow(QDialog):
         self.ui = loadUi(UIPATH, self)
         self.API = apiCrud;
 
-        self.MAddButton.clicked.connect(self.AddAttribute)
-        self.MGroupButton.clicked.connect(self.GroupAttribute)
-        self.MFitlerButton.clicked.connect(self.FilterAttribute)
-        self.MSearchButton.clicked.connect(self.SearchAttribute)
-        self.MModifyButton.clicked.connect(self.ModifyAttribute)
-        self.MCreateButton.clicked.connect(self.CreateAttribute)
-        self.MDeleteButton.clicked.connect(self.DeleteAttribute)
-        self.MChangeButton.clicked.connect(self.ChangeAttribute)
-        self.MSignOutButton.clicked.connect(self.SignOutAttribute)
-
+        self.MSignOutButton.clicked.connect(self.SignOutAttribute)           # SignOut  ->  #0
+        self.MChangeButton.clicked.connect(self.ChangeAttribute)             # Change   ->  #1
+        self.MSearchButton.clicked.connect(self.SearchAttribute)             # Search   ->  pass
+        self.MFitlerButton.clicked.connect(self.FilterAttribute)             # Filter   ->  #4
+        self.MGroupButton.clicked.connect(self.GroupAttribute)               # Group    ->  #5
+        self.MModifyButton.clicked.connect(self.ModifyAttribute)             # Modify   ->  #6
+        self.MCreateButton.clicked.connect(self.CreateAttribute)             # Create   ->  #7
+        self.MAddButton.clicked.connect(self.AddAttribute)                   # Add      ->  pass
+        self.MDeleteButton.clicked.connect(self.DeleteAttribute)             # Delete   ->  pass
         self.loadData();
-        # Load the data
+
+    # Load the data
 
     def loadData(self):
         
@@ -70,26 +72,26 @@ class MainCrudWindow(QDialog):
                     headerCount += 1;
                 count += 1
     
+    # Attribute Functions
+
     def AddAttribute(self):
         pass
 
-    def GroupAttribute(self): #Grouping table is the class of group ui
+    def GroupAttribute(self): # Grouping table is the class of group ui
         Widget.setCurrentIndex(5)
 
-    def FilterAttribute(self): #Filter table is the class of filter ui
+    def FilterAttribute(self): # Filter table is the class of filter ui
         Widget.setCurrentIndex(4)
         
     def SearchAttribute(self):
         pass
 
-    def ModifyAttribute(self): #Modify Table is the class of modify ui
+    def ModifyAttribute(self): # Modify Table is the class of modify ui
         Widget.widget(6).loadData(self.tabWidget.tabText(self.tabWidget.currentIndex()))
         Widget.setCurrentIndex(6)
         
-
-    def CreateAttribute(self): #Create Table is the class of create ui
+    def CreateAttribute(self): # Create Table is the class of create ui
         Widget.setCurrentIndex(7);
-        
 
     def DeleteAttribute(self):
         pass
@@ -97,8 +99,7 @@ class MainCrudWindow(QDialog):
     def ChangeAttribute(self):
         Widget.setCurrentIndex(1)
 
-
-    def SignOutAttribute(self): #Sign out is the class of sign out ui
+    def SignOutAttribute(self): # Sign out is the class of sign out ui
         Widget.setCurrentIndex(0)
 
 
