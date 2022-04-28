@@ -168,6 +168,8 @@ class MainCrudWindow(QDialog):
             # If it's a string, then add ' to it
             else:
                 listStr += " ' " + textWidgetValue + " ' ";
+            
+            # Set the item at the specific row and column
             self.__setItemAt(currentRow, i, textWidgetValue)
             listStr += ','
             
