@@ -136,7 +136,6 @@ class TableMenu(QtWidgets.QDialog):
         Widget.setCurrentIndex(3)
 
     # Add table to CRUD   ->  #3
-
     def submitTable(self):
         
         # Remove all the contents of the file
@@ -172,7 +171,10 @@ class TableMenu(QtWidgets.QDialog):
         tableName.truncate()
         tableName.close()
         
-        Widget.widget(3).loadData()
+        # Expensive operation for just adding a table
+        #Widget.widget(3).loadData()
+        
+        Widget.widget(3).loadNewTable(self.table_name.text())
         Widget.setCurrentIndex(3)
 
 # Table Column Window
@@ -194,7 +196,8 @@ class TableColumn(QtWidgets.QDialog):
     # OK Button / Condition 
 
     def okButton(self):
-        consFile = open("Data/createTable/constraints.dat", 'a')
+        consFile = open("Data/createTable/constraints.dat", 'r+')
+        consFile.truncate();
         
         # Write the appropriate value to what is check in the window
         if self.primary_key.isChecked():
@@ -211,6 +214,11 @@ class TableColumn(QtWidgets.QDialog):
         else:
             Widget.setCurrentIndex(7)
             
+        self.primary_key.setCheckState(False);
+        self.not_null.setCheckState(False);
+        self.unique.setCheckState(False);
+        self.foreign_key.setCheckState(False);
+        
         # Save the data
         self.saveData();
         Widget.widget(7).readAttributeData();

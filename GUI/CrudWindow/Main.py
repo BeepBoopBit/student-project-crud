@@ -109,7 +109,24 @@ class MainCrudWindow(QDialog):
             
             count += 1
 
-    
+    def loadNewTable(self, tableName):
+        # Add a Table Table to the current Tab
+        self.tabWidget.addTab(QTableWidget(), tableName)
+        
+        # Connect the New Table in the Tab to the function SaveChange when a certain item is Changed
+        self.tabWidget.currentWidget().itemChanged.connect(self.saveChanged);
+        
+        # Set the current tab to the last Tab
+        self.tabWidget.setCurrentIndex(self.tabWidget.count())
+        
+        attList = self.API.getAttributeList(tableName);
+        headerPosition = 0
+        for i in attList:
+            # Insert a column in the Table
+            self.__insertColumn()
+            self.__setHorizontalItemAt(headerPosition, i[0]);
+            headerPosition += 1;
+        
     def addAttributeForm(self, tableIndex):
         # Open the Attribute List Fiel
         attListFile = open("Data/database/attributeList.dat", 'r')
