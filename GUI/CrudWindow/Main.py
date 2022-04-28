@@ -5,7 +5,10 @@ from PyQt5.QtWidgets import QDialog, QTableWidget, QTableWidgetItem, QLabel, QLi
 from PyQt5.uic import loadUi
 from GUI.globalVariable import *
 from CRUD_API import *
-from datetime import datetime
+
+# TODO: Implement Search Functionality
+# TODO: Implement Sort Functionality
+
 class MainCrudWindow(QDialog):
 
 
@@ -94,7 +97,7 @@ class MainCrudWindow(QDialog):
                     self.__setHorizontalItemAt(headerCount, attributeName[0])
                     
                     # Load The data into the Table
-                    self.__loadGetData(tableName, attributeName, headerCount, isFirst)
+                    self.__loadAttributeData(tableName, attributeName, headerCount, isFirst)
     
                     isFirst = False;
                     headerCount += 1;
@@ -147,7 +150,6 @@ class MainCrudWindow(QDialog):
 
     def addButtonPush(self):
         
-        
         # Initial Variables
         listStr = ""
         headerCount = self.tabWidget.currentWidget().columnCount()
@@ -179,13 +181,6 @@ class MainCrudWindow(QDialog):
         except:
             pop_message("ERROR: Input Error");
             self.tabWidget.currentWidget().removeRow(currentRow)
-        
-        # Old Code
-        #startingStr =  f"INSERT INTO {self.tabWidget.tabText(self.tabWidget.currentIndex())} VALUES({listStr.rstrip(',')})"
-        #self.API.executeCommand(startingStr)
-        
-        # Change this to only update the new value not all
-        #self.loadData();
                 
     def tabChanged(self, item):
         self.stackWidget.setCurrentIndex(item);    
@@ -201,26 +196,23 @@ UPDATE {self.tabWidget.tabText(self.tabWidget.currentIndex())} SET {self.tabWidg
                 """)
             except:
                 print("Some thing Happen in SaveChanged)")
-    
-    def AddAttribute(self):
-        pass
 
-    def GroupAttribute(self): #Grouping table is the class of group ui
+    def GroupAttribute(self):
         Widget.widget(4).loadData(self.tabWidget.tabText(self.tabWidget.currentIndex()))
         Widget.setCurrentIndex(4)
 
-    def FilterAttribute(self): # Filter table is the class of filter ui
+    def FilterAttribute(self):
         Widget.setCurrentIndex(4)
         
     def SearchAttribute(self):
         pass
 
-    def ModifyAttribute(self): #Modify Table is the class of modify ui
+    def ModifyAttribute(self):
         Widget.widget(5).loadData(self.tabWidget.tabText(self.tabWidget.currentIndex()),self.tabWidget.currentIndex())
         Widget.setCurrentIndex(5)
         
 
-    def CreateAttribute(self): #Create Table is the class of create ui
+    def CreateAttribute(self): 
         Widget.setCurrentIndex(6);
         
 
@@ -237,11 +229,11 @@ UPDATE {self.tabWidget.tabText(self.tabWidget.currentIndex())} SET {self.tabWidg
                     self.API.changeData(line);
         self.loadData();
 
-    def SignOutAttribute(self): #Sign out is the class of sign out ui
+    def SignOutAttribute(self):
         Widget.setCurrentIndex(0)
 
     # Private
-    def __loadGetData(self,  tableName, attributeName, headerPosition, isFirst):
+    def __loadAttributeData(self,  tableName, attributeName, headerPosition, isFirst):
         rowPosition = -1;
         for data in self.API.getDataFrom(tableName, attributeName[0]):
             if isFirst:
