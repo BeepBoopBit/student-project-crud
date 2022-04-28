@@ -110,8 +110,11 @@ class CRUD:
         otherValue = self.tb.fetchAllValue();
         return temp;
     
-    def getDataGroupedBy(self, tbName, condition, conditionGroup):
+    def getDataGroupedByCondition(self, tbName, condition, conditionGroup):
         return self.sl.getDataGroupedBy(  tbName, condition, conditionGroup);
+    
+    def getDataGroupedBy(self, tbName, conditionGroup):
+        return self.sl.getDataGroupedBy(tbName, conditionGroup);
     
     def getDataSortedBy(self, tbName, condition, conditionSort):
         return self.sl.getDataSortedBy(tbName, condition, conditionSort);
