@@ -5,57 +5,80 @@ from GUI.DatabaseWindow.Database import *
 import traceback
 
 def truncateFiles():
-    colName = open("Data/createTable/columnName.dat", 'w')
-    command = open("Data/createTable/command.dat", 'w')
-    constraints = open("Data/createTable/constraints.dat", 'w')
-    fk = open("Data/createTable/fk.dat", 'w')
-    tableName = open("Data/createTable/tableName.dat", 'w')
-    typeName = open("Data/createTable/type.dat", 'w')
-    dbName = open("Data/database/databaseName.dat", 'w')
-    tName = open("Data/database/tableList.dat", 'w')
-    attList = open("Data/database/attributeList.dat", 'w')
-    attType = open("Data/database/attributeType.dat", 'w')
-    selectCommand = open("Data/database/selectCommand.dat", 'w')
-    indexChange = open("Data/database/indexChange.dat", 'w')
+    
     alterFile = open("Data/database/alterCommand.dat", 'w')
-    colName.truncate()
-    command.truncate()
-    constraints.truncate()
-    fk.truncate()
-    tableName.truncate()
-    typeName.truncate()
-    dbName.truncate()
-    tName.truncate()
-    attList.truncate()
-    attType.truncate()
-    selectCommand.truncate()
-    indexChange.truncate()
     alterFile.truncate()
-    colName.close()
-    command.close()
-    constraints.close()
-    fk.close()
-    tableName.close()
-    typeName.close()
-    dbName.close()
-    tName.close()
-    attList.close()
-    attType.close()
-    selectCommand.close()
-    indexChange.close()
     alterFile.close()
+    
+    attListFile = open("Data/database/attributeList.dat", 'w')
+    attListFile.truncate()
+    attListFile.close()
+    
+    attTypeFile = open("Data/database/attributeType.dat", 'w')
+    attTypeFile.truncate()
+    attTypeFile.close()
+
+    colName = open("Data/createTable/columnName.dat", 'w')
+    colName.truncate()
+    colName.close()
+    
+    command = open("Data/createTable/command.dat", 'w')
+    command.truncate()
+    command.close()
+    
+    constraints = open("Data/createTable/constraints.dat", 'w')
+    constraints.truncate()
+    constraints.close()
+
+    dbName = open("Data/database/databaseName.dat", 'w')
+    dbName.truncate()
+    dbName.close()
+
+    fkFile = open("Data/createTable/fk.dat", 'w')
+    fkFile.truncate()
+    fkFile.close()
+    
+    indexChange = open("Data/database/indexChange.dat", 'w')
+    indexChange.truncate()
+    indexChange.close()
+    
+    loginFile = open("Data/user/login.dat", 'w')
+    loginFile.truncate();
+    loginFile.close();
+    
+    selectCommand = open("Data/database/selectCommand.dat", 'w')
+    selectCommand.truncate()
+    selectCommand.close()
+    
+    tableName = open("Data/createTable/tableName.dat", 'w')
+    tableName.truncate()
+    tableName.close()
+    
+    typeName = open("Data/createTable/type.dat", 'w')
+    typeName.truncate()
+    typeName.close()
+    
+    tName = open("Data/database/tableList.dat", 'w')
+    tName.truncate()
+    tName.close()
+    
+# Make sure that the files doesn't have any value inside before proceeding
 truncateFiles();
 
 try:
+    # Create an Instance of the SignIn Class
     SignInWindow=SignIn()
+    
+    # Add the instance to the global variable Widget
     Widget.addWidget(SignInWindow)
+
+    # Set the Dimensions
     Widget.setFixedWidth(1100)
     Widget.setFixedHeight(650)
+
+    # Show the Widget
     Widget.show()
 except Exception:
     print(traceback.format_exc())
-    
-
-truncateFiles();
 
 app.exec()
