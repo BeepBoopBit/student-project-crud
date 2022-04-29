@@ -1,67 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>SearchWindow</class>
+ <widget class="QDialog" name="SearchWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>700</width>
-    <height>455</height>
+    <width>740</width>
+    <height>441</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>700</width>
-    <height>455</height>
+    <width>740</width>
+    <height>441</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>700</width>
-    <height>455</height>
+    <width>740</width>
+    <height>441</height>
    </size>
   </property>
-  <property name="windowTitle">
-   <string>Search</string>
+  <property name="mouseTracking">
+   <bool>true</bool>
   </property>
-  <widget class="QLabel" name="headerTitle">
+  <property name="windowTitle">
+   <string>SearchWindow</string>
+  </property>
+  <widget class="QTableWidget" name="SearchResult">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>30</y>
-     <width>181</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">text-align: center;
-font: 75 22pt &quot;MS Shell Dlg 2&quot;;
-color: black;
-</string>
-   </property>
-   <property name="text">
-    <string>Search</string>
-   </property>
-  </widget>
-  <widget class="QTableWidget" name="SETable">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>100</y>
-     <width>341</width>
-     <height>321</height>
+     <x>60</x>
+     <y>50</y>
+     <width>611</width>
+     <height>151</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true"/>
    </property>
   </widget>
-  <widget class="QPushButton" name="SEAddAttribute">
+  <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>500</x>
-     <y>70</y>
+     <x>60</x>
+     <y>200</y>
+     <width>181</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">text-align: center;
+font: 75 12pt &quot;MS Shell Dlg 2&quot;;
+color: black;
+</string>
+   </property>
+   <property name="text">
+    <string>Search by</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="SearchAdd">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>210</y>
      <width>21</width>
      <height>23</height>
     </rect>
@@ -74,45 +77,30 @@ color: black;
      <normaloff>Code/Downloads/plus.png</normaloff>Code/Downloads/plus.png</iconset>
    </property>
   </widget>
-  <widget class="QScrollArea" name="GBAttributeScroll">
+  <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
-     <x>420</x>
-     <y>100</y>
-     <width>231</width>
-     <height>241</height>
+     <x>60</x>
+     <y>10</y>
+     <width>181</width>
+     <height>41</height>
     </rect>
    </property>
-   <property name="widgetResizable">
-    <bool>true</bool>
+   <property name="styleSheet">
+    <string notr="true">text-align: center;
+font: 75 12pt &quot;MS Shell Dlg 2&quot;;
+color: black;
+</string>
    </property>
-   <widget class="QWidget" name="scrollAreaWidgetContents_2">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>229</width>
-      <height>239</height>
-     </rect>
-    </property>
-    <widget class="QWidget" name="formLayoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>231</width>
-       <height>241</height>
-      </rect>
-     </property>
-     <layout class="QFormLayout" name="formLayout"/>
-    </widget>
-   </widget>
+   <property name="text">
+    <string>Result</string>
+   </property>
   </widget>
   <widget class="QWidget" name="horizontalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>460</x>
-     <y>360</y>
+     <x>500</x>
+     <y>400</y>
      <width>171</width>
      <height>31</height>
     </rect>
@@ -140,34 +128,104 @@ color: black;
     </item>
    </layout>
   </widget>
-  <widget class="QLabel" name="label_3">
+  <widget class="QScrollArea" name="GBAttributeScroll">
    <property name="geometry">
     <rect>
-     <x>420</x>
-     <y>60</y>
-     <width>361</width>
-     <height>41</height>
+     <x>60</x>
+     <y>240</y>
+     <width>611</width>
+     <height>151</height>
     </rect>
    </property>
-   <property name="styleSheet">
-    <string notr="true">text-align: center;
-font: 75 12pt &quot;MS Shell Dlg 2&quot;;
-color: black;
-</string>
+   <property name="widgetResizable">
+    <bool>true</bool>
    </property>
-   <property name="text">
-    <string>Group by</string>
-   </property>
+   <widget class="QWidget" name="scrollAreaWidgetContents_3">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>609</width>
+      <height>149</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
-  <widget class="QTextBrowser" name="SearchBar">
+  <widget class="QWidget" name="formLayoutWidget_2">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>70</y>
-     <width>341</width>
-     <height>21</height>
+     <x>60</x>
+     <y>240</y>
+     <width>611</width>
+     <height>151</height>
     </rect>
    </property>
+   <layout class="QFormLayout" name="formLayout_2"/>
+  </widget>
+  <widget class="QComboBox" name="SEOperation">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>210</y>
+     <width>141</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>=</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>&lt;=</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>&gt;=</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>&lt;</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>&gt;</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>!=</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="SEOperation_2">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>210</y>
+     <width>141</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>NULL</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>AND</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>OR</string>
+    </property>
+   </item>
   </widget>
  </widget>
  <resources/>

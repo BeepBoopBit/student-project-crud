@@ -7,7 +7,7 @@ from GUI.globalVariable import *
 from CRUD_API import *
 
 # TODO: Implement Search Functionality
-# TODO: Implement Sort Functionality
+# TODO: Create Row
 
 class MainCrudWindow(QDialog):
 
@@ -31,6 +31,8 @@ class MainCrudWindow(QDialog):
         self.MChangeButton.clicked.connect(self.ChangeAttribute)
         self.MSignOutButton.clicked.connect(self.SignOutAttribute)
         self.tabWidget.currentChanged.connect(self.tabChanged);
+        self.MSearchButton.clicked.connect(self.searchFunction);
+        self.MDeleteRow.clicked.connect(self.deleteRowFunction);
         
         # Some Variables
         self.tb_name = ["" , 0]
@@ -131,7 +133,23 @@ class MainCrudWindow(QDialog):
             self.__insertColumn()
             self.__setHorizontalItemAt(headerPosition, i[0]);
             headerPosition += 1;
-        
+    
+    def deleteRowFunction(self):
+        rowCount = self.tabWidget.currentWidget().currentRow()
+        tempWidgetText = self.tabWidget.currentWidget().item(rowCount,0).text();
+        if isinstance(tempWidgetText, int):
+            pass;
+        else:
+            tempWidgetText = "'" + tempWidgetText + "'"
+        self.API.deleteItem(self.tb_name[0], self.tabWidget.currentWidget().horizontalHeaderItem(0).text(), tempWidgetText);
+        self.tabWidget.currentWidget().removeRow(rowCount);
+        pass
+    
+    def searchFunction(self):
+        Widget.widget(13).loadData(self.tabWidget.tabText(self.tabWidget.currentIndex()));
+        Widget.setCurrentIndex(13);
+        pass
+    
     def addAttributeForm(self, tableIndex):
         # Open the Attribute List Fiel
         attListFile = open("Data/database/attributeList.dat", 'r')
@@ -247,9 +265,10 @@ UPDATE {self.tabWidget.tabText(self.tabWidget.currentIndex())} SET {self.tabWidg
     def DeleteAttribute(self):
         try:
             self.API.dropTable(self.tb_name[0])
+            self.tabWidget.removeTab(self.tb_name[1]);
         except:
             pop_message("Cannot Drop, Sometable depends on it")            
-        self.tabWidget.removeTab(self.tb_name[1]);        
+                
         
 
     def ChangeAttribute(self):
