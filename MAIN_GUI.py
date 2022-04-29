@@ -62,16 +62,19 @@ def truncateFiles():
     tName.truncate()
     tName.close()
     
-# Make sure that the files doesn't have any value inside before proceeding
-truncateFiles();
+
 
 if __name__ == "__main__":
+    
+    # Make sure that the files doesn't have any value inside before proceeding
+    truncateFiles();
+    
     try:
         # Create an Instance of the SignIn Class
         SignInWindow=SignIn()
         
         # Add the instance to the global variable Widget
-        Widget.addWidget(SignInWindow)
+        Widget.addWidget(SignInWindow) # 1
     
         # Set the Dimensions
         Widget.setFixedWidth(1100)

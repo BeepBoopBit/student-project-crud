@@ -9,6 +9,7 @@ from GUI.CrudWindow.Table.MainTable.TableWindow import *
 from GUI.CrudWindow.Grouping.Grouping import *
 from GUI.CrudWindow.Table.ModifyTable.ModifyTable import *
 from GUI.CrudWindow.Sort.Sort import * 
+from GUI.CrudWindow.Search.Search import *
 import traceback
 
 # Database Class
@@ -76,6 +77,8 @@ class Database(QMainWindow):
             
             Widget.addWidget(SortTable(self.API)) # 11
             Widget.addWidget(SortSelectAddAttribute(self.API)) # 12
+            Widget.addWidget(SearchingTable(self.API)) # 13
+            Widget.addWidget(SearchAddAttribute(self.API)) # 14
             
             Widget.setCurrentIndex(3)
             
@@ -103,7 +106,6 @@ class Database(QMainWindow):
     # Create Database 
     def createDatabase(self): 
         Widget.setCurrentIndex(2)
-        pass
     
     # Signout 
 

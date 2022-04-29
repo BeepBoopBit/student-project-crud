@@ -110,6 +110,17 @@ class CRUD:
         otherValue = self.tb.fetchAllValue();
         return temp;
     
+    def getSpecificData(self, tbName, attName, operation, condition):
+        temp = self.sl.getSpecificData(tbName, attName, operation, condition);
+        otherValue = self.tb.fetchAllValue();
+        return temp;
+    
+    def getDataCommand(self, tbName, command):
+        temp = self.sl.getDataCommand(tbName, command);
+        otherValue = self.tb.fetchAllValue();
+        return temp;
+        
+    
     def getDataGroupedByCondition(self, tbName, condition, conditionGroup):
         return self.sl.getDataGroupedBy(  tbName, condition, conditionGroup);
     

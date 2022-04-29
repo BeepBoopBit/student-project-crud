@@ -20,6 +20,14 @@ class Select_API:
         self.cursor.execute(f"SELECT {columnName} FROM {tbName};")
         return self.__formatValue();
     
+    def getSpecificData(self, tbName, attName, operation, condition):
+        self.cursor.execute(f"SELECT * FROM {tbName} WHERE {attName} {operation} {condition}")
+        return self.__formatValue();
+    
+    def getDataCommand(self, tbName, command):
+        self.cursor.execute(f"SELECT * FROM {tbName} WHERE {command}")
+        return self.__formatValue();
+    
     def getDataGroupedByCondition(self, tbName, condition, conditionGroup):
         self.cursor.execute(f"SELECT * FROM {tbName} WHERE {condition} GROUP BY {conditionGroup};");
         return self.__formatValue();
