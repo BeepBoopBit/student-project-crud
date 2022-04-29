@@ -30,6 +30,8 @@ a = Analysis(
             ('C:\\Users\\wcbre\\Documents\\MAPUA\\Q3\\IT131L\\CRUD-PROJECT\\GUI\\CrudWindow\\Main.ui', 'GUI\\CrudWindow'),
             ('C:\\Users\\wcbre\\Documents\\MAPUA\\Q3\\IT131L\\CRUD-PROJECT\\GUI\\CrudWindow\\Grouping\\Grouping.ui', 'GUI\\CrudWindow\\Grouping'),
             ('C:\\Users\\wcbre\\Documents\\MAPUA\\Q3\\IT131L\\CRUD-PROJECT\\GUI\\CrudWindow\\Grouping\\SelectAttribute.ui', 'GUI\\CrudWindow\\Grouping'),
+
+            ('C:\\Users\\wcbre\\Documents\\MAPUA\\Q3\\IT131L\\CRUD-PROJECT\\GUI\\CrudWindow\\Search\\SearchWindow.ui', 'GUI\\CrudWindow\\Search'),
             ('C:\\Users\\wcbre\\Documents\\MAPUA\\Q3\\IT131L\\CRUD-PROJECT\\GUI\\CrudWindow\\Table\\SelectTable.ui', 'GUI\\CrudWindow\\Table'),
             ('C:\\Users\\wcbre\\Documents\\MAPUA\\Q3\\IT131L\\CRUD-PROJECT\\GUI\\CrudWindow\\Table\\MainTable\\CreateTable.ui', 'GUI\\CrudWindow\\Table\\MainTable'),
             ('C:\\Users\\wcbre\\Documents\\MAPUA\\Q3\\IT131L\\CRUD-PROJECT\\GUI\\CrudWindow\\Table\\MainTable\\CreateTable_ColProperties.ui', 'GUI\\CrudWindow\\Table\\MainTable'),

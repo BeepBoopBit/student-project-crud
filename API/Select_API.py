@@ -46,7 +46,10 @@ class Select_API:
     
     def changeData(self, command):
         self.cursor.execute(command);
-    
+
+    def deleteItem(self, tableName, attName, value):
+        self.cursor.execute(f"DELETE FROM {tableName} WHERE {attName} = {value} ;")
+        return self.__formatValue();
     # Auxillary
     def __formatValue(self):
         temp = []

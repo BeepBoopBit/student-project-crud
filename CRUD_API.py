@@ -45,6 +45,7 @@ class CRUD:
     def deleteDatabase(self, dbName):
         self.db.deleteDatabase(dbName);
     
+    
     def executeCommand(self, command):
         return self.db.executeCommand(command);
         self.__commit();
@@ -140,7 +141,12 @@ class CRUD:
         # Commit the changes into the selected Database
         self.__commit();
 
-
+    def deleteItem(self, tableName, attName, value):
+        temp = self.sl.deleteItem( tableName, attName, value);
+        otherValue = self.tb.fetchAllValue();
+        self.__commit();
+        return temp;
+    
 
 
     

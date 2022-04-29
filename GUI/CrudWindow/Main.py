@@ -32,6 +32,7 @@ class MainCrudWindow(QDialog):
         self.MSignOutButton.clicked.connect(self.SignOutAttribute)
         self.tabWidget.currentChanged.connect(self.tabChanged);
         self.MSearchButton.clicked.connect(self.searchFunction);
+        self.MDeleteRow.clicked.connect(self.deleteRowFunction);
         
         # Some Variables
         self.tb_name = ["" , 0]
@@ -132,6 +133,17 @@ class MainCrudWindow(QDialog):
             self.__insertColumn()
             self.__setHorizontalItemAt(headerPosition, i[0]);
             headerPosition += 1;
+    
+    def deleteRowFunction(self):
+        rowCount = self.tabWidget.currentWidget().currentRow()
+        tempWidgetText = self.tabWidget.currentWidget().item(rowCount,0).text();
+        if isinstance(tempWidgetText, int):
+            pass;
+        else:
+            tempWidgetText = "'" + tempWidgetText + "'"
+        self.API.deleteItem(self.tb_name[0], self.tabWidget.currentWidget().horizontalHeaderItem(0).text(), tempWidgetText);
+        self.tabWidget.currentWidget().removeRow(rowCount);
+        pass
     
     def searchFunction(self):
         Widget.widget(13).loadData(self.tabWidget.tabText(self.tabWidget.currentIndex()));
