@@ -7,9 +7,9 @@ from GUI.globalVariable import *
 
 
 # Do a checking if the value is greater than 2 for the attribute in group by
-class GroupingTable(QDialog):
+class SortTable(QDialog):
     def __init__(self, apiCrud):
-        super(GroupingTable, self).__init__()
+        super(SortTable, self).__init__()
         UI_PATH = "GUI\\CrudWindow\\Grouping\\Grouping.ui" 
         self.ui = loadUi(UI_PATH,self)
 
@@ -73,7 +73,7 @@ class GroupingTable(QDialog):
         strValue = strValue.rstrip(',');
         
         # Execute the command 
-        temp = self.API.getDataGroupedBy(self.tbName, strValue)
+        temp = self.API.getDataSortedBy(self.tbName, strValue)
         
         # Initial variables
         headerCount = 0
@@ -100,8 +100,8 @@ class GroupingTable(QDialog):
         Widget.setCurrentIndex(3)
         
     def openSelectAttribute(self):
-        Widget.widget(10).loadData(self.tbName)
-        Widget.setCurrentIndex(10)
+        Widget.widget(12).loadData(self.tbName)
+        Widget.setCurrentIndex(12)
         
     def __insertColumn(self, headerPosition, data):
         colCount = self.GBTable.columnCount()
@@ -117,9 +117,9 @@ class GroupingTable(QDialog):
         
         
     
-class SelectAddAttribute(QDialog):
+class SortSelectAddAttribute(QDialog):
     def __init__(self, apiCrud):
-        super(SelectAddAttribute, self).__init__()
+        super(SortSelectAddAttribute, self).__init__()
         UI_PATH = "GUI\\CrudWindow\\Grouping\\SelectAttribute.ui"
         self.ui = loadUi(UI_PATH, self)
         self.GBOkButton.clicked.connect(self.okButton)
@@ -131,9 +131,9 @@ class SelectAddAttribute(QDialog):
             self.GBSelectAttribute.addItem(i[0]);
             
     def okButton(self):
-        Widget.widget(4).addAttributeInList(self.GBSelectAttribute.currentText());
+        Widget.widget(11).addAttributeInList(self.GBSelectAttribute.currentText());
         self.exitButton()
 
     def exitButton(self):
         self.GBSelectAttribute.clear()
-        Widget.setCurrentIndex(4)
+        Widget.setCurrentIndex(11)

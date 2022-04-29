@@ -65,20 +65,22 @@ def truncateFiles():
 # Make sure that the files doesn't have any value inside before proceeding
 truncateFiles();
 
-try:
-    # Create an Instance of the SignIn Class
-    SignInWindow=SignIn()
+if __name__ == "__main__":
+    try:
+        # Create an Instance of the SignIn Class
+        SignInWindow=SignIn()
+        
+        # Add the instance to the global variable Widget
+        Widget.addWidget(SignInWindow)
     
-    # Add the instance to the global variable Widget
-    Widget.addWidget(SignInWindow)
-
-    # Set the Dimensions
-    Widget.setFixedWidth(1100)
-    Widget.setFixedHeight(650)
-
-    # Show the Widget
-    Widget.show()
-except Exception:
-    print(traceback.format_exc())
-
-app.exec()
+        # Set the Dimensions
+        Widget.setFixedWidth(1100)
+        Widget.setFixedHeight(650)
+    
+        # Show the Widget
+        Widget.show()
+    except Exception:
+        print(traceback.format_exc())
+    
+    app.exec()
+    

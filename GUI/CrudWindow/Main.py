@@ -24,6 +24,7 @@ class MainCrudWindow(QDialog):
         # Initializing Signals
         self.MGroupButton.clicked.connect(self.GroupAttribute)
         self.MSearchButton.clicked.connect(self.SearchAttribute)
+        self.MSortButton.clicked.connect(self.SortAttribute)
         self.MModifyButton.clicked.connect(self.ModifyAttribute)
         self.MCreateButton.clicked.connect(self.CreateAttribute)
         self.MDeleteButton.clicked.connect(self.DeleteAttribute)
@@ -227,6 +228,11 @@ UPDATE {self.tabWidget.tabText(self.tabWidget.currentIndex())} SET {self.tabWidg
         Widget.setCurrentIndex(4)
         
     def SearchAttribute(self):
+        pass
+
+    def SortAttribute(self):
+        Widget.widget(11).loadData(self.tabWidget.tabText(self.tabWidget.currentIndex()))
+        Widget.setCurrentIndex(11);
         pass
 
     def ModifyAttribute(self):
