@@ -16,6 +16,7 @@ class MainCrudWindow(QDialog):
         super(MainCrudWindow, self).__init__()
         UI_PATH = "GUI\\CrudWindow\\Main.ui"
         self.ui = loadUi(UI_PATH, self)
+        
         self.API = apiCrud;
         self.dbName = databaseName
         self.database.setText(self.dbName)
@@ -29,6 +30,9 @@ class MainCrudWindow(QDialog):
         self.MChangeButton.clicked.connect(self.ChangeAttribute)
         self.MSignOutButton.clicked.connect(self.SignOutAttribute)
         self.tabWidget.currentChanged.connect(self.tabChanged);
+        
+        # Some Variables
+        self.tb_name = ["" , 0]
         
         # Load The Data
         self.loadData();
@@ -55,7 +59,7 @@ class MainCrudWindow(QDialog):
                 # Write it by line
                 f.writelines(tableName + '\n');
                 
-            # Add a Table Table to the current Tab
+            # Add a Table to the current Tab
             self.tabWidget.addTab(QTableWidget(), tableName)
             
             # Connect the New Table in the Tab to the function SaveChange when a certain item is Changed
@@ -201,6 +205,7 @@ class MainCrudWindow(QDialog):
                 
     def tabChanged(self, item):
         self.stackWidget.setCurrentIndex(item);    
+        self.tb_name = [self.tabWidget.tabText(self.tabWidget.currentIndex()), item];
         pass
     
     def saveChanged(self, item):
@@ -234,7 +239,12 @@ UPDATE {self.tabWidget.tabText(self.tabWidget.currentIndex())} SET {self.tabWidg
         
 
     def DeleteAttribute(self):
-        pass
+        try:
+            self.API.dropTable(self.tb_name[0])
+        except:
+            pop_message("Cannot Drop, Sometable depends on it")            
+        self.tabWidget.removeTab(self.tb_name[1]);        
+        
 
     def ChangeAttribute(self):
         with open("Data/database/selectCommand.dat") as f:

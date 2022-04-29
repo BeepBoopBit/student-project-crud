@@ -66,8 +66,8 @@ class CRUD:
         return self.tb_list
     
     
-    def dropTable(self):
-        return self.tb.dropTable()
+    def dropTable(self, tbName):
+        return self.tb.dropTable(tbName)
 
     def addColumn(self, columnName, columnType):
         return self.tb.addColumn( self.tb_name, columnName, columnType)
