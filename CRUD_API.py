@@ -8,22 +8,28 @@ class CRUD:
         self.loginDetails = Login_API("Data/user/login.csv")
         # Database Stuff        
         self.db = Database_API(self.loginDetails.getUsername(), self.loginDetails.getPassword());
-        self.db_list = [];
+        self.db_list = self.__getDatabaseList()
         self.cursor = self.db.getCursor();
+        
         # Table Stuff
         self.tb = Table_API(self.db.getDatabase());
         self.tb_name = "";
         self.tb_list = [];
+        
         #select
         self.sl = Select_API(self.db.getDatabase(), self.tb);
 
+
+        
+
     # Database 
-    def useDatabase(self, dbName):
-        self.db.useDatabase(dbName)
-        self.__populateServer();
-    
     def createDatabase(self, dbName):
         self.db.createDatabase(dbName)
+    
+    def useDatabase(self, dbName):
+        self.db.useDatabase(dbName)
+        # Get the database and Table List
+        self.__populateServer();
 
     def getDatabase(self):
         return self.db.getDatabase();
@@ -31,12 +37,18 @@ class CRUD:
     def getCursor(self):
         return self.db.getCursor();
         
+    
+    # Get the existsing Database List
     def getDatabaseList(self):
-        return self.db.getDatabaseList();
+        return self.db_list;
     
     def deleteDatabase(self, dbName):
         self.db.deleteDatabase(dbName);
     
+    def executeCommand(self, command):
+        return self.db.executeCommand(command);
+        self.__commit();
+
     # Tables
     def createTable(self, tableName, columnName, dataType, contraint):
         self.tb.createTable(tableName, columnName, dataType, contraint)
@@ -49,11 +61,13 @@ class CRUD:
     def useTable(self, tableName):
         self.tb_name = tableName;
 
+    # Get the existsing Table List
     def getTableList(self):
-        return self.tb.getTableList()
+        return self.tb_list
     
-    def dropTable(self):
-        return self.tb.dropTable()
+    
+    def dropTable(self, tbName):
+        return self.tb.dropTable(tbName)
 
     def addColumn(self, columnName, columnType):
         return self.tb.addColumn( self.tb_name, columnName, columnType)
@@ -66,13 +80,16 @@ class CRUD:
     
     def insertValue(self, tbName, value):
         self.tb.insertValue(tbName,value)
+        self.__commit()
 
     def insertValueDate(self, tbName, value, dateTime):
         self.tb.insertValueDate(tbName,value,dateTime)
+        self.__commit()
     
     def getAttributeList(self, tableName):
         temp = self.tb.getAttributeList(tableName);
-        otherValue = self.tb.fetchAllValue();
+        self.__tb_fetchAllValue();
+        # return the list
         return temp;
     
     def getAttributeTypes(self, tableName):
@@ -93,25 +110,47 @@ class CRUD:
         otherValue = self.tb.fetchAllValue();
         return temp;
     
-    def getDataGroupedBy(self, tbName, condition, conditionGroup):
+    def getDataGroupedByCondition(self, tbName, condition, conditionGroup):
         return self.sl.getDataGroupedBy(  tbName, condition, conditionGroup);
+    
+    def getDataGroupedBy(self, tbName, conditionGroup):
+        return self.sl.getDataGroupedBy(tbName, conditionGroup);
     
     def getDataSortedBy(self, tbName, condition, conditionSort):
         return self.sl.getDataSortedBy(tbName, condition, conditionSort);
     
     def changeData(self, command):
         self.sl.changeData(command);
+        # Commit the changes into the selected Database
         self.__commit();
+
+
+
+
     
     # Server Stuff
+    
+    def __tb_fetchAllValue(self):
+        return self.tb.fetchAllValue();
+
+    def __db_fetchAllValue(self):
+        return self.tb.fetchAllValue();
+    
+    def __getDatabaseList(self):
+        return self.db.getDatabaseList();
+    
+    def __getTableList(self):
+        return self.tb.getTableList()
+    
     def __populateServer(self):
-        self.db_list = self.getDatabaseList()
-        self.tb_list = self.getTableList()
+        self.tb_list = self.__getTableList()
         if len(self.tb_list) > 0:
             self.tb_name = self.tb_list[0];
         else:
+            # Debugging Purposes, Can be remove
             print("WARNING!! There are no table seen")
-        
+            pass
+
     def __commit(self):
         self.db.getDatabase().commit();
         

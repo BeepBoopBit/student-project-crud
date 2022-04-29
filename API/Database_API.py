@@ -22,6 +22,10 @@ class Database_API:
     def deleteDatabase(self, dbName):
         self.cursor.execute(f"DROP DATABASE {dbName}")
 
+    def executeCommand(self, command):
+        self.cursor.execute(command);
+        return self.cursor.fetchall();
+
     # Getters Function
     def getDatabase(self):
         return self.db

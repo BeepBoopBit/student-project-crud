@@ -20,8 +20,12 @@ class Select_API:
         self.cursor.execute(f"SELECT {columnName} FROM {tbName};")
         return self.__formatValue();
     
-    def getDataGroupedBy(self, tbName, condition, conditionGroup):
+    def getDataGroupedByCondition(self, tbName, condition, conditionGroup):
         self.cursor.execute(f"SELECT * FROM {tbName} WHERE {condition} GROUP BY {conditionGroup};");
+        return self.__formatValue();
+    
+    def getDataGroupedBy(self, tbName, conditionGroup):
+        self.cursor.execute(f"SELECT * FROM {tbName} GROUP BY {conditionGroup};");
         return self.__formatValue();
     
     def getDataSortedBy(self, tbName, condition, conditionSort):

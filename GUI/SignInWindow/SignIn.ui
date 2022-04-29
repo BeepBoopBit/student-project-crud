@@ -69,7 +69,7 @@ border-color: rgb(85, 0, 0);</string>
     </item>
    </layout>
   </widget>
-  <widget class="QPushButton" name="SignInbutton">
+  <widget class="QPushButton" name="SignInButton">
    <property name="geometry">
     <rect>
      <x>200</x>

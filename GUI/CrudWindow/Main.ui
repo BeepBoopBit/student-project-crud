@@ -224,81 +224,15 @@ color: black;
    <property name="title">
     <string>Information</string>
    </property>
-   <widget class="QWidget" name="formLayoutWidget">
+   <widget class="QStackedWidget" name="stackWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>30</y>
-      <width>391</width>
+      <y>20</y>
+      <width>401</width>
       <height>351</height>
      </rect>
     </property>
-    <layout class="QFormLayout" name="Form">
-     <property name="fieldGrowthPolicy">
-      <enum>QFormLayout::ExpandingFieldsGrow</enum>
-     </property>
-     <property name="rowWrapPolicy">
-      <enum>QFormLayout::DontWrapRows</enum>
-     </property>
-     <property name="horizontalSpacing">
-      <number>7</number>
-     </property>
-     <property name="verticalSpacing">
-      <number>14</number>
-     </property>
-     <property name="leftMargin">
-      <number>7</number>
-     </property>
-     <property name="topMargin">
-      <number>7</number>
-     </property>
-     <property name="rightMargin">
-      <number>7</number>
-     </property>
-     <property name="bottomMargin">
-      <number>7</number>
-     </property>
-     <item row="0" column="0">
-      <widget class="QLabel" name="Attribute_1">
-       <property name="text">
-        <string>Attribute:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLineEdit" name="AI_1"/>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="Attribute_2">
-       <property name="text">
-        <string>Attribute:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="AI_2"/>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="Attribute_3">
-       <property name="text">
-        <string>Attribute</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="AI_3"/>
-     </item>
-     <item row="3" column="1">
-      <widget class="QPushButton" name="MAddButton">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255)</string>
-       </property>
-       <property name="text">
-        <string>Add</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
    </widget>
   </widget>
   <widget class="QWidget" name="horizontalLayoutWidget_4">

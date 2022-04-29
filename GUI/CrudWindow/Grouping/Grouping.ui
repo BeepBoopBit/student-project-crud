@@ -28,11 +28,11 @@
   <property name="windowTitle">
    <string>Group By</string>
   </property>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="tbLabel">
    <property name="geometry">
     <rect>
      <x>60</x>
-     <y>20</y>
+     <y>40</y>
      <width>151</width>
      <height>31</height>
     </rect>
@@ -44,26 +44,7 @@ color: black;
 </string>
    </property>
    <property name="text">
-    <string>Group by</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>60</x>
-     <y>50</y>
-     <width>361</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">text-align: center;
-font: 75 12pt &quot;MS Shell Dlg 2&quot;;
-color: black;
-</string>
-   </property>
-   <property name="text">
-    <string>Double-click to change the properties of the table:</string>
+    <string>Table_name</string>
    </property>
   </widget>
   <widget class="QTableWidget" name="GBTable">
@@ -98,67 +79,6 @@ color: black;
     <string>Group by</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>470</x>
-     <y>270</y>
-     <width>361</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">text-align: center;
-font: 75 12pt &quot;MS Shell Dlg 2&quot;;
-color: black;
-</string>
-   </property>
-   <property name="text">
-    <string>New column name</string>
-   </property>
-  </widget>
-  <widget class="QTextEdit" name="GBNewColumnName">
-   <property name="geometry">
-    <rect>
-     <x>470</x>
-     <y>300</y>
-     <width>211</width>
-     <height>21</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_5">
-   <property name="geometry">
-    <rect>
-     <x>470</x>
-     <y>210</y>
-     <width>361</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="mouseTracking">
-    <bool>true</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">text-align: center;
-font: 75 12pt &quot;MS Shell Dlg 2&quot;;
-color: black;
-</string>
-   </property>
-   <property name="text">
-    <string>Operation</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="GBOperation">
-   <property name="geometry">
-    <rect>
-     <x>470</x>
-     <y>240</y>
-     <width>209</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QPushButton" name="GBAddAttribute">
    <property name="geometry">
     <rect>
@@ -181,8 +101,8 @@ color: black;
     <rect>
      <x>470</x>
      <y>110</y>
-     <width>241</width>
-     <height>81</height>
+     <width>231</width>
+     <height>241</height>
     </rect>
    </property>
    <property name="widgetResizable">
@@ -193,36 +113,20 @@ color: black;
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>239</width>
-      <height>79</height>
+      <width>229</width>
+      <height>239</height>
      </rect>
     </property>
-    <widget class="QComboBox" name="GBAttribute">
+    <widget class="QWidget" name="formLayoutWidget">
      <property name="geometry">
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>181</width>
-       <height>20</height>
+       <width>231</width>
+       <height>241</height>
       </rect>
      </property>
-    </widget>
-    <widget class="QPushButton" name="GBAttributeRemove">
-     <property name="geometry">
-      <rect>
-       <x>190</x>
-       <y>0</y>
-       <width>21</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset>
-       <normaloff>../../../../Downloads/minus.png</normaloff>../../../../Downloads/minus.png</iconset>
-     </property>
+     <layout class="QFormLayout" name="formLayout"/>
     </widget>
    </widget>
   </widget>

@@ -1,6 +1,8 @@
 import csv
 import os
 import mysql.connector
+
+# PyQt5
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtWidgets import QDialog
 from PyQt5.uic import loadUi
@@ -8,52 +10,52 @@ from PyQt5.uic import loadUi
 # GUI
 from GUI.globalVariable import *
 from GUI.DatabaseWindow.Database import *
-from GUI.CrudWindow.Main import *
-from GUI.CrudWindow.TableWindow import *
-from GUI.CrudWindow.Grouping import *
-from GUI.CrudWindow.ModifyTable import *
-
-# SignIn Class
 
 class SignIn(QDialog):
-    switch_window = QtCore.pyqtSignal()
     def __init__(self):
         super(SignIn, self).__init__()
-        UIPATH = os.path.dirname(os.path.realpath(__file__)) + "\\SignIn.ui"
-        self.ui = loadUi(UIPATH, self)
-        self.SignInbutton.clicked.connect(self.SignInfunction)
-        self.API = CRUD();
-
-    # PopUp message set-up
-
-    def pop_message(self, text=""): 
-        msg = QtWidgets.QMessageBox()
-        msg.setText("{}".format(text))
-        msg.exec_()
+        UI_PATH = os.path.dirname(os.path.realpath(__file__)) + "\\SignIn.ui"
+        self.ui = loadUi(UI_PATH, self)
+        self.SignInButton.clicked.connect(self.SignInfunction)
 
     # SignIn Process
-
     def SignInfunction(self): 
+        # Check if a connection is established
         if self.checkConnection(self.userName.text(), self.userPassword.text()):
-            self.pop_message(text="Login Succesfully, Welcome!")
+            pop_message(text="Login Succesfully, Welcome!")
 
-            # Exporting Data.csv
-
-            with open(os.path.dirname(os.path.realpath(__file__)) + "\\..\\..\\Data\\user\\login.csv", 'w') as f:
-                writer = csv.writer(f)
-                writer.writerow(
-                    [self.userName.text(), self.userPassword.text()])
-
+            # Try to Write in Data.csv
+            try:
+                with open(os.path.dirname(os.path.realpath(__file__)) + "\\..\\..\\Data\\user\\login.csv", 'w') as f:
+                    writer = csv.writer(f)
+                    writer.writerow(
+                        [self.userName.text(), self.userPassword.text()])
+            except Exception:
+                pop_message("ERROR: Writing In SignIn")
+                print(traceback.format_exc());
+                
+            # Initialize the API
+            self.API = CRUD();
+            
+            # Try to create an instance of the Database Window 
+            try:
+                #Database index in Widget = '1'
+                Widget.addWidget(Database(self.API))
+            except:
+                pop_message("ERROR: Database Creation Error")
+                print(traceback.format_exc());
+                
             #Switch Database -> #1
-
-            Widget.addWidget(Database(self.API))
             Widget.setCurrentIndex(1)
+        
+        # Pop-up a failed Pop-up
         else:
-            self.pop_message("Login Failed, Please Try Again")
+            pop_message("Login Failed, Please Try Again")
 
     # Checking connection mysql
 
     def checkConnection(self, name, passw):
+        # Try to establish a connection
         try:
             db = mysql.connector.connect(host="localhost", user=name,password=passw)
             return True

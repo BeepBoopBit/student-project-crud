@@ -1,125 +1,250 @@
 from email import header
 import os
 from PyQt5 import QtWidgets, QtGui
-from PyQt5.QtWidgets import QDialog, QTableWidget, QTableWidgetItem
+from PyQt5.QtWidgets import QDialog, QTableWidget, QTableWidgetItem, QLabel, QLineEdit, QPushButton,  QStackedLayout, QFormLayout, QWidget, QScrollArea
 from PyQt5.uic import loadUi
 from GUI.globalVariable import *
 from CRUD_API import *
-from datetime import datetime
+
+# TODO: Implement Search Functionality
+# TODO: Implement Sort Functionality
+
 class MainCrudWindow(QDialog):
 
-    # PopUp Message Setup
 
-    def pop_message(self, text=""):
-        msg = QtWidgets.QMessageBox()
-        msg.setText("{}".format(text))
-        msg.exec_()
-
-    def __init__(self, apiCrud):
+    def __init__(self, apiCrud, databaseName):
         super(MainCrudWindow, self).__init__()
-        UIPATH = os.path.dirname(os.path.realpath(__file__)) + "\\Main.ui"
-        self.ui = loadUi(UIPATH, self)
+        UI_PATH = "GUI\\CrudWindow\\Main.ui"
+        self.ui = loadUi(UI_PATH, self)
+        
         self.API = apiCrud;
+        self.dbName = databaseName
+        self.database.setText(self.dbName)
 
-        self.MAddButton.clicked.connect(self.AddAttribute)
+        # Initializing Signals
         self.MGroupButton.clicked.connect(self.GroupAttribute)
-        self.MFitlerButton.clicked.connect(self.FilterAttribute)
         self.MSearchButton.clicked.connect(self.SearchAttribute)
         self.MModifyButton.clicked.connect(self.ModifyAttribute)
         self.MCreateButton.clicked.connect(self.CreateAttribute)
         self.MDeleteButton.clicked.connect(self.DeleteAttribute)
         self.MChangeButton.clicked.connect(self.ChangeAttribute)
         self.MSignOutButton.clicked.connect(self.SignOutAttribute)
+        self.tabWidget.currentChanged.connect(self.tabChanged);
         
+        # Some Variables
+        self.tb_name = ["" , 0]
+        
+        # Load The Data
         self.loadData();
-
-    # Load the data
 
     def loadData(self):
         
+        # While there are tabs, delete them
         while self.tabWidget.count():
             self.tabWidget.removeTab(self.tabWidget.currentIndex())
             
+        # Get the List of Tables
         tableList = self.API.getTableList();
-        if len(tableList) <= 0:
-            pass
-        else:
-            count = 0
-            for i in tableList:
-                with open("Data/database/tableList.dat", 'a') as f:
-                    f.writelines(i + '\n');
-                self.tabWidget.addTab(QTableWidget(), i)
-                # Save the change of index
-                self.tabWidget.currentWidget().itemChanged.connect(self.saveChanged);
-                self.tabWidget.setCurrentIndex(count)
-                headerCount = 0;
-                tempAttributeList =self.API.getAttributeList(i) 
-                stuff = self.tabWidget.currentWidget().horizontalHeader();
-                stuff.setStretchLastSection(True);
-                isFirst = True;
-
-                attListFile = open("Data/database/attributeList.dat", 'a')
-                for j in tempAttributeList:
-                    attListFile.writelines(str(j[0]) + ' ')
-                    colCount = self.tabWidget.currentWidget().columnCount()
+        
+        
+        # Initial Variables
+        count = 0
+        
+        
+        # Iterate through the list of tables
+        for tableName in tableList:
+            
+            # Open the list of tables
+            with open("Data/database/tableList.dat", 'a') as f:
+                # Write it by line
+                f.writelines(tableName + '\n');
+                
+            # Add a Table to the current Tab
+            self.tabWidget.addTab(QTableWidget(), tableName)
+            
+            # Connect the New Table in the Tab to the function SaveChange when a certain item is Changed
+            self.tabWidget.currentWidget().itemChanged.connect(self.saveChanged);
+            
+            # Set the current tab to the last Tab
+            self.tabWidget.setCurrentIndex(count)
+            
+            
+            # Get the list of Attribute
+            attributeList = self.API.getAttributeList(tableName) 
+            
+            # Get the current header
+            stuff = self.tabWidget.currentWidget().horizontalHeader();
+            # Make the table stretch 
+            stuff.setStretchLastSection(True);
+            
+            # Get Attribute Type
+            with open("Data/database/attributeType.dat", 'a') as attrTypeFile:
+                attrType = self.API.getAttributeTypes(tableName);
+                for typeName in attrType:
+                    attrTypeFile.write(typeName + ' ');
+                attrTypeFile.write('\n');
+            
+            # Initial variables
+            headerCount = 0;
+            isFirst = True;
+            
+            with open("Data/database/attributeList.dat", 'a') as attListFile:
+                for attributeName in attributeList:
                     
-
+                    # Write the attribute name to the file
+                    attListFile.writelines(str(attributeName[0]) + ' ')
                     
+                    # Insert a column in the Table
+                    self.__insertColumn()
                     
-                    self.tabWidget.currentWidget().insertColumn(colCount);
-                    self.tabWidget.currentWidget().setHorizontalHeaderItem(headerCount,QTableWidgetItem(j[0]))
-                    rowPosition = -1;
-                    for data in self.API.getDataFrom(i, j[0]):
-                        if isFirst:
-                            rowPosition = self.tabWidget.currentWidget().rowCount();
-                            self.tabWidget.currentWidget().insertRow(rowPosition);
-                        else:
-                            rowPosition += 1;
-                        try:
-                            self.tabWidget.currentWidget().setItem(rowPosition,headerCount,QTableWidgetItem(str(data)))
-                        except:
-                            dateTime = data.strftime("%Y-%m-%d")
-                            self.tabWidget.currentWidget().setItem(rowPosition,headerCount,QTableWidgetItem(dateTime))
+                    # Set the item name as the name of the attribute
+                    self.__setHorizontalItemAt(headerCount, attributeName[0])
+                    
+                    # Load The data into the Table
+                    self.__loadAttributeData(tableName, attributeName, headerCount, isFirst)
+    
                     isFirst = False;
                     headerCount += 1;
+    
                 attListFile.writelines("\n")
-                count += 1
+                
+            # Add relevant attributes to the right side for adding values
+            self.addAttributeForm(count);
+            
+            count += 1
+
+    def loadNewTable(self, tableName):
+        # Add a Table Table to the current Tab
+        self.tabWidget.addTab(QTableWidget(), tableName)
+        
+        # Connect the New Table in the Tab to the function SaveChange when a certain item is Changed
+        self.tabWidget.currentWidget().itemChanged.connect(self.saveChanged);
+        
+        # Set the current tab to the last Tab
+        self.tabWidget.setCurrentIndex(self.tabWidget.count())
+        
+        attList = self.API.getAttributeList(tableName);
+        headerPosition = 0
+        for i in attList:
+            # Insert a column in the Table
+            self.__insertColumn()
+            self.__setHorizontalItemAt(headerPosition, i[0]);
+            headerPosition += 1;
+        
+    def addAttributeForm(self, tableIndex):
+        # Open the Attribute List Fiel
+        attListFile = open("Data/database/attributeList.dat", 'r')
+
+        # Create A Widget for the form
+        formLayout = QWidget()
+        
+        # Make the widget layout as form
+        formLayout.setLayout(QFormLayout())
+        
+        # Add the created widget to the stack and set the current to it
+        self.stackWidget.addWidget(formLayout)
+        self.stackWidget.setCurrentWidget(formLayout)
+        
+        # Create a temporary List
+        listAttList = []
+        
+        # Get each attribute
+        for i, attrValue in enumerate(attListFile):
+            if i == tableIndex:
+                attrValue = attrValue.split(' ')
+                listAttList = attrValue
+                break;
+        
+        # Put each attribute to the form (add a QLabel with its name and QLineEdit)
+        for i in listAttList:
+            if(i == '\n'):
+                continue;
+            self.stackWidget.currentWidget().layout().addRow(QLabel(i), QLineEdit())
+        attListFile.close()
+        
+        # Add a button at the end of all the form for making chanages
+        tempButton = QPushButton("Add Values")
+        self.stackWidget.currentWidget().layout().addRow(tempButton)
+        
+        # Connect it to the addButtonPush
+        tempButton.clicked.connect(self.addButtonPush)
+
+    def addButtonPush(self):
+        
+        # Initial Variables
+        listStr = ""
+        headerCount = self.tabWidget.currentWidget().columnCount()
+        currentRow = self.__insertRow()
+        
+        for i in range(0,self.stackWidget.currentWidget().layout().rowCount()-1):
+            # Get the itemAt(i,1)
+            tempWidget =  self.stackWidget.currentWidget().layout().itemAt(i,1);
+            # Get the text value of that item
+            textWidgetValue = tempWidget.widget().text()
+            
+            # If it's an int, then make it string without quotation
+            if isinstance(textWidgetValue, int):
+                listStr += str(textWidgetValue);
+            # If it's none, then make it NULL
+            elif textWidgetValue.lower() == "none":
+                listStr += "NULL";
+            # If it's a string, then add ' to it
+            else:
+                listStr += " ' " + textWidgetValue + " ' ";
+            
+            # Set the item at the specific row and column
+            self.__setItemAt(currentRow, i, textWidgetValue)
+            listStr += ','
+            
+        # Insert the Value in the Database
+        try:
+            self.API.insertValue(self.tabWidget.tabText(self.tabWidget.currentIndex()), listStr.rstrip(','))
+        except:
+            pop_message("ERROR: Input Error");
+            self.tabWidget.currentWidget().removeRow(currentRow)
+                
+    def tabChanged(self, item):
+        self.stackWidget.setCurrentIndex(item);    
+        self.tb_name = [self.tabWidget.tabText(self.tabWidget.currentIndex()), item];
+        pass
     
     def saveChanged(self, item):
         
         with open("Data/database/selectCommand.dat", 'a') as f:
-            f.write(
+            try:
+                f.write(
                 f"""
 UPDATE {self.tabWidget.tabText(self.tabWidget.currentIndex())} SET {self.tabWidget.currentWidget().horizontalHeaderItem(item.column()).text()} = "{item.text()}" WHERE {self.tabWidget.currentWidget().horizontalHeaderItem(0).text()} = "{(self.tabWidget.currentWidget().item(item.row(), 0).text())}";
                 """)
-        print(self.tabWidget.tabText(self.tabWidget.currentIndex()) + " AT " + str(item.row()) + ":" + str(item.column()))
-        print ("Item Name: ", item.text())
-        print(self.tabWidget.currentWidget().horizontalHeaderItem(item.column()).text())
-        print(self.tabWidget.currentWidget().item(item.row(), 0).text())
-    
-    def AddAttribute(self):
-        pass
+            except:
+                print("Some thing Happen in SaveChanged)")
 
-    def GroupAttribute(self): #Grouping table is the class of group ui
+    def GroupAttribute(self):
+        Widget.widget(4).loadData(self.tabWidget.tabText(self.tabWidget.currentIndex()))
         Widget.setCurrentIndex(4)
 
-    def FilterAttribute(self): # Filter table is the class of filter ui
+    def FilterAttribute(self):
         Widget.setCurrentIndex(4)
         
     def SearchAttribute(self):
         pass
 
-    def ModifyAttribute(self): #Modify Table is the class of modify ui
+    def ModifyAttribute(self):
         Widget.widget(5).loadData(self.tabWidget.tabText(self.tabWidget.currentIndex()),self.tabWidget.currentIndex())
         Widget.setCurrentIndex(5)
         
 
-    def CreateAttribute(self): #Create Table is the class of create ui
+    def CreateAttribute(self): 
         Widget.setCurrentIndex(6);
         
 
     def DeleteAttribute(self):
-        pass
+        try:
+            self.API.dropTable(self.tb_name[0])
+        except:
+            pop_message("Cannot Drop, Sometable depends on it")            
+        self.tabWidget.removeTab(self.tb_name[1]);        
+        
 
     def ChangeAttribute(self):
         with open("Data/database/selectCommand.dat") as f:
@@ -131,10 +256,43 @@ UPDATE {self.tabWidget.tabText(self.tabWidget.currentIndex())} SET {self.tabWidg
                     self.API.changeData(line);
         self.loadData();
 
-    def SignOutAttribute(self): #Sign out is the class of sign out ui
+    def SignOutAttribute(self):
         Widget.setCurrentIndex(0)
 
-
-
+    # Private
+    def __loadAttributeData(self,  tableName, attributeName, headerPosition, isFirst):
+        rowPosition = -1;
+        for data in self.API.getDataFrom(tableName, attributeName[0]):
+            if isFirst:
+                rowPosition = self.__insertRow();
+            else:
+                rowPosition += 1;
+            try:
+                self.__setItemAt(rowPosition, headerPosition, str(data))
+            except:
+                dateTime = data.strftime("%Y-%m-%d")
+                self.__setItemAt(rowPosition, headerPosition, dateTime)
     
+    # Returns the position if needed
+    def __insertRow(self):
+        rowCount = self.tabWidget.currentWidget().rowCount();
+        self.tabWidget.currentWidget().insertRow(rowCount);
+        return rowCount
+    
+    # Returns the position if needed
+    def __insertColumn(self):
+        colCount = self.tabWidget.currentWidget().columnCount()
+        self.tabWidget.currentWidget().insertColumn(colCount);
+        return colCount
 
+    def __setItemAt(self, rowPosition, headerPosition, data):
+        try:
+            self.tabWidget.currentWidget().setItem(rowPosition,headerPosition,QTableWidgetItem(str(data)))
+        except:
+            dateTime = data.strftime("%Y-%m-%d")
+            self.tabWidget.currentWidget().setItem(rowPosition,headerPosition,QTableWidgetItem(dateTime))
+    
+    def __setHorizontalItemAt(self, headerPosition, data):
+        self.tabWidget.currentWidget().setHorizontalHeaderItem(headerPosition,QTableWidgetItem(data))
+        
+        

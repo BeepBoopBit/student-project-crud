@@ -100,11 +100,6 @@ color: black;
      <string>Properties</string>
     </property>
    </column>
-   <column>
-    <property name="text">
-     <string>Constraints</string>
-    </property>
-   </column>
   </widget>
   <widget class="QWidget" name="horizontalLayoutWidget">
    <property name="geometry">
