@@ -113,11 +113,16 @@ class CRUD:
     def getDataGroupedByCondition(self, tbName, condition, conditionGroup):
         return self.sl.getDataGroupedBy(  tbName, condition, conditionGroup);
     
+    def getDataSortedBy(self, tbName, conditionGroup):
+        temp = self.sl.getDataSortedBy(tbName, conditionGroup);
+        otherValue = self.tb.fetchAllValue();
+        return temp;
+    
     def getDataGroupedBy(self, tbName, conditionGroup):
         return self.sl.getDataGroupedBy(tbName, conditionGroup);
     
-    def getDataSortedBy(self, tbName, condition, conditionSort):
-        return self.sl.getDataSortedBy(tbName, condition, conditionSort);
+    def getDataSortedByCondition(self, tbName, condition, conditionSort):
+        return self.sl.getDataSortedByCondition(tbName, condition, conditionSort);
     
     def changeData(self, command):
         self.sl.changeData(command);

@@ -231,6 +231,8 @@ UPDATE {self.tabWidget.tabText(self.tabWidget.currentIndex())} SET {self.tabWidg
         pass
 
     def SortAttribute(self):
+        Widget.widget(11).loadData(self.tabWidget.tabText(self.tabWidget.currentIndex()))
+        Widget.setCurrentIndex(11);
         pass
 
     def ModifyAttribute(self):

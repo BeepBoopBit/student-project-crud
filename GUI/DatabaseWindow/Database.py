@@ -8,6 +8,7 @@ from GUI.CrudWindow.Main import *
 from GUI.CrudWindow.Table.MainTable.TableWindow import *
 from GUI.CrudWindow.Grouping.Grouping import *
 from GUI.CrudWindow.Table.ModifyTable.ModifyTable import *
+from GUI.CrudWindow.Sort.Sort import * 
 import traceback
 
 # Database Class
@@ -72,6 +73,9 @@ class Database(QMainWindow):
             Widget.addWidget(ForeignKey(self.API)); #9
             #Widget.addWidget(TableForeignKey(self.API)); #9
             Widget.addWidget(SelectAddAttribute(self.API)) # 10
+            
+            Widget.addWidget(SortTable(self.API)) # 11
+            Widget.addWidget(SortSelectAddAttribute(self.API)) # 12
             
             Widget.setCurrentIndex(3)
             

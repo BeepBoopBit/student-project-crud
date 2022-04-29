@@ -132,7 +132,7 @@ color: black;
 </string>
    </property>
    <property name="text">
-    <string>Group by</string>
+    <string>Sort By</string>
    </property>
   </widget>
   <widget class="QPushButton" name="SOAddAttribute">
