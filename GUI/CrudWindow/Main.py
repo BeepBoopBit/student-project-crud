@@ -220,18 +220,18 @@ class MainCrudWindow(QDialog):
             # Get the itemAt(i,1)
             tempWidget =  self.stackWidget.currentWidget().layout().itemAt(i,1);
             # Get the text value of that item
-            textWidgetValue = tempWidget.widget().text()
+            textWidgetValue = tempWidget.widget().text().lower()
             
             # If it's an int, then make it string without quotation
             tolowerVarb = (typeListVarb[i]).lower();
             if tolowerVarb == 'int' or tolowerVarb == 'float' or tolowerVarb == 'double':
                 listStr += str(textWidgetValue);
             # If it's none, then make it NULL
-            elif tolowerVarb == "none":
+            elif textWidgetValue == "none" or textWidgetValue == "null":
                 listStr += "NULL";
             # If it's a string, then add ' to it
             else:
-                listStr += " ' " + textWidgetValue + " ' ";
+                listStr += " '" + textWidgetValue + "' ";
             
             # Set the item at the specific row and column
             self.__setItemAt(currentRow, i, textWidgetValue)
