@@ -11,7 +11,6 @@ from CRUD_API import *
 
 class MainCrudWindow(QDialog):
 
-
     def __init__(self, apiCrud, databaseName):
         super(MainCrudWindow, self).__init__()
         UI_PATH = "GUI\\CrudWindow\\Main.ui"
@@ -37,9 +36,6 @@ class MainCrudWindow(QDialog):
         # Some Variables
         self.tb_name = ["" , 0]
         
-        # Load The Data
-        self.loadData();
-
     def loadData(self):
         
         # While there are tabs, delete them
