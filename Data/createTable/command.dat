@@ -1,2 +1,0 @@
- aa int  PRIMARY KEY , 
- aabb int  NOT NULL  UNIQUE , 
