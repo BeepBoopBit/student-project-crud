@@ -1,2 +1,2 @@
- water_id int  PRIMARY KEY , 
- water_data int  NOT NULL  UNIQUE , 
+ aa int  PRIMARY KEY , 
+ aabb int  NOT NULL  UNIQUE , 
