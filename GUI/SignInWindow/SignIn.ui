@@ -33,7 +33,7 @@ color: black;
 </string>
    </property>
    <property name="text">
-    <string>Business Title</string>
+    <string>MySQL Login</string>
    </property>
   </widget>
   <widget class="QWidget" name="verticalLayoutWidget">

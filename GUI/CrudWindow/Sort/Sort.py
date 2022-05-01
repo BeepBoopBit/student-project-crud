@@ -28,6 +28,7 @@ class SortTable(QDialog):
         # Initialize the Values
         self.tbName = tableName;
         self.tbLabel.setText(tableName);
+        self.label_3.setText("Sort By")
         pass
     
     def addAttributeInList(self, attName):

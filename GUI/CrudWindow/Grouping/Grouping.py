@@ -29,6 +29,8 @@ class GroupingTable(QDialog):
         self.tbName = tableName;
         self.tbLabel.setText(tableName);
         
+        self.label_3.setText("Group By")
+        
         self.GBTable.setColumnCount(0)
         self.GBTable.setRowCount(0);
         
