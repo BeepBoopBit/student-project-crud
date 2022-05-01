@@ -58,8 +58,6 @@ class Database(QMainWindow):
             with open("Data/database/databaseName.dat", 'w') as f:
                 f.write(selectedDatabase);
                 
-            # Create Database Window                
-            Widget.addWidget(CreateDatabase(self.API))  #2
 
             # CRUD
             Widget.addWidget(MainCrudWindow(self.API, selectedDatabase)); #3
@@ -106,6 +104,7 @@ class Database(QMainWindow):
     # Create Database 
     def createDatabase(self): 
         Widget.setCurrentIndex(2)
+        Widget.show();
     
     # Signout 
 
