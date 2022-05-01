@@ -179,7 +179,6 @@ class TableMenu(QtWidgets.QDialog):
         except:
             if len(value) < 1:
                 pop_message("No Data Submitted")
-            
             else:
                 pop_message("UNKNOWN ERROR: Please Try again and report this problem")            
                 self.tableWidget.setRowCount(0);

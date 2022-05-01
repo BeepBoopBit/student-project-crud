@@ -121,28 +121,35 @@ class SearchingTable(QDialog):
         # Execute the command 
         for i in commandList:
             totalCommand += i + ' '
+        try:
+            temp = self.API.getDataCommand(self.tbName, totalCommand)
+            # Initial variables
+            headerCount = 0
+            for data in self.API.getAttributeList(self.tbName):
+                self.__insertColumn(headerCount, data[0]);
+                headerCount += 1;
             
-        temp = self.API.getDataCommand(self.tbName, totalCommand)
+            tempHeaderCount = 0
+            rowPosition = self.SearchResult.rowCount();
+            for data in temp:
+                if tempHeaderCount == headerCount or tempHeaderCount == 0:
+                    # Reset it to zero
+                    tempHeaderCount = 0;
+                    # Insert a new Row
+                    rowPosition = self.SearchResult.rowCount();
+                    self.SearchResult.insertRow(rowPosition);
+    
+                # Insert an item in row
+                self.__insertRow(rowPosition,tempHeaderCount,QTableWidgetItem(str(data)));
+                tempHeaderCount += 1
+        except:
+            if len(totalCommand) < 1:
+                pop_message("No Data Submitted")
+            else:
+                pop_message("UNKNOWN ERROR: Please Try again and report this problem")            
+            
         
-        # Initial variables
-        headerCount = 0
-        for data in self.API.getAttributeList(self.tbName):
-            self.__insertColumn(headerCount, data[0]);
-            headerCount += 1;
         
-        tempHeaderCount = 0
-        rowPosition = self.SearchResult.rowCount();
-        for data in temp:
-            if tempHeaderCount == headerCount or tempHeaderCount == 0:
-                # Reset it to zero
-                tempHeaderCount = 0;
-                # Insert a new Row
-                rowPosition = self.SearchResult.rowCount();
-                self.SearchResult.insertRow(rowPosition);
-
-            # Insert an item in row
-            self.__insertRow(rowPosition,tempHeaderCount,QTableWidgetItem(str(data)));
-            tempHeaderCount += 1
     
     
     def exitButton(self):
