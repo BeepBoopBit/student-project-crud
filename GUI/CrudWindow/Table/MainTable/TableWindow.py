@@ -1,4 +1,3 @@
-import os
 from PyQt5 import QtWidgets, uic
 from tkinter import Widget
 from GUI.globalVariable import *

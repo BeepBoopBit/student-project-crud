@@ -1,9 +1,7 @@
 import csv
-import os
 import mysql.connector
 
 # PyQt5
-from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtWidgets import QDialog
 from PyQt5.uic import loadUi
 

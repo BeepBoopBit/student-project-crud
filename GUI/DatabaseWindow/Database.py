@@ -1,4 +1,3 @@
-import os
 from tkinter import Widget
 from PyQt5.QtWidgets import QDialog, QMainWindow, QTableWidgetItem
 from PyQt5.uic import loadUi
