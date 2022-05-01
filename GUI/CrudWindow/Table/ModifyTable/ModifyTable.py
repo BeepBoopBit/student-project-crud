@@ -30,8 +30,11 @@ class ModifyTable(QDialog):
     # Load Data
 
     def loadData(self, tableName, tabIndex):
+        with open("Data/database/alterCommand.dat", 'w') as f:
+            f.truncate();
         self.tbName = tableName;
         self.tbNumber = tabIndex;
+        
         attrFile = open("Data/database/attributeList.dat", 'r')
         for i, attrValue in enumerate(attrFile):
             if i == tabIndex:
@@ -47,9 +50,20 @@ class ModifyTable(QDialog):
         self.tableWidget.itemChanged.connect(self.saveData)
     
     def submitButton(self):
+        str = ""
         with open("Data/database/alterCommand.dat",'r') as f:
-            str = f.readline();
-            self.API.executeCommand(str)
+            for line in f:
+                if str == "":
+                    str = line;
+                    newStr = line;
+                    self.API.executeCommand(str)
+                else:
+                    newStr = line;
+                    if str == newStr:
+                        pass
+                    else:
+                        str = line;
+                        self.API.executeCommand(str)
         self.cancelButton();        
     
     def cancelButton(self):
