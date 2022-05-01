@@ -22,13 +22,17 @@ class NameTable(QtWidgets.QDialog):
     # Setup table
     def TableMenuFunction(self):
         # Write the name of the table to a file        
+        str = "";
         with open("Data/createTable/tableName.dat", "w") as f:
-            f.write(self.Table_Input.toPlainText());
+            str = self.Table_Input.toPlainText();
+            f.write(str);
 
-        pop_message(text="Table Succesfully Created!") 
-
-        Widget.widget(7).readTable();
-        Widget.setCurrentIndex(7)
+        if len(str) < 1:
+            pop_message(text="No Input data") 
+        else:
+            pop_message(text="Table Successfully Created!") 
+            Widget.widget(7).readTable();
+            Widget.setCurrentIndex(7)
 
     def tableCancel(self):
         Widget.setCurrentIndex(3)
