@@ -1,5 +1,6 @@
 from email import header
 import os
+from tokenize import Double
 from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtWidgets import QDialog, QTableWidget, QTableWidgetItem, QLabel, QLineEdit, QPushButton,  QStackedLayout, QFormLayout, QWidget, QScrollArea
 from PyQt5.uic import loadUi
@@ -198,6 +199,21 @@ class MainCrudWindow(QDialog):
 
     def addButtonPush(self):
         
+        
+        tableName = self.tabWidget.tabText(self.tabWidget.currentIndex());
+        tabIndex = self.tabWidget.currentIndex()
+        
+        typeListVarb =  []
+        attrFile = open("Data/database/attributeList.dat", 'r')
+        for i, attrValue in enumerate(attrFile):
+            if i == tabIndex:
+                attrValue = attrValue.split(' ')
+                typeList = self.API.getAttributeTypes(tableName);
+                for i in range(0,len(attrValue) - 1):
+                    typeListVarb.append(str(typeList[i]))
+                break;
+        attrFile.close();
+        
         # Initial Variables
         listStr = ""
         headerCount = self.tabWidget.currentWidget().columnCount()
@@ -210,10 +226,11 @@ class MainCrudWindow(QDialog):
             textWidgetValue = tempWidget.widget().text()
             
             # If it's an int, then make it string without quotation
-            if isinstance(textWidgetValue, int):
+            tolowerVarb = (typeListVarb[i]).lower();
+            if tolowerVarb == 'int' or tolowerVarb == 'float' or tolowerVarb == 'double':
                 listStr += str(textWidgetValue);
             # If it's none, then make it NULL
-            elif textWidgetValue.lower() == "none":
+            elif tolowerVarb == "none":
                 listStr += "NULL";
             # If it's a string, then add ' to it
             else:
