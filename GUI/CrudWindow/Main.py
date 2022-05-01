@@ -118,14 +118,15 @@ class MainCrudWindow(QDialog):
 
     def loadNewTable(self, tableName):
         # Add a Table Table to the current Tab
-        self.tabWidget.addTab(QTableWidget(), tableName)
+        tempWidget = QTableWidget();
+        self.tabWidget.addTab(tempWidget, tableName)
+        
+        # Set the current tab to the last Tab
+        self.tabWidget.setCurrentWidget(tempWidget)
         
         # Connect the New Table in the Tab to the function SaveChange when a certain item is Changed
         self.tabWidget.currentWidget().itemChanged.connect(self.saveChanged);
         
-        # Set the current tab to the last Tab
-        tabCount = self.tabWidget.count()
-        self.tabWidget.setCurrentIndex(tabCount)
         
         attList = self.API.getAttributeList(tableName);
         headerPosition = 0
@@ -140,6 +141,7 @@ class MainCrudWindow(QDialog):
             headerPosition += 1;
         attListFile.close();
         
+        tabCount = self.tabWidget.count()
         self.addAttributeForm(tabCount-1)
     
     def deleteRowFunction(self):
