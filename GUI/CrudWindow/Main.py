@@ -21,7 +21,6 @@ class MainCrudWindow(QDialog):
         self.dbName = ""
         # Initializing Signals
         self.MGroupButton.clicked.connect(self.GroupAttribute)
-        self.MSearchButton.clicked.connect(self.SearchAttribute)
         self.MSortButton.clicked.connect(self.SortAttribute)
         self.MModifyButton.clicked.connect(self.ModifyAttribute)
         self.MCreateButton.clicked.connect(self.CreateAttribute)
@@ -266,14 +265,10 @@ UPDATE {self.tabWidget.tabText(self.tabWidget.currentIndex())} SET {self.tabWidg
                 print("Some thing Happen in SaveChanged)")
 
     def GroupAttribute(self):
+        Widget.setFixedWidth(770)
+        Widget.setFixedHeight(485)
         Widget.widget(4).loadData(self.tabWidget.tabText(self.tabWidget.currentIndex()))
         Widget.setCurrentIndex(4)
-
-    def FilterAttribute(self):
-        Widget.setCurrentIndex(4)
-        
-    def SearchAttribute(self):
-        pass
 
     def SortAttribute(self):
         Widget.widget(11).loadData(self.tabWidget.tabText(self.tabWidget.currentIndex()))
