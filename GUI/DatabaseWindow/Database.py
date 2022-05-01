@@ -177,6 +177,9 @@ class Database(QMainWindow):
     # Signout 
 
     def signOut(self): 
+        # Set the Dimensions
+        Widget.setFixedWidth(550)
+        Widget.setFixedHeight(330)
         Widget.setCurrentIndex(0)
 
 # Create Database UI Class

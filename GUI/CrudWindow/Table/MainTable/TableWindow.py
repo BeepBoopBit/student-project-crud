@@ -31,10 +31,14 @@ class NameTable(QtWidgets.QDialog):
             pop_message(text="No Input data") 
         else:
             pop_message(text="Table Successfully Created!") 
+            Widget.setFixedWidth(955)
+            Widget.setFixedHeight(550)
             Widget.widget(7).readTable();
             Widget.setCurrentIndex(7)
 
     def tableCancel(self):
+        Widget.setFixedWidth(1100)
+        Widget.setFixedHeight(650)
         Widget.setCurrentIndex(3)
 
 # Table Menu Window
@@ -105,10 +109,14 @@ class TableMenu(QtWidgets.QDialog):
     # Switch Table Column
             
     def tableColumnFunction(self):
+        Widget.setFixedWidth(610)
+        Widget.setFixedHeight(360)
         Widget.setCurrentIndex(8)
 
     # Return Exit   ->  #3
     def tableExit(self):
+        Widget.setFixedWidth(1100)
+        Widget.setFixedHeight(650)
         
         # Open all files and delete the contents of it
         colName = open("Data/createTable/columnName.dat", "w")
@@ -174,6 +182,9 @@ class TableMenu(QtWidgets.QDialog):
             self.API.createTable(tableName.read(),value);
             tableName.truncate()
             tableName.close()
+            
+            Widget.setFixedWidth(1100)
+            Widget.setFixedHeight(650)
             Widget.widget(3).loadNewTable(self.table_name.text())
             Widget.setCurrentIndex(3)
         except:
@@ -231,6 +242,8 @@ class TableColumn(QtWidgets.QDialog):
         
         # Save the data
         self.saveData();
+        Widget.setFixedWidth(955)
+        Widget.setFixedHeight(550)
         Widget.widget(7).readAttributeData();
 
     # Foreign Key Window
@@ -271,6 +284,8 @@ class ForeignKey(QtWidgets.QDialog):
             f.write( ' FOREIGN KEY(' + self.from_input.toPlainText() + ') ')
             # Lack of Information
             f.write( ' REFERENCES ' + self.referenes_input.toPlainText() +  '(' + self.attributename_input.toPlainText() +') ')
+        Widget.setFixedWidth(955)
+        Widget.setFixedHeight(550)
         Widget.widget(7).readAttributeData();
         Widget.setCurrentIndex(7)
             
