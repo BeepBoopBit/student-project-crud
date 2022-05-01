@@ -124,15 +124,23 @@ class MainCrudWindow(QDialog):
         self.tabWidget.currentWidget().itemChanged.connect(self.saveChanged);
         
         # Set the current tab to the last Tab
-        self.tabWidget.setCurrentIndex(self.tabWidget.count())
+        tabCount = self.tabWidget.count()
+        self.tabWidget.setCurrentIndex(tabCount)
         
         attList = self.API.getAttributeList(tableName);
         headerPosition = 0
+        
+        attListFile = open("Data/database/attributeList.dat", 'a')
         for i in attList:
             # Insert a column in the Table
             self.__insertColumn()
             self.__setHorizontalItemAt(headerPosition, i[0]);
+            
+            attListFile.write(i[0] + ' ')
             headerPosition += 1;
+        attListFile.close();
+        
+        self.addAttributeForm(tabCount-1)
     
     def deleteRowFunction(self):
         rowCount = self.tabWidget.currentWidget().currentRow()
@@ -178,6 +186,8 @@ class MainCrudWindow(QDialog):
         for i in listAttList:
             if(i == '\n'):
                 continue;
+            elif(i == ''):
+                continue
             self.stackWidget.currentWidget().layout().addRow(QLabel(i), QLineEdit())
         attListFile.close()
         
