@@ -59,12 +59,8 @@ class MainCrudWindow(QDialog):
             # Add a Table to the current Tab
             self.tabWidget.addTab(QTableWidget(), tableName)
             
-            # Connect the New Table in the Tab to the function SaveChange when a certain item is Changed
-            self.tabWidget.currentWidget().itemChanged.connect(self.saveChanged);
-            
             # Set the current tab to the last Tab
             self.tabWidget.setCurrentIndex(count)
-            
             
             # Get the list of Attribute
             attributeList = self.API.getAttributeList(tableName) 
@@ -107,8 +103,10 @@ class MainCrudWindow(QDialog):
                 
             # Add relevant attributes to the right side for adding values
             self.addAttributeForm(count);
-            
             count += 1
+
+            # Connect the New Table in the Tab to the function SaveChange when a certain item is Changed
+            self.tabWidget.currentWidget().itemChanged.connect(self.saveChanged);
 
     def loadNewTable(self, tableName):
         # Add a Table Table to the current Tab
@@ -252,7 +250,6 @@ class MainCrudWindow(QDialog):
         pass
     
     def saveChanged(self, item):
-        
         with open("Data/database/selectCommand.dat", 'a') as f:
             try:
                 f.write(
@@ -298,15 +295,14 @@ UPDATE {self.tabWidget.tabText(self.tabWidget.currentIndex())} SET {self.tabWidg
         
 
     def ChangeAttribute(self):
-        with open("Data/database/selectCommand.dat") as f:
+        with open("Data/database/selectCommand.dat" ,'r+') as f:
             for line in f:
                 line = line.rstrip()
                 if line == '':
                     continue
                 else:
                     self.API.changeData(line);
-        self.loadData();
-
+            f.truncate()
     def SignOutAttribute(self):
         # Set the Dimensions
         Widget.setFixedWidth(550)

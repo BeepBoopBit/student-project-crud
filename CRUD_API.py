@@ -137,9 +137,12 @@ class CRUD:
         return self.sl.getDataSortedByCondition(tbName, condition, conditionSort);
     
     def changeData(self, command):
-        self.sl.changeData(command);
-        # Commit the changes into the selected Database
-        self.__commit();
+        if len(command) < 1:
+            pass
+        else:
+            self.sl.changeData(command);
+            # Commit the changes into the selected Database
+            self.__commit();
 
     def deleteItem(self, tableName, attName, value):
         temp = self.sl.deleteItem( tableName, attName, value);
