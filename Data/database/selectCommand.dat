@@ -1,0 +1,33 @@
+
+UPDATE employee SET EMP_ID = "a" WHERE EMP_ID = "a";
+                
+UPDATE employee SET SUPERVISOR_ID = "none" WHERE EMP_ID = "a";
+                
+UPDATE employee SET CONTRACT_TYPE = "b" WHERE EMP_ID = "a";
+                
+UPDATE employee SET FNAME = "c" WHERE EMP_ID = "a";
+                
+UPDATE employee SET LNAME = "d" WHERE EMP_ID = "a";
+                
+UPDATE employee SET MNAME = "e" WHERE EMP_ID = "a";
+                
+UPDATE employee SET SEX = "f" WHERE EMP_ID = "a";
+                
+UPDATE employee SET JOB_TYPE = "g" WHERE EMP_ID = "a";
+                
+UPDATE employee SET EMP_ID = "a" WHERE EMP_ID = "a";
+                
+UPDATE employee SET SUPERVISOR_ID = "none" WHERE EMP_ID = "a";
+                
+UPDATE employee SET CONTRACT_TYPE = "b" WHERE EMP_ID = "a";
+                
+UPDATE employee SET FNAME = "c" WHERE EMP_ID = "a";
+                
+UPDATE employee SET LNAME = "d" WHERE EMP_ID = "a";
+                
+UPDATE employee SET MNAME = "e" WHERE EMP_ID = "a";
+                
+UPDATE employee SET SEX = "f" WHERE EMP_ID = "a";
+                
+UPDATE employee SET JOB_TYPE = "g" WHERE EMP_ID = "a";
+                

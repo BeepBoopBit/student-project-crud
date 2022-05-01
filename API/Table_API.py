@@ -79,9 +79,8 @@ class Table_API:
 
     # Inserting
     def insertValue(self, tbName, value):
-        print(tbName);
-        print(value);
-        self.cursor.execute(f"INSERT INTO {tbName} VALUES({value});")
+        str = f"INSERT INTO {tbName} VALUES({value});"
+        self.cursor.execute(str)
     
     def insertValueDate(self, tbName, value, dateTime):
         str_now = '\"' + dateTime.date().isoformat() + '\"';

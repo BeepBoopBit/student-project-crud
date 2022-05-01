@@ -59,12 +59,8 @@ class MainCrudWindow(QDialog):
             # Add a Table to the current Tab
             self.tabWidget.addTab(QTableWidget(), tableName)
             
-            # Connect the New Table in the Tab to the function SaveChange when a certain item is Changed
-            self.tabWidget.currentWidget().itemChanged.connect(self.saveChanged);
-            
             # Set the current tab to the last Tab
             self.tabWidget.setCurrentIndex(count)
-            
             
             # Get the list of Attribute
             attributeList = self.API.getAttributeList(tableName) 
@@ -107,8 +103,10 @@ class MainCrudWindow(QDialog):
                 
             # Add relevant attributes to the right side for adding values
             self.addAttributeForm(count);
-            
             count += 1
+
+            # Connect the New Table in the Tab to the function SaveChange when a certain item is Changed
+            self.tabWidget.currentWidget().itemChanged.connect(self.saveChanged);
 
     def loadNewTable(self, tableName):
         # Add a Table Table to the current Tab
@@ -222,18 +220,18 @@ class MainCrudWindow(QDialog):
             # Get the itemAt(i,1)
             tempWidget =  self.stackWidget.currentWidget().layout().itemAt(i,1);
             # Get the text value of that item
-            textWidgetValue = tempWidget.widget().text()
+            textWidgetValue = tempWidget.widget().text().lower()
             
             # If it's an int, then make it string without quotation
             tolowerVarb = (typeListVarb[i]).lower();
             if tolowerVarb == 'int' or tolowerVarb == 'float' or tolowerVarb == 'double':
                 listStr += str(textWidgetValue);
             # If it's none, then make it NULL
-            elif tolowerVarb == "none":
+            elif textWidgetValue == "none" or textWidgetValue == "null":
                 listStr += "NULL";
             # If it's a string, then add ' to it
             else:
-                listStr += " ' " + textWidgetValue + " ' ";
+                listStr += " '" + textWidgetValue + "' ";
             
             # Set the item at the specific row and column
             self.__setItemAt(currentRow, i, textWidgetValue)
@@ -252,7 +250,6 @@ class MainCrudWindow(QDialog):
         pass
     
     def saveChanged(self, item):
-        
         with open("Data/database/selectCommand.dat", 'a') as f:
             try:
                 f.write(
@@ -298,15 +295,14 @@ UPDATE {self.tabWidget.tabText(self.tabWidget.currentIndex())} SET {self.tabWidg
         
 
     def ChangeAttribute(self):
-        with open("Data/database/selectCommand.dat") as f:
+        with open("Data/database/selectCommand.dat" ,'r+') as f:
             for line in f:
                 line = line.rstrip()
                 if line == '':
                     continue
                 else:
                     self.API.changeData(line);
-        self.loadData();
-
+            f.truncate()
     def SignOutAttribute(self):
         # Set the Dimensions
         Widget.setFixedWidth(550)
