@@ -1,6 +1,5 @@
-import os
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QDialog, QTableWidget, QTableWidgetItem
+from PyQt5.QtWidgets import QDialog, QTableWidgetItem
 from PyQt5.uic import loadUi
 from GUI.globalVariable import *
 

@@ -1,7 +1,3 @@
-from email import header
-import os
-from tokenize import Double
-from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtWidgets import QDialog, QTableWidget, QTableWidgetItem, QLabel, QLineEdit, QPushButton,  QStackedLayout, QFormLayout, QWidget, QScrollArea
 from PyQt5.uic import loadUi
 from GUI.globalVariable import *

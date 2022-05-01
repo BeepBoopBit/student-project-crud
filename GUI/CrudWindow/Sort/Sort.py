@@ -1,6 +1,3 @@
-import os
-from pickle import ADDITEMS
-from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QDialog, QLabel, QPushButton, QTableWidgetItem
 from PyQt5.uic import loadUi
 from GUI.globalVariable import *

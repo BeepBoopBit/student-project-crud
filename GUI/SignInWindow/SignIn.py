@@ -1,9 +1,7 @@
 import csv
-import os
 import mysql.connector
 
 # PyQt5
-from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtWidgets import QDialog
 from PyQt5.uic import loadUi
 
@@ -14,7 +12,7 @@ from GUI.DatabaseWindow.Database import *
 class SignIn(QDialog):
     def __init__(self):
         super(SignIn, self).__init__()
-        UI_PATH = os.path.dirname(os.path.realpath(__file__)) + "\\SignIn.ui"
+        UI_PATH = "GUI\\SignInWindow\\SignIn.ui"
         self.ui = loadUi(UI_PATH, self)
         self.SignInButton.clicked.connect(self.SignInfunction)
 
@@ -26,7 +24,7 @@ class SignIn(QDialog):
 
             # Try to Write in Data.csv
             try:
-                with open(os.path.dirname(os.path.realpath(__file__)) + "\\..\\..\\Data\\user\\login.csv", 'w') as f:
+                with open("Data\\user\\login.csv", 'w') as f:
                     writer = csv.writer(f)
                     writer.writerow(
                         [self.userName.text(), self.userPassword.text()])
