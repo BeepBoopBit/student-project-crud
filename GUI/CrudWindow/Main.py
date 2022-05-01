@@ -12,15 +12,13 @@ from CRUD_API import *
 
 class MainCrudWindow(QDialog):
 
-    def __init__(self, apiCrud, databaseName):
+    def __init__(self, apiCrud):
         super(MainCrudWindow, self).__init__()
         UI_PATH = "GUI\\CrudWindow\\Main.ui"
         self.ui = loadUi(UI_PATH, self)
         
         self.API = apiCrud;
-        self.dbName = databaseName
-        self.database.setText(self.dbName)
-
+        self.dbName = ""
         # Initializing Signals
         self.MGroupButton.clicked.connect(self.GroupAttribute)
         self.MSearchButton.clicked.connect(self.SearchAttribute)
@@ -36,6 +34,10 @@ class MainCrudWindow(QDialog):
         
         # Some Variables
         self.tb_name = ["" , 0]
+        
+    def changeDatabaseLabel(self, databaseName):
+        self.dbName = databaseName
+        self.database.setText(self.dbName)
         
     def loadData(self):
         

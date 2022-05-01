@@ -26,6 +26,8 @@ class Database(QMainWindow):
         self.deleteDatabaseButton.clicked.connect(self.deleteDatabase)
         self.signOutButton.clicked.connect(self.signOut)
 
+        self.isFirst = True;
+
         # Initialize API
         self.API = apiCrud;
         
@@ -119,26 +121,28 @@ class Database(QMainWindow):
             with open("Data/database/databaseName.dat", 'w') as f:
                 f.write(selectedDatabase);
                 
-
-            # CRUD
-            Widget.addWidget(MainCrudWindow(self.API, selectedDatabase)); #3
-            Widget.addWidget(GroupingTable(self.API)); #4
-            Widget.addWidget(ModifyTable(self.API)); #5
-            
-            # TABLE
-            Widget.addWidget(NameTable(self.API)); #6
-            #Widget.addWidget(CreateTableName(self.API)); #6
-            Widget.addWidget(TableMenu(self.API)); #7
-            Widget.addWidget(TableColumn(self.API)); #8
-            Widget.addWidget(ForeignKey(self.API)); #9
-            #Widget.addWidget(TableForeignKey(self.API)); #9
-            Widget.addWidget(SelectAddAttribute(self.API)) # 10
-            
-            Widget.addWidget(SortTable(self.API)) # 11
-            Widget.addWidget(SortSelectAddAttribute(self.API)) # 12
-            Widget.addWidget(SearchingTable(self.API)) # 13
-            Widget.addWidget(SearchAddAttribute(self.API)) # 14
-            
+            if self.isFirst:
+                # CRUD
+                Widget.addWidget(MainCrudWindow(self.API)); #3
+                Widget.addWidget(GroupingTable(self.API)); #4
+                Widget.addWidget(ModifyTable(self.API)); #5
+                
+                # TABLE
+                Widget.addWidget(NameTable(self.API)); #6
+                #Widget.addWidget(CreateTableName(self.API)); #6
+                Widget.addWidget(TableMenu(self.API)); #7
+                Widget.addWidget(TableColumn(self.API)); #8
+                Widget.addWidget(ForeignKey(self.API)); #9
+                #Widget.addWidget(TableForeignKey(self.API)); #9
+                Widget.addWidget(SelectAddAttribute(self.API)) # 10
+                
+                Widget.addWidget(SortTable(self.API)) # 11
+                Widget.addWidget(SortSelectAddAttribute(self.API)) # 12
+                Widget.addWidget(SearchingTable(self.API)) # 13
+                Widget.addWidget(SearchAddAttribute(self.API)) # 14
+            else:
+                pass;
+            Widget.widget(3).changeDatabaseLabel(selectedDatabase);
             Widget.widget(3).loadData()
             Widget.setCurrentIndex(3)
             
