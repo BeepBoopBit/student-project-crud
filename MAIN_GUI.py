@@ -68,7 +68,6 @@ if __name__ == "__main__":
     
     # Make sure that the files doesn't have any value inside before proceeding
     truncateFiles();
-    
     try:
         # Create an Instance of the SignIn Class
         SignInWindow=SignIn()
@@ -84,6 +83,5 @@ if __name__ == "__main__":
         Widget.show()
     except Exception:
         print(traceback.format_exc())
-    
     app.exec()
     

@@ -41,6 +41,8 @@ class SignIn(QDialog):
             try:
                 #Database index in Widget = '1'
                 Widget.addWidget(Database(self.API))
+                # Create Database Window                
+                Widget.addWidget(CreateDatabase(self.API))  #2
             except:
                 pop_message("ERROR: Database Creation Error")
                 print(traceback.format_exc());
