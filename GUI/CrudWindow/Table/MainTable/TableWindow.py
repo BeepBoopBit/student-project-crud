@@ -169,17 +169,24 @@ class TableMenu(QtWidgets.QDialog):
         commandFile.close()
         
         # Call the API for creating a table
-        tableName = open("Data/createTable/tableName.dat", "r+")
-        self.API.createTable(tableName.read(),value);
-        self.tableWidget.setRowCount(0);
-        tableName.truncate()
-        tableName.close()
+        try:
+            tableName = open("Data/createTable/tableName.dat", "r+")
+            self.API.createTable(tableName.read(),value);
+            tableName.truncate()
+            tableName.close()
+            Widget.widget(3).loadNewTable(self.table_name.text())
+            Widget.setCurrentIndex(3)
+        except:
+            if len(value) < 1:
+                pop_message("No Data Submitted")
+            
+            else:
+                pop_message("UNKNOWN ERROR: Please Try again and report this problem")            
+                self.tableWidget.setRowCount(0);
+                
+
         
-        # Expensive operation for just adding a table
-        #Widget.widget(3).loadData()
-        
-        Widget.widget(3).loadNewTable(self.table_name.text())
-        Widget.setCurrentIndex(3)
+       
 
 # Table Column Window
 
