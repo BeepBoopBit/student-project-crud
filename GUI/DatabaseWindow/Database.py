@@ -127,8 +127,8 @@ class CreateDatabase(QDialog):
     def okButtonFunc(self): 
         self.pop_message(text="Database Successfully Created!") 
         dbName = self.databaseName.toPlainText()
+        Widget.widget(1).insertInTable(dbName);
         self.API.createDatabase(dbName)
-        Widget.widget(2).insertInTable(dbName);
         self.cancelButtonFunc();
 
     # PopUp Message Setup
