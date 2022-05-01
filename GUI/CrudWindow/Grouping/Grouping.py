@@ -28,6 +28,13 @@ class GroupingTable(QDialog):
         # Initialize the Values
         self.tbName = tableName;
         self.tbLabel.setText(tableName);
+        
+        self.GBTable.setColumnCount(0)
+        self.GBTable.setRowCount(0);
+        
+        while self.formLayout.rowCount():
+            self.formLayout.removeRow(0)
+        
         pass
     
     def addAttributeInList(self, attName):
