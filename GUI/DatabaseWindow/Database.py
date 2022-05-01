@@ -142,6 +142,8 @@ class Database(QMainWindow):
                 Widget.addWidget(SearchAddAttribute(self.API)) # 14
             else:
                 pass;
+            Widget.setFixedWidth(1100)
+            Widget.setFixedHeight(650)
             Widget.widget(3).changeDatabaseLabel(selectedDatabase);
             Widget.widget(3).loadData()
             Widget.setCurrentIndex(3)
@@ -175,6 +177,9 @@ class Database(QMainWindow):
     # Signout 
 
     def signOut(self): 
+        # Set the Dimensions
+        Widget.setFixedWidth(550)
+        Widget.setFixedHeight(330)
         Widget.setCurrentIndex(0)
 
 # Create Database UI Class

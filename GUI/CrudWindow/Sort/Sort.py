@@ -28,6 +28,7 @@ class SortTable(QDialog):
         # Initialize the Values
         self.tbName = tableName;
         self.tbLabel.setText(tableName);
+        self.label_3.setText("Sort By")
         pass
     
     def addAttributeInList(self, attName):
@@ -102,9 +103,13 @@ class SortTable(QDialog):
                 
     
     def exitButton(self):
+        Widget.setFixedWidth(1100)
+        Widget.setFixedHeight(650)
         Widget.setCurrentIndex(3)
         
     def openSelectAttribute(self):
+        Widget.setFixedWidth(420)
+        Widget.setFixedHeight(200)
         Widget.widget(12).loadData(self.tbName)
         Widget.setCurrentIndex(12)
         
@@ -140,5 +145,7 @@ class SortSelectAddAttribute(QDialog):
         self.exitButton()
 
     def exitButton(self):
+        Widget.setFixedWidth(740)
+        Widget.setFixedHeight(450)
         self.GBSelectAttribute.clear()
         Widget.setCurrentIndex(11)

@@ -69,6 +69,9 @@ class ModifyTable(QDialog):
     def cancelButton(self):
         self.tableWidget.setRowCount(0);
         self.truncateFiles()
+        
+        Widget.setFixedWidth(1100)
+        Widget.setFixedHeight(650)
         Widget.widget(3).loadData()
         Widget.setCurrentIndex(3)
         

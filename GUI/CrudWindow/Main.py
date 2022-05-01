@@ -21,7 +21,6 @@ class MainCrudWindow(QDialog):
         self.dbName = ""
         # Initializing Signals
         self.MGroupButton.clicked.connect(self.GroupAttribute)
-        self.MSearchButton.clicked.connect(self.SearchAttribute)
         self.MSortButton.clicked.connect(self.SortAttribute)
         self.MModifyButton.clicked.connect(self.ModifyAttribute)
         self.MCreateButton.clicked.connect(self.CreateAttribute)
@@ -155,6 +154,8 @@ class MainCrudWindow(QDialog):
         pass
     
     def searchFunction(self):
+        Widget.setFixedWidth(740)
+        Widget.setFixedHeight(450)
         Widget.widget(13).loadData(self.tabWidget.tabText(self.tabWidget.currentIndex()));
         Widget.setCurrentIndex(13);
         pass
@@ -266,26 +267,28 @@ UPDATE {self.tabWidget.tabText(self.tabWidget.currentIndex())} SET {self.tabWidg
                 print("Some thing Happen in SaveChanged)")
 
     def GroupAttribute(self):
+        Widget.setFixedWidth(770)
+        Widget.setFixedHeight(485)
         Widget.widget(4).loadData(self.tabWidget.tabText(self.tabWidget.currentIndex()))
         Widget.setCurrentIndex(4)
 
-    def FilterAttribute(self):
-        Widget.setCurrentIndex(4)
-        
-    def SearchAttribute(self):
-        pass
-
     def SortAttribute(self):
+        Widget.setFixedWidth(770)
+        Widget.setFixedHeight(485)
         Widget.widget(11).loadData(self.tabWidget.tabText(self.tabWidget.currentIndex()))
         Widget.setCurrentIndex(11);
         pass
 
     def ModifyAttribute(self):
+        Widget.setFixedWidth(660)
+        Widget.setFixedHeight(390)
         Widget.widget(5).loadData(self.tabWidget.tabText(self.tabWidget.currentIndex()),self.tabWidget.currentIndex())
         Widget.setCurrentIndex(5)
         
 
     def CreateAttribute(self): 
+        Widget.setFixedWidth(320)
+        Widget.setFixedHeight(160)
         Widget.setCurrentIndex(6);
         
 
@@ -309,6 +312,9 @@ UPDATE {self.tabWidget.tabText(self.tabWidget.currentIndex())} SET {self.tabWidg
         self.loadData();
 
     def SignOutAttribute(self):
+        # Set the Dimensions
+        Widget.setFixedWidth(550)
+        Widget.setFixedHeight(330)
         Widget.setCurrentIndex(0)
 
     # Private

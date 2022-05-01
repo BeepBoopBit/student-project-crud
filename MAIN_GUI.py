@@ -76,8 +76,8 @@ if __name__ == "__main__":
         Widget.addWidget(SignInWindow) # 1
     
         # Set the Dimensions
-        Widget.setFixedWidth(1100)
-        Widget.setFixedHeight(650)
+        Widget.setFixedWidth(550)
+        Widget.setFixedHeight(330)
     
         # Show the Widget
         Widget.show()

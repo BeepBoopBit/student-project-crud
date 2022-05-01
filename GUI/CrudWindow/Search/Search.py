@@ -147,15 +147,15 @@ class SearchingTable(QDialog):
                 pop_message("No Data Submitted")
             else:
                 pop_message("UNKNOWN ERROR: Please Try again and report this problem")            
-            
-        
-        
-    
     
     def exitButton(self):
+        Widget.setFixedWidth(1100)
+        Widget.setFixedHeight(650)
         Widget.setCurrentIndex(3)
         
     def openSelectAttribute(self):
+        Widget.setFixedWidth(420)
+        Widget.setFixedHeight(200)
         Widget.widget(14).loadData(self.tbName)
         Widget.setCurrentIndex(14)
         
@@ -189,5 +189,7 @@ class SearchAddAttribute(QDialog):
         self.exitButton()
 
     def exitButton(self):
+        Widget.setFixedWidth(740)
+        Widget.setFixedHeight(450)
         self.GBSelectAttribute.clear()
         Widget.setCurrentIndex(13)

@@ -43,12 +43,17 @@ class SignIn(QDialog):
                 Widget.addWidget(Database(self.API))
                 # Create Database Window                
                 Widget.addWidget(CreateDatabase(self.API))  #2
+                
+                Widget.setFixedWidth(565)
+                Widget.setFixedHeight(295)
+            
+                #Switch Database -> #1
+                Widget.setCurrentIndex(1)
             except:
                 pop_message("ERROR: Database Creation Error")
                 print(traceback.format_exc());
                 
-            #Switch Database -> #1
-            Widget.setCurrentIndex(1)
+            
         
         # Pop-up a failed Pop-up
         else:
