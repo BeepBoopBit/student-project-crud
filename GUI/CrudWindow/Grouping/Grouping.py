@@ -80,27 +80,34 @@ class GroupingTable(QDialog):
         strValue = strValue.rstrip(',');
         
         # Execute the command 
-        temp = self.API.getDataGroupedBy(self.tbName, strValue)
-        
-        # Initial variables
-        headerCount = 0
-        for data in self.API.getAttributeList(self.tbName):
-            self.__insertColumn(headerCount, data[0]);
-            headerCount += 1;
-        
-        tempHeaderCount = 0
-        rowPosition = self.GBTable.rowCount();
-        for data in temp:
-            if tempHeaderCount == headerCount or tempHeaderCount == 0:
-                # Reset it to zero
-                tempHeaderCount = 0;
-                # Insert a new Row
-                rowPosition = self.GBTable.rowCount();
-                self.GBTable.insertRow(rowPosition);
+        try:
+            temp = self.API.getDataGroupedBy(self.tbName, strValue)
+            # Initial variables
+            headerCount = 0
+            for data in self.API.getAttributeList(self.tbName):
+                self.__insertColumn(headerCount, data[0]);
+                headerCount += 1;
+            
+            tempHeaderCount = 0
+            rowPosition = self.GBTable.rowCount();
+            for data in temp:
+                if tempHeaderCount == headerCount or tempHeaderCount == 0:
+                    # Reset it to zero
+                    tempHeaderCount = 0;
+                    # Insert a new Row
+                    rowPosition = self.GBTable.rowCount();
+                    self.GBTable.insertRow(rowPosition);
+    
+                # Insert an item in row
+                self.__insertRow(rowPosition,tempHeaderCount,QTableWidgetItem(str(data)));
+                tempHeaderCount += 1
+        except:
+            if len(strValue) < 1:
+                pop_message("No Input")        
+            else:
+                pop_message("UNKNOWN ERROR: Please Try again and report this problem")
 
-            # Insert an item in row
-            self.__insertRow(rowPosition,tempHeaderCount,QTableWidgetItem(str(data)));
-            tempHeaderCount += 1
+        
     
     
     def exitButton(self):
