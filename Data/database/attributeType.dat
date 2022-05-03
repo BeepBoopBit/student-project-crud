@@ -2,4 +2,7 @@ varchar varchar varchar varchar int
 varchar varchar int int int int int int int 
 varchar varchar date date 
 varchar varchar varchar varchar varchar varchar varchar varchar 
-varchar varchar int int int int 
+varchar varchar varchar date varchar int 
+int varchar int int varchar int 
+int varchar varchar 
+varchar varchar 
