@@ -18,6 +18,7 @@ class CRUD:
         
         #select
         self.sl = Select_API(self.db.getDatabase(), self.tb);
+        self.executeCommand("SET foreign_key_checks = 0;")
 
 
         
